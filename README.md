@@ -297,6 +297,7 @@ description: 清楚描述此技能的功能以及何時使用。
 ### 強化工具與框架
 
 - **[mem0ai/mem0](https://github.com/mem0ai/mem0)** (53K ⭐) - 通用記憶層，讓 Claude Code 跨 session 記住你的偏好和決策。一行 pip 安裝，支持所有主流模型。[安裝指南](https://docs.mem0.ai/)
+- **[thedotmack/claude-mem](https://github.com/thedotmack/claude-mem)** - 本地化記憶層，給 Claude Code 裝上長期記憶。自動記錄每次對話中的關鍵信息，壓縮存下來，下次對話時自動注入相關上下文。內置 Web 界面（localhost:37777），可視化管理記憶。
 - **[obra/superpowers](https://github.com/obra/superpowers)** (152K ⭐) - Anthropic 官方 marketplace 收錄的工作流框架，強制 Claude Code 按 7 階段流程運行：**Brainstorm → Spec → Plan → TDD → Subagent → Review → Finalize**。治 AI 跑偏，確保代碼質量。包含完整的 Skill 套件（brainstorming、test-driven-development、finishing-a-development-branch 等）。
 - **[affaan-m/everything-claude-code](https://github.com/affaan-m/everything-claude-code)** (156K ⭐) - 包含 135 個 agent、35 個 skill、42 個 command、176 個插件的完整工具箱
 - **[sst/opencode](https://github.com/sst/opencode)** (143K ⭐) - 開源終端 agent，支持用既有的 ChatGPT Plus 或 GitHub Copilot Pro 訂閱驅動
