@@ -1,0 +1,30 @@
+{
+  "permissions": {
+    "allow": [
+      "Read",
+      "Edit",
+      "Write",
+      "Bash",
+      "Glob",
+      "Grep",
+      "Agent",
+      "Skill",
+      "Monitor",
+      "mcp__6dbed528-63fc-43dc-aeb1-9ac9433139a9__*",
+      "mcp__6f95f74b-2c26-4dc1-ae0d-25420571532d__*",
+      "mcp__92cfc3fb-28da-4ef9-9f33-83704617cf53__*",
+      "mcp__c9ff3022-923b-456a-bbc1-326a15bb10fa__*",
+      "mcp__github__*",
+      "Skill(session-start-hook)",
+      "Skill(update-config)",
+      "Skill(keybindings-help)",
+      "Skill(simplify)",
+      "Skill(fewer-permission-prompts)",
+      "Skill(loop)",
+      "Skill(claude-api)",
+      "Skill(init)",
+      "Skill(review)",
+      "Skill(security-review)"
+    ]
+  }
+}
