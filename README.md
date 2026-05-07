@@ -282,6 +282,13 @@ description: 清楚描述此技能的功能以及何時使用。
 - [Claude 社群](https://community.anthropic.com) - 與其他使用者討論技能
 - [Skills 市集](https://claude.ai/marketplace) - 發現和分享技能
 
+### 強化工具與框架
+
+- **[mem0ai/mem0](https://github.com/mem0ai/mem0)** (53K ⭐) - 通用記憶層，讓 Claude Code 跨 session 記住你的偏好和決策。一行 pip 安裝，支持所有主流模型。[安裝指南](https://docs.mem0.ai/)
+- **[affaan-m/everything-claude-code](https://github.com/affaan-m/everything-claude-code)** (156K ⭐) - 包含 135 個 agent、35 個 skill、42 個 command、176 個插件的完整工具箱
+- **[sst/opencode](https://github.com/sst/opencode)** (143K ⭐) - 開源終端 agent，支持用既有的 ChatGPT Plus 或 GitHub Copilot Pro 訂閱驅動
+- **[anthropics/claude-cookbooks](https://github.com/anthropics/claude-cookbooks)** (40K ⭐) - Anthropic 官方範例，涵蓋工具調用、prompt 緩存、多模態等最佳實踐
+
 ### 靈感與使用案例
 
 - [Lenny's Newsletter](https://www.lennysnewsletter.com/p/everyone-should-be-using-claude-code) - 50 種人們使用 Claude Code 的方式
