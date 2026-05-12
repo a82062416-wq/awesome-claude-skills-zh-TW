@@ -46,6 +46,7 @@
 ## 目錄
 
 - [什麼是 Claude Skills？](#什麼是-claude-skills)
+- [🎯 推薦工作流](#推薦工作流)
 - [技能清單](#技能清單)
   - [文件處理](#文件處理)
   - [開發與程式工具](#開發與程式工具)
@@ -66,6 +67,33 @@
 ## 什麼是 Claude Skills？
 
 Claude Skills 是可自訂的工作流程，可教導 Claude 如何根據您的獨特需求執行特定任務。Skills 使 Claude 能夠在所有 Claude 平台上以可重複、標準化的方式執行任務。
+
+---
+
+## 🎯 推薦工作流
+
+如果你經常指令不夠明確，建議使用**三層指令澄清工作流**：
+
+```
+你的指令
+  ↓
+1️⃣ Prompt Improver (自動檢查)
+   ├─ 清楚？直接執行 ✅
+   └─ 模糊？提問澄清 🤔
+  ↓
+2️⃣ Brainstorming (強制思考)
+   ├─ 理解需求
+   ├─ 提問細節
+   ├─ 設計方案
+   └─ 你批准後才編碼 ✓
+  ↓
+3️⃣ Karpathy Skills (編碼規範)
+   └─ 確保代碼品質 ⭐
+```
+
+📖 **詳細指南：** 見 [WORKFLOW_GUIDE.md](./WORKFLOW_GUIDE.md)
+
+---
 
 ## 技能清單
 
@@ -297,6 +325,7 @@ description: 清楚描述此技能的功能以及何時使用。
 ### 強化工具與框架
 
 #### 元能力工具（Meta Skills）
+- **[Prompt Improver](https://github.com/severity1/claude-code-prompt-improver)** - 智能提示詞改進 Hook。自動檢查你的指令清晰度，模糊則提問澄清，清楚則直接執行。三層工作流的第一層，適合「指令經常不夠明確」的開發者。[推薦工作流](./WORKFLOW_GUIDE.md)
 - **[Skill Creator](https://github.com/anthropics/skills/tree/main/skills/skill-creator)** - Anthropic 官方工具。自動創建、評估、改進、基準測試 Claude Skills。四大模式：Create（創建新 Skill）、Eval（評估質量）、Improve（自動改進）、Benchmark（性能測試）。讓技能百寶袋的每個 Skill 都經過驗證。
 - **[Find Skills](https://claude.ai/skills)** - Anthropic 官方工具。自動搜尋、評估、推薦優質 Skill。看安裝量、評分、使用案例，快速發現新增的精選技能。
 
