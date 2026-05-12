@@ -1,7 +1,7 @@
-<h1 align="center">Awesome Claude Skills</h1>
+<h1 align="center">🎒 技能百寶袋</h1>
 
 <p align="center">
-  繁體中文 | <a href="README.en.md">English</a>
+  Claude Skills 精選清單 | <a href="README.en.md">English</a>
 </p>
 
 <p align="center">
@@ -37,7 +37,7 @@
   </p>
 </div>
 
-精選實用 Claude Skills 清單，用於提升 Claude.ai、Claude Code 和 Claude API 的生產力。
+為 Claude Code、Claude.ai 和 Claude API 精選最實用的 Skills，讓你的 AI 助手越來越聰明。集結能力擴展、開發工具、自動化工作流於一身。
 
 
 > 如果您希望您的技能能夠跨 500+ 應用程式採取行動，請使用 [Composio](https://platform.composio.dev/?utm_source=Github&utm_medium=Youtube&utm_campaign=2025-11&utm_content=AwesomeSkills) 整合
@@ -296,6 +296,11 @@ description: 清楚描述此技能的功能以及何時使用。
 
 ### 強化工具與框架
 
+#### 元能力工具（Meta Skills）
+- **[Skill Creator](https://github.com/anthropics/skills/tree/main/skills/skill-creator)** - Anthropic 官方工具。自動創建、評估、改進、基準測試 Claude Skills。四大模式：Create（創建新 Skill）、Eval（評估質量）、Improve（自動改進）、Benchmark（性能測試）。讓技能百寶袋的每個 Skill 都經過驗證。
+- **[Find Skills](https://claude.ai/skills)** - Anthropic 官方工具。自動搜尋、評估、推薦優質 Skill。看安裝量、評分、使用案例，快速發現新增的精選技能。
+
+#### 能力擴展框架
 - **[mem0ai/mem0](https://github.com/mem0ai/mem0)** (53K ⭐) - 通用記憶層，讓 Claude Code 跨 session 記住你的偏好和決策。一行 pip 安裝，支持所有主流模型。[安裝指南](https://docs.mem0.ai/)
 - **[forrestchang/andrej-karpathy-skills](https://github.com/forrestchang/andrej-karpathy-skills)** - 編碼 AI 助手（Claude Code、Cursor 等）的行為指南。不是代碼，而是 AI 與人類互動的「工作協議」。核心原則：表達假設、推薦方案而非獨裁、遵守 YAGNI 原則、驗證優先。降低歧義，提升 AI 編碼品質。
 - **[affaan-m/everything-claude-code](https://github.com/affaan-m/everything-claude-code)** (156K ⭐) - 包含 135 個 agent、35 個 skill、42 個 command、176 個插件的完整工具箱
