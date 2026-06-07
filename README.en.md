@@ -112,6 +112,16 @@ Claude Skills are customizable workflows that teach Claude how to perform specif
 - [Internal Comms](./internal-comms/) - Helps write internal communications including 3P updates, company newsletters, FAQs, status reports, and project updates using company-specific formats.
 - [Lead Research Assistant](./lead-research-assistant/) - Identifies and qualifies high-quality leads by analyzing your product, searching for target companies, and providing actionable outreach strategies.
 
+### Design & UI
+
+- [Impeccable](https://github.com/pbakaus/impeccable) - Enhanced version of Anthropic's official frontend design foundations with comprehensive design standards around typography, color, layout, and animations. Includes 20 design commands with `/polish` for one-click optimization and `/audit` for Nielsen heuristics scoring. *By [@pbakaus](https://github.com/pbakaus)*
+- [frontend-design](https://github.com/anthropics/skills/tree/main/frontend-design) - Official Anthropic skill to solve the "one-size-fits-all" design problem. Helps Claude establish aesthetic direction before coding, creating interfaces with cohesive design, typography, and layout.
+- [taste-skill](./taste-skill/) - Elevates Claude's aesthetic sensibility and reduces "plastic" feeling in AI-generated content. Includes color taste guidelines, typography refinement, and writing elegance optimization for design, copywriting, and UI tasks.
+- [ui-ux-pro-max](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill) - Goes beyond layout generation to teach Claude user behavior, visual flow, and design principles. Integrates 50+ UI styles, 95 color schemes, and 56 fonts for a complete UX strategist's perspective. *By [@nextlevelbuilder](https://github.com/nextlevelbuilder)*
+- [shadcn-ui](https://github.com/giuseppetriscuoglio/developer-kit) - High-quality open-source UI component collection. Ensures Claude selects appropriate components for layouts instead of writing content directly, resulting in consistent style, clear structure, and maintainable code.
+- [web-design-guidelines](https://github.com/vercel-labs/agent-skills) - Official Vercel skill with 100+ web design rules covering spacing systems, typography standards, responsive layouts, animations, and accessibility. Makes Claude align with professional design standards automatically. *By [@vercel-labs](https://github.com/vercel-labs)*
+- [web-accessibility](https://github.com/supercent-io/skills-template) - Ensures Claude automatically follows WCAG 2.1 accessibility standards when writing interfaces, covering contrast ratios, keyboard navigation, and semantic markup from the start. *By [@supercent-io](https://github.com/supercent-io)*
+
 ### Communication & Writing
 
 - [article-extractor](https://github.com/michalparkola/tapestry-skills-for-claude-code/tree/main/article-extractor) - Extract full article text and metadata from web pages.
@@ -120,6 +130,7 @@ Claude Skills are customizable workflows that teach Claude how to perform specif
 - [family-history-research](https://github.com/emaynard/claude-family-history-research-skill) - Provides assistance with planning family history and genealogy research projects.
 - [Meeting Insights Analyzer](./meeting-insights-analyzer/) - Analyzes meeting transcripts to uncover behavioral patterns including conflict avoidance, speaking ratios, filler words, and leadership style.
 - [NotebookLM Integration](https://github.com/PleasePrompto/notebooklm-skill) - Lets Claude Code chat directly with NotebookLM for source-grounded answers based exclusively on uploaded documents. *By [@PleasePrompto](https://github.com/PleasePrompto)*
+- [stop-slop](./stop-slop/) - Removes "AI flavor" from generated documents by identifying and removing redundant phrases, template expressions, and hollow adjectives. Produces more natural, professional, and human-like content.
 
 ### Creative & Media
 
@@ -149,6 +160,7 @@ Claude Skills are customizable workflows that teach Claude how to perform specif
 ### Security & Systems
 
 - [computer-forensics](https://github.com/mhattingpete/claude-skills-marketplace/tree/main/computer-forensics-skills/skills/computer-forensics) - Digital forensics analysis and investigation techniques.
+- [cybersecurity-skills](https://github.com/topic/cybersecurity-skills) - Comprehensive collection of 700+ security-related skills covering penetration testing, vulnerability analysis, security hardening, threat hunting, and compliance checking. *Community contributed*
 - [file-deletion](https://github.com/mhattingpete/claude-skills-marketplace/tree/main/computer-forensics-skills/skills/file-deletion) - Secure file deletion and data sanitization methods.
 - [metadata-extraction](https://github.com/mhattingpete/claude-skills-marketplace/tree/main/computer-forensics-skills/skills/metadata-extraction) - Extract and analyze file metadata for forensic purposes.
 - [threat-hunting-with-sigma-rules](https://github.com/jthack/threat-hunting-with-sigma-rules-skill) - Use Sigma detection rules to hunt for threats and analyze security events.
@@ -281,6 +293,16 @@ We welcome contributions! Please read our [Contributing Guidelines](CONTRIBUTING
 - [Anthropic Skills Repository](https://github.com/anthropics/skills) - Official example skills
 - [Claude Community](https://community.anthropic.com) - Discuss skills with other users
 - [Skills Marketplace](https://claude.ai/marketplace) - Discover and share skills
+
+### Enhancement Tools & Frameworks
+
+- **[mem0ai/mem0](https://github.com/mem0ai/mem0)** (53K ⭐) - Universal memory layer letting Claude Code remember your preferences and decisions across sessions. One-line pip install, supports all major models. [Installation Guide](https://docs.mem0.ai/)
+- **[thedotmack/claude-mem](https://github.com/thedotmack/claude-mem)** - Local memory layer adding long-term memory to Claude Code. Automatically records key conversation information, compresses it, and injects relevant context in future sessions. Built-in web UI (localhost:37777) for visual memory management.
+- **[ECC](https://github.com/topic/ecc)** - Comprehensive AI Agent enhancement framework providing skill systems, persistent memory, and security safeguards. Core features include dynamic skill loading, memory persistence, security auditing, and permission management. Ideal for building trustworthy AI applications.
+- **[obra/superpowers](https://github.com/obra/superpowers)** (152K ⭐) - Official Anthropic workflow framework enforcing a 7-stage process: **Brainstorm → Spec → Plan → TDD → Subagent → Review → Finalize**. Keeps Claude Code on track and ensures code quality. Includes complete Skill suite (brainstorming, test-driven-development, finishing-a-development-branch, etc.).
+- **[affaan-m/everything-claude-code](https://github.com/affaan-m/everything-claude-code)** (156K ⭐) - Complete toolkit containing 135 agents, 35 skills, 42 commands, and 176 plugins
+- **[sst/opencode](https://github.com/sst/opencode)** (143K ⭐) - Open-source terminal agent supporting existing ChatGPT Plus or GitHub Copilot Pro subscriptions
+- **[anthropics/claude-cookbooks](https://github.com/anthropics/claude-cookbooks)** (40K ⭐) - Official Anthropic examples covering tool use, prompt caching, multimodal, and best practices
 
 ### Inspiration & Use Cases
 
