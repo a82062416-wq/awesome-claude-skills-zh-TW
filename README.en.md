@@ -74,6 +74,7 @@ Claude Skills are customizable workflows that teach Claude how to perform specif
 - [pdf](https://github.com/anthropics/skills/tree/main/document-skills/pdf) - Extract text, tables, metadata, merge & annotate PDFs.
 - [pptx](https://github.com/anthropics/skills/tree/main/document-skills/pptx) - Read, generate, and adjust slides, layouts, templates.
 - [xlsx](https://github.com/anthropics/skills/tree/main/document-skills/xlsx) - Spreadsheet manipulation: formulas, charts, data transformations.
+- [markitdown-skill](./markitdown-skill/) - Microsoft's open-source tool that converts PDF, Word, PowerPoint, Excel, images, audio, and more to Markdown. Supports OCR text recognition for knowledge management and version control. *By [@microsoft](https://github.com/microsoft)*
 - [Markdown to EPUB Converter](https://github.com/smerchek/claude-epub-skill) - Converts markdown documents and chat summaries into professional EPUB ebook files. *By [@smerchek](https://github.com/smerchek)*
 
 ### Development & Code Tools
