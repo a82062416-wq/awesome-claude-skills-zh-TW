@@ -26,5 +26,32 @@
       "Skill(review)",
       "Skill(security-review)"
     ]
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cd /home/user/awesome-claude-skills-zh-TW && git add -A && git status --short",
+            "statusMessage": "📝 自動暫存文件變更",
+            "async": false
+          }
+        ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cd /home/user/awesome-claude-skills-zh-TW && if git diff-index --quiet HEAD --; then echo '✅ 無新變更'; else BRANCH=$(git rev-parse --abbrev-ref HEAD) && git push -u origin $BRANCH 2>&1 && echo '{\"systemMessage\": \"🚀 自動推送成功！分支已同步到遠程�倉庫\"}'; fi",
+            "statusMessage": "🚀 自動推送到遠程倉庫",
+            "async": false,
+            "if": "Bash(git commit*)"
+          }
+        ]
+      }
+    ]
   }
 }
