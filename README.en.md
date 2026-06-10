@@ -86,6 +86,7 @@ Claude Skills are customizable workflows that teach Claude how to perform specif
 - [Claude Code Terminal Title](https://github.com/bluzername/claude-code-terminal-title) - Gives each Claud-Code terminal window a dynamic title that describes the work being done so you don't lose track of what window is doing what.
 - [D3.js Visualization](https://github.com/chrisvoncsefalvay/claude-d3js-skill) - Teaches Claude to produce D3 charts and interactive data visualizations. *By [@chrisvoncsefalvay](https://github.com/chrisvoncsefalvay)*
 - [FFUF Web Fuzzing](https://github.com/jthack/ffuf_claude_skill) - Integrates the ffuf web fuzzer so Claude can run fuzzing tasks and analyze results for vulnerabilities. *By [@jthack](https://github.com/jthack)*
+- [headroom-skill](./headroom-skill/) - Compresses AI tool outputs and long texts to dramatically reduce token costs. Supports smart compression, cost estimation, and batch processing.
 - [finishing-a-development-branch](https://github.com/obra/superpowers/tree/main/skills/finishing-a-development-branch) - Guides completion of development work by presenting clear options and handling chosen workflow.
 - [iOS Simulator](https://github.com/conorluddy/ios-simulator-skill) - Enables Claude to interact with iOS Simulator for testing and debugging iOS applications. *By [@conorluddy](https://github.com/conorluddy)*
 - [MCP Builder](./mcp-builder/) - Guides creation of high-quality MCP (Model Context Protocol) servers for integrating external APIs and services with LLMs using Python or TypeScript.
@@ -147,6 +148,7 @@ Claude Skills are customizable workflows that teach Claude how to perform specif
 ### Productivity & Organization
 
 - [File Organizer](./file-organizer/) - Intelligently organizes files and folders by understanding context, finding duplicates, and suggesting better organizational structures.
+- [harness-skill](./harness-skill/) - AI Agent team orchestration framework for automatically designing and coordinating multiple agents. Supports linear, parallel, and hierarchical collaboration modes.
 - [Invoice Organizer](./invoice-organizer/) - Automatically organizes invoices and receipts for tax preparation by reading files, extracting information, and renaming consistently.
 - [kaizen](https://github.com/NeoLabHQ/context-engineering-kit/tree/master/plugins/kaizen/skills/kaizen) - Applies continuous improvement methodology with multiple analytical approaches, based on Japanese Kaizen philosophy and Lean methodology.
 - [n8n-skills](https://github.com/haunchen/n8n-skills) - Enables AI assistants to directly understand and operate n8n workflows.
@@ -301,6 +303,7 @@ We welcome contributions! Please read our [Contributing Guidelines](CONTRIBUTING
 
 - **[mem0ai/mem0](https://github.com/mem0ai/mem0)** (53K ⭐) - Universal memory layer letting Claude Code remember your preferences and decisions across sessions. One-line pip install, supports all major models. [Installation Guide](https://docs.mem0.ai/)
 - **[thedotmack/claude-mem](https://github.com/thedotmack/claude-mem)** - Local memory layer adding long-term memory to Claude Code. Automatically records key conversation information, compresses it, and injects relevant context in future sessions. Built-in web UI (localhost:37777) for visual memory management.
+- **[supermemory-skill](./supermemory-skill/)** (25.9K ⭐) - Efficient long-term memory system providing cross-session memory for AI. Supports automatic extraction, semantic retrieval, and multi-layer memory structure for knowledge accumulation and utilization.
 - **[ECC](https://github.com/topic/ecc)** - Comprehensive AI Agent enhancement framework providing skill systems, persistent memory, and security safeguards. Core features include dynamic skill loading, memory persistence, security auditing, and permission management. Ideal for building trustworthy AI applications.
 - **[obra/superpowers](https://github.com/obra/superpowers)** (152K ⭐) - Official Anthropic workflow framework enforcing a 7-stage process: **Brainstorm → Spec → Plan → TDD → Subagent → Review → Finalize**. Keeps Claude Code on track and ensures code quality. Includes complete Skill suite (brainstorming, test-driven-development, finishing-a-development-branch, etc.).
 - **[affaan-m/everything-claude-code](https://github.com/affaan-m/everything-claude-code)** (156K ⭐) - Complete toolkit containing 135 agents, 35 skills, 42 commands, and 176 plugins
