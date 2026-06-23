@@ -87,6 +87,9 @@ Claude Skills are customizable workflows that teach Claude how to perform specif
 - [D3.js Visualization](https://github.com/chrisvoncsefalvay/claude-d3js-skill) - Teaches Claude to produce D3 charts and interactive data visualizations. *By [@chrisvoncsefalvay](https://github.com/chrisvoncsefalvay)*
 - [FFUF Web Fuzzing](https://github.com/jthack/ffuf_claude_skill) - Integrates the ffuf web fuzzer so Claude can run fuzzing tasks and analyze results for vulnerabilities. *By [@jthack](https://github.com/jthack)*
 - [headroom-skill](./headroom-skill/) - Compresses AI tool outputs and long texts to dramatically reduce token costs. Supports smart compression, cost estimation, and batch processing.
+- [planning-with-files](./planning-with-files/) - Persistent file-based planning system for AI agents. Provides crash recovery, multi-agent coordination, and automatic progress tracking for long-running tasks.
+- [code-review-skill](./code-review-skill/) - Comprehensive code review framework covering 20+ languages and frameworks. Includes 16,000+ lines of review guidelines with multi-dimensional assessment (architecture, performance, security).
+- [code-simplifier](./code-simplifier/) - Intelligent code simplification tool that automatically identifies complex code and provides simplification suggestions. Reduces cyclomatic complexity, eliminates duplication, and improves maintainability.
 - [finishing-a-development-branch](https://github.com/obra/superpowers/tree/main/skills/finishing-a-development-branch) - Guides completion of development work by presenting clear options and handling chosen workflow.
 - [iOS Simulator](https://github.com/conorluddy/ios-simulator-skill) - Enables Claude to interact with iOS Simulator for testing and debugging iOS applications. *By [@conorluddy](https://github.com/conorluddy)*
 - [MCP Builder](./mcp-builder/) - Guides creation of high-quality MCP (Model Context Protocol) servers for integrating external APIs and services with LLMs using Python or TypeScript.
@@ -118,7 +121,8 @@ Claude Skills are customizable workflows that teach Claude how to perform specif
 ### Design & UI
 
 - [Impeccable](https://github.com/pbakaus/impeccable) - Enhanced version of Anthropic's official frontend design foundations with comprehensive design standards around typography, color, layout, and animations. Includes 20 design commands with `/polish` for one-click optimization and `/audit` for Nielsen heuristics scoring. *By [@pbakaus](https://github.com/pbakaus)*
-- [frontend-design](https://github.com/anthropics/skills/tree/main/frontend-design) - Official Anthropic skill to solve the "one-size-fits-all" design problem. Helps Claude establish aesthetic direction before coding, creating interfaces with cohesive design, typography, and layout.
+- [frontend-design](./frontend-design/) - Frontend design system using eight aesthetic anchors (color, typography, spacing, shadows, border-radius, borders, transitions, components) to create bold, unique interfaces. Avoids AI slop and produces professional, high-quality designs.
+- [frontend-design (Official)](https://github.com/anthropics/skills/tree/main/frontend-design) - Official Anthropic skill to solve the "one-size-fits-all" design problem. Helps Claude establish aesthetic direction before coding, creating interfaces with cohesive design, typography, and layout.
 - [taste-skill](./taste-skill/) - Elevates Claude's aesthetic sensibility and reduces "plastic" feeling in AI-generated content. Includes color taste guidelines, typography refinement, and writing elegance optimization for design, copywriting, and UI tasks.
 - [taste-skill (Leonxlnx)](https://github.com/Leonxlnx/taste-skill) - Community implementation of aesthetic enhancement, focused on design taste and visual beauty optimization. *By [@Leonxlnx](https://github.com/Leonxlnx)*
 - [ui-ux-pro-max](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill) - Goes beyond layout generation to teach Claude user behavior, visual flow, and design principles. Integrates 50+ UI styles, 95 color schemes, and 56 fonts for a complete UX strategist's perspective. *By [@nextlevelbuilder](https://github.com/nextlevelbuilder)*
@@ -149,6 +153,7 @@ Claude Skills are customizable workflows that teach Claude how to perform specif
 
 - [File Organizer](./file-organizer/) - Intelligently organizes files and folders by understanding context, finding duplicates, and suggesting better organizational structures.
 - [harness-skill](./harness-skill/) - AI Agent team orchestration framework for automatically designing and coordinating multiple agents. Supports linear, parallel, and hierarchical collaboration modes.
+- [ralph-loom](./ralph-loom/) - Autonomous development loop framework enabling fully autonomous AI agent development. Features intelligent exit detection, session continuity, and automatic recovery for long-running task execution.
 - [Invoice Organizer](./invoice-organizer/) - Automatically organizes invoices and receipts for tax preparation by reading files, extracting information, and renaming consistently.
 - [kaizen](https://github.com/NeoLabHQ/context-engineering-kit/tree/master/plugins/kaizen/skills/kaizen) - Applies continuous improvement methodology with multiple analytical approaches, based on Japanese Kaizen philosophy and Lean methodology.
 - [n8n-skills](https://github.com/haunchen/n8n-skills) - Enables AI assistants to directly understand and operate n8n workflows.
