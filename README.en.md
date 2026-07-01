@@ -113,6 +113,7 @@ Claude Skills are customizable workflows that teach Claude how to perform specif
 ### Business & Marketing
 
 - [experience-lab-skill](./experience-lab-skill/) - Complete browser-based invoice management workflow system. Demonstrates end-to-end automation from design extraction through auto code generation, quality checks, and optimization. Best practices reference for Design-DNA + Vibe Coding integration.
+- [bpm-framework-skill](./bpm-framework-skill/) - Complete low-code Business Process Management framework. Supports drag-drop workflow design, multi-system integration, AI-driven automation, real-time monitoring. Build enterprise-grade BPM systems without backend coding.
 - [Brand Guidelines](./brand-guidelines/) - Applies Anthropic's official brand colors and typography to artifacts for consistent visual identity and professional design standards.
 - [Competitive Ads Extractor](./competitive-ads-extractor/) - Extracts and analyzes competitors' ads from ad libraries to understand messaging and creative approaches that resonate.
 - [Domain Name Brainstormer](./domain-name-brainstormer/) - Generates creative domain name ideas and checks availability across multiple TLDs including .com, .io, .dev, and .ai extensions.
