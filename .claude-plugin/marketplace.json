@@ -1,11 +1,11 @@
 {
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
-  "name": "awesome-claude-skills",
+  "name": "awesome-claude-skills-zh-tw",
   "version": "1.0.0",
-  "description": "A curated marketplace of practical Claude Skills for enhancing productivity across Claude.ai, Claude Code, and the Claude API",
+  "description": "繁體中文精選 Claude Skills 市集：辦公自動化、設計、開發、影片、記憶等實用技能",
   "owner": {
-    "name": "ComposioHQ",
-    "email": "tech@composio.dev"
+    "name": "a82062416-wq",
+    "email": "a82062416@gmail.com"
   },
   "plugins": [
     {
@@ -78,12 +78,6 @@
       "name": "video-downloader",
       "description": "Downloads videos from YouTube and other platforms for offline viewing, editing, or archival with support for various formats and quality options.",
       "source": "./video-downloader",
-      "category": "creative-media"
-    },
-    {
-      "name": "algorithmic-art",
-      "description": "Creates algorithmic art and generative designs using computational creativity techniques.",
-      "source": "./algorithmic-art",
       "category": "creative-media"
     },
     {

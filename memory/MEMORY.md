@@ -20,13 +20,19 @@
 - 希望 Claude 有長期記憶、越用越聰明
 - 喜歡表格 + emoji 的繁中報告格式
 
-## 📌 環境狀態（2026-07-07 盤點）
+## 📌 環境狀態（2026-07-07 Phase 1-3 強化後）
 
-- claude.ai 已啟用 20 個技能：6 個自訂（changhe-audit、labor-insurance-reply、
-  community-fee-reconciliation v1/v2/v3、attendance-sheet-builder）+ 14 個官方
-- ⚠️ 待辦：community-fee-reconciliation 應只留 v3，v1/v2 建議在 claude.ai 設定停用
+- claude.ai 已啟用 20 個技能：6 個自訂 + 14 個官方
+- ⚠️ 待辦：community-fee-reconciliation 應只留 v3，v1/v2 待使用者在 claude.ai 停用
 - MCP 連接器：Gmail、Calendar、Drive、Notion、Canva、Gamma、Zoom 已連線；Ahrefs、Figma 未啟用
-- 倉庫 hooks：Write/Edit 後自動 git add；git commit 後自動 push
+- 倉庫 hooks（已重寫）：SessionStart 自動載入本記憶檔；Write/Edit 後先驗證再暫存；
+  Bash 後有未推送 commit 且工作區乾淨才 push
+- 自訂指令：/plan（規劃模式）、/monthly-audit（財報稽核）、/fee-check（管理費對帳）、/retro（回顧寫記憶）
+- Subagent：researcher（.claude/agents/，研究只回結論保持 context 乾淨）
+- 閉環驗證：scripts/validate_repo.py（hook 寬鬆模式 + CI 嚴格模式）+ GitHub Actions
+- 任務協定：CLAUDE.md 原則 4——中大型任務必走「理解→計畫（memory/plans/）→執行→驗證→交付紀錄」
+- ⚠️ 未完成：每週巡檢 Routine 被平台 MCP 核准層擋住，待使用者在 claude.ai/code 介面手動建立
+  或之後 session 重試 create_trigger
 
 ## 📚 專案進行中
 
@@ -35,6 +41,11 @@
 - 完整環境盤點見 `CLAUDE-CODE-整合分析報告.md`
 
 ## 💡 已學到的教訓
+
+- 2026-07-07 決策：34 個 SKILL.zh-TW.md 技能因檔名不符從未被載入 → 複製為 SKILL.md 雙檔並存
+  （不改名，保留中文版可讀性）；驗證腳本永久防止此類問題復發
+- 2026-07-07 決策：自動 push 條件改為「有未推送 commit 且工作區乾淨」，原 hooks 的
+  "if" 欄位不是官方 schema、從未生效；marketplace 幽靈條目 algorithmic-art 已移除
 
 - 使用者的組織插件目錄（knowledge-work-plugins）沒有 claude-mem/Remotion/Superpowers，
   帳號層級裝不了 → 改用倉庫內建技能 + 檔案式記憶（本系統）
