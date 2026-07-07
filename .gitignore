@@ -14,6 +14,9 @@ out/
 __pycache__/
 *.pyc
 
+# Fable Harness 執行 markers（每次觸發都變，不入庫）
+fable-harness/hooks/.last_*
+
 # 暫存與系統檔
 *.log
 *.tmp
