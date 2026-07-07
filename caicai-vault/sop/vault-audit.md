@@ -6,7 +6,7 @@ summary: Vault 索引完整性健檢：實際檔案 vs README/INDEX 比對，每
 
 # Vault Audit — 索引完整性檢查
 
-> 多層防禦架構的第三道（見 [cowork-instructions.md](cowork-instructions.md)）。定期檢查 vault 索引（root `README.md`，以及選用的各資料夾 `INDEX.md`）是否跟實際檔案結構一致，抓出漏掉沒 index 的檔案或過時條目。
+> 多層防禦架構的第三道（見原框架 [cowork-instructions 模板](https://github.com/cwlin0131/Vault-for-Founders/blob/main/zh/templates/cowork-instructions.md)）。定期檢查 vault 索引（root `README.md`，以及選用的各資料夾 `INDEX.md`）是否跟實際檔案結構一致，抓出漏掉沒 index 的檔案或過時條目。
 
 ---
 

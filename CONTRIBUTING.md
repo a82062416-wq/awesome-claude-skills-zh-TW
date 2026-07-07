@@ -105,7 +105,7 @@ Show what the skill produces
 2. Add your skill in alphabetical order within the category:
 
 ```markdown
-- [Skill Name](./skill-name/) - One-sentence description. Inspired by [Person/Source].
+- `[Skill Name](./skill-name/)` - One-sentence description. Inspired by [Person/Source].
 ```
 
 3. Follow the existing format exactly - no emojis, consistent punctuation.

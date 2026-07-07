@@ -1,0 +1,35 @@
+name: docs-check
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+
+jobs:
+  internal-links:
+    name: 相對連結檢查
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check internal links
+        run: python3 scripts/check-links.py
+
+  readme-sync:
+    name: 中英 README 同步提醒
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Warn if only one README changed
+        run: |
+          BASE="${{ github.event.pull_request.base.sha }}"
+          CHANGED=$(git diff --name-only "$BASE"...HEAD)
+          ZH=$(echo "$CHANGED" | grep -cx "README.md" || true)
+          EN=$(echo "$CHANGED" | grep -cx "README.en.md" || true)
+          if [ "$ZH" != "$EN" ]; then
+            echo "::warning::只改了一份 README（zh=$ZH, en=$EN），確認中英是否需要同步。"
+          else
+            echo "✅ README 變更對稱（zh=$ZH, en=$EN）"
+          fi

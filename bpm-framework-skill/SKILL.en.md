@@ -514,10 +514,8 @@ Setup time: 1 week
 
 ## Resources
 
-- [Official Documentation](./docs/README.md) - Complete usage guide
-- [API Reference](./docs/api.md) - REST API documentation
-- [Process Examples](./examples/) - 20+ reference processes
-- [Video Tutorials](./docs/tutorials/) - Step-by-step guides
+- This skill is a conceptual framework document. For implementation, see industry tools: [n8n](https://docs.n8n.io/), [Camunda](https://docs.camunda.io/), [Activiti](https://www.activiti.org/documentation)
+- BPMN 2.0 standard: [OMG official spec](https://www.omg.org/spec/BPMN/2.0/)
 - [Community Forum](https://community.example.com) - Get help
 
 ## Summary

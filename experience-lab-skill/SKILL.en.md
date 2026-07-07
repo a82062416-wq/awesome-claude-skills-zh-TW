@@ -440,7 +440,7 @@ examples/
 
 - [Design-DNA](https://github.com/zanwei/design-dna) - Design Extraction Tool
 - [Vibe Coding](https://dev.to/pockit_tools/vibe-coding-in-2026) - Auto-coding Framework
-- [Frontend-Design](./frontend-design/) - Design Standards Application
+- [Frontend-Design](../frontend-design/) - Design Standards Application
 
 ## Summary
 

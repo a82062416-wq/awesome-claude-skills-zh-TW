@@ -1,91 +1,35 @@
-# 🧠 Claude Code 核心原則與最佳實踐
+# CLAUDE.md — 工作協議
 
-## 📌 必讀原則（每次開 Code 前記住）
+> 這份是行為協議，不是介紹文。每一條都是執行要求。
 
-### 原則 1️⃣：能用 CLI 就不要用 MCP
-**為什麼？** MCP 工具會把完整的 schema 塞進你的 context window，輸入輸出都算錢 🔥
+## 語言
 
-**實踐方式：**
-- ✅ 優先用 CLI 命令（bash、git 等）
-- ✅ 其次用 Skills（設計、開發工具）
-- ❌ 最後才用 MCP（作為後備方案）
+一律使用繁體中文（台灣用語）回覆與撰寫文件；英文資料先翻譯重點再呈現。
 
-**例子：**
-- 查文件 → 用 `cat` 或 `grep`，不要用 Google Drive MCP
-- 提交代碼 → 用 `git` 命令，不要用 GitHub MCP
-- 發郵件 → 用 CLI 工具，不要用 Gmail MCP
+## 工作流程（任務超過 3 步時必跑）
 
----
+1. **理解**：先讀 README 相關段落與要動的檔案，再動手
+2. **計畫**：用任務清單列出步驟、逐項更新狀態；長任務先寫計畫再執行
+3. **執行**：分階段小步提交，每個 commit 一個主題
+4. **驗證**：改完後跑 `python3 scripts/check-links.py` 確認相對連結有效；檢查中英 README 是否同步；CI 必須綠
+5. **交付**：結論先行、表格優先；說清楚改了什麼、怎麼驗證的
+6. **記錄**：重要決策寫進 commit message；結構性變動同步更新 README 索引
 
-### 原則 2️⃣：安裝 Context-Mode 攔截多餘輸出
-**為什麼？** MCP 工具回傳一萬個 tokens 的 JSON，會灌爆你的 context window
+## 工具優先級
 
-**解決方案：**
-- 安裝開源插件 **Context-Mode**
-- 它會在背景索引 MCP 原始輸出
-- 只摘要關鍵信息給你
-- **讓你的 context 保持乾淨！**
+CLI > 內建工具（Read / Grep / Task / Agent）> MCP。只在前兩者做不到時才用 MCP。
 
-安裝命令：
-```bash
-npm install @context-mode/plugin
-```
+## 本 repo 鐵則
 
----
+- **中英同步**：改 `README.md` 必同步改 `README.en.md`，反之亦然
+- **新增技能資料夾** → 兩份 README 都要加索引條目（分類正確、一句話描述）
+- **技能文檔誠實原則**：不得寫虛構效能數據、不存在的 API 或未驗證的整合方式
+- **敏感資訊**（個資、公司內部資料）一律不進這個公開 repo
+- 對外文案風格：直接、具體、不浮誇；避免空洞形容詞與 AI 味套話
 
-## 🎯 使用優先級（CP 值最高 → 最低）
+## 可用的專案級資源
 
-| 優先級 | 工具類型 | 例子 | 說明 |
-|--------|---------|------|------|
-| 🥇 最高 | **CLI** | bash、git、npm | 零開銷，直接執行 |
-| 🥈 次高 | **Skills** | 設計、開發、記憶 | 輕量、針對性強 |
-| 🥉 備選 | **MCP** | Google Drive、Notion | 重量級、消耗 tokens |
-
----
-
-## 💡 實際案例
-
-### ❌ 錯誤用法
-```
-Claude: "我用 GitHub MCP 查看倉庫文件"
-成本: 5000+ tokens（schema + 輸出）
-```
-
-### ✅ 正確用法
-```
-Claude: "我用 git log 和 cat 查看文件"
-成本: 100 tokens
-效率: 5倍提升 🚀
-```
-
----
-
-## 🛠️ 你現在擁有的完整工具鏈
-
-### CLI 層（最優先）
-- `git` - 版本控制
-- `bash` - 命令執行
-- `npm/node` - 開發
-
-### Skills 層（次優先）
-- 設計：Impeccable、frontend-design、ui-ux-pro-max 等（6 個）
-- 開發：Web Access、PUA
-- 記憶：claude-mem、mem0
-- 工作流：superpowers（7 階段）
-
-### MCP 層（最後手段）
-- Google Drive、Calendar、Notion、Gmail、GitHub
-
----
-
-## 📝 每次開始前的 Checklist
-
-- [ ] 優先用 CLI
-- [ ] 其次用 Skills
-- [ ] 實在不行才用 MCP
-- [ ] 用 MCP 時記得啟用 Context-Mode
-- [ ] 檢查 claude-mem 有無相關記憶
-
----
-
-**記住：省 tokens = 省錢 = 更多資源用在重要的事！** 💰✨
+- `.claude/skills/` — 本專案可調用技能（技能條目審查、去 AI 味、計畫先行）
+- `.claude/commands/` — `/after-action`（收官）、`/audit`（索引健檢）
+- `.claude/agents/` — `doc-reviewer`（文件審查子代理）
+- `scripts/check-links.py` — 相對連結檢查（CI 同款）
