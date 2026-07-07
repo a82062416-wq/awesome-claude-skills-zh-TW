@@ -145,6 +145,8 @@ Claude Skills are customizable workflows that teach Claude how to perform specif
 
 ### Creative & Media
 
+- [remotion-video-skill](./remotion-video-skill/) - Programmatic video production with Remotion (React + TypeScript): useCurrentFrame, interpolate, spring, Sequence — Claude writes components, Remotion renders MP4.
+- [ffmpeg-video-skill](./ffmpeg-video-skill/) - FFmpeg post-production: compression, trimming, GIF conversion, audio extraction, subtitles, and YouTube/IG/TikTok platform presets. Zero-cost CLI tool.
 - [Canvas Design](./canvas-design/) - Creates beautiful visual art in PNG and PDF documents using design philosophy and aesthetic principles for posters, designs, and static pieces.
 - [Image Enhancer](./image-enhancer/) - Improves image and screenshot quality by enhancing resolution, sharpness, and clarity for professional presentations and documentation.
 - [Slack GIF Creator](./slack-gif-creator/) - Creates animated GIFs optimized for Slack with validators for size constraints and composable animation primitives.
@@ -154,6 +156,7 @@ Claude Skills are customizable workflows that teach Claude how to perform specif
 
 ### Productivity & Organization
 
+- [long-term-memory-skill](./long-term-memory-skill/) - File-based long-term memory (Git-powered claude-mem alternative). Memory lives in `memory/MEMORY.md`, persisted by git across sessions and devices — zero dependencies, zero privacy risk.
 - [File Organizer](./file-organizer/) - Intelligently organizes files and folders by understanding context, finding duplicates, and suggesting better organizational structures.
 - [harness-skill](./harness-skill/) - AI Agent team orchestration framework for automatically designing and coordinating multiple agents. Supports linear, parallel, and hierarchical collaboration modes.
 - [ralph-loom](./ralph-loom/) - Autonomous development loop framework enabling fully autonomous AI agent development. Features intelligent exit detection, session continuity, and automatic recovery for long-running task execution.

@@ -106,7 +106,7 @@
 <div class="wrap">
   <header>
     <h1><span class="leaf">❦</span> 我的 Claude 技能樹</h1>
-    <p class="sub">a82062416 的能力總帳 · 盤點日期 2026-07-07 · 資料來源：claude.ai 技能 + awesome-claude-skills-zh-TW 倉庫 + Claude Code 內建</p>
+    <p class="sub">a82062416 的能力總帳 · 2026-07-07 Harness 強化版 · 來源：claude.ai 技能 + 倉庫收藏 + Claude Code 內建 + 自訂指令</p>
   </header>
 
   <div class="stats">
@@ -205,6 +205,12 @@ const SKILLS = [
   {n:"dataviz", d:"圖表/儀表板設計系統：配色公式、標記規範。", c:"內建指令", s:"core"},
   {n:"/loop", d:"定時循環執行任務（例：每 5 分鐘檢查部署）。", c:"內建指令", s:"core"},
   {n:"/init", d:"為新專案生成 CLAUDE.md 文檔。", c:"內建指令", s:"core"},
+  // ── 自訂指令（.claude/commands，2026-07-07 Harness 強化新增）──
+  {n:"/plan", d:"強制規劃模式：先寫計畫檔到 memory/plans/ 再分階段執行，完成後記錄決策。", c:"自訂指令", s:"repo", nw:1},
+  {n:"/monthly-audit", d:"長谷蓮清月度財報稽核：理解→計畫→逐項稽核→複算驗證→報告→記錄。", c:"自訂指令", s:"repo", nw:1},
+  {n:"/fee-check", d:"悅讀ABC管理費對帳：前置確認→比對填表→抽核勾稽→摘要交付→記錄欠款戶。", c:"自訂指令", s:"repo", nw:1},
+  {n:"/retro", d:"Session 回顧：把本次對話的收穫、決策、教訓寫入長期記憶並提交。", c:"自訂指令", s:"repo", nw:1},
+  {n:"researcher（subagent）", d:"研究員子代理：大範圍搜尋與網路調查在獨立 context 進行，只回結論，保持主對話乾淨。", c:"自訂指令", s:"repo", nw:1},
 ];
 
 const SRC = { on:["啟用中","b-on"], repo:["倉庫收藏","b-repo"], core:["內建","b-core"] };

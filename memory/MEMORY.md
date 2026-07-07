@@ -36,9 +36,9 @@
 
 ## 📚 專案進行中
 
-- `awesome-claude-skills-zh-TW`：繁中技能收藏庫 + plugin marketplace（42+ 技能）
-- PR #3：Claude Code 整合分析報告 + 影片技能 + 記憶系統（分支 claude/cloud-cold-integration-nq01ha）
-- 完整環境盤點見 `CLAUDE-CODE-整合分析報告.md`
+- `awesome-claude-skills-zh-TW`：繁中技能收藏庫 + plugin marketplace（41 個可載入技能）
+- PR #3（2026-07-07 完成合併）：整合報告 + 影片/記憶技能 + 技能樹儀表板 + Harness Phase 1-3
+- 完整環境盤點見 `CLAUDE-CODE-整合分析報告.md`；技能總覽見 `skill-tree.html`
 
 ## 💡 已學到的教訓
 
