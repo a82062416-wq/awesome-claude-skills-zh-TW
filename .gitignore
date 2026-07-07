@@ -1,0 +1,28 @@
+# 機密與憑證 — 絕不入庫
+.env
+.env.*
+*.pem
+*.key
+*credentials*
+*secret*
+
+# 依賴與建置產物
+node_modules/
+dist/
+build/
+out/
+__pycache__/
+*.pyc
+
+# 暫存與系統檔
+*.log
+*.tmp
+.DS_Store
+Thumbs.db
+~$*
+
+# 影片/大型輸出（產出交付用 SendUserFile，不入庫）
+*.mp4
+*.mov
+*.gif
+!**/assets/*.gif

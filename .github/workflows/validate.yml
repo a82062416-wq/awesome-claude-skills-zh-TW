@@ -1,0 +1,17 @@
+name: 倉庫健康檢查
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: 驗證 JSON 設定與技能結構
+        run: python3 scripts/validate_repo.py

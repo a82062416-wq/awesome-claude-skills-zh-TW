@@ -28,14 +28,25 @@
     ]
   },
   "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cd /home/user/awesome-claude-skills-zh-TW && echo '🧠 ===== 長期記憶（memory/MEMORY.md）=====' && cat memory/MEMORY.md 2>/dev/null || echo '(記憶檔不存在，請建立 memory/MEMORY.md)'",
+            "statusMessage": "🧠 載入長期記憶"
+          }
+        ]
+      }
+    ],
     "PostToolUse": [
       {
         "matcher": "Write|Edit",
         "hooks": [
           {
             "type": "command",
-            "command": "cd /home/user/awesome-claude-skills-zh-TW && git add -A && git status --short",
-            "statusMessage": "📝 自動暫存文件變更",
+            "command": "cd /home/user/awesome-claude-skills-zh-TW && python3 scripts/validate_repo.py --hook; git add -A && git status --short | head -15",
+            "statusMessage": "🔍 驗證 + 暫存變更",
             "async": false
           }
         ]
@@ -45,10 +56,9 @@
         "hooks": [
           {
             "type": "command",
-            "command": "cd /home/user/awesome-claude-skills-zh-TW && if git diff-index --quiet HEAD --; then echo '✅ 無新變更'; else BRANCH=$(git rev-parse --abbrev-ref HEAD) && git push -u origin $BRANCH 2>&1 && echo '{\"systemMessage\": \"🚀 自動推送成功！分支已同步到遠程�倉庫\"}'; fi",
-            "statusMessage": "🚀 自動推送到遠程倉庫",
-            "async": false,
-            "if": "Bash(git commit*)"
+            "command": "cd /home/user/awesome-claude-skills-zh-TW && UP=$(git rev-parse '@{u}' 2>/dev/null) || exit 0; if [ \"$(git rev-parse HEAD)\" != \"$UP\" ] && git diff-index --quiet HEAD --; then git push 2>&1 | tail -1 && echo '🚀 自動推送成功'; fi",
+            "statusMessage": "🚀 檢查是否需要推送",
+            "async": false
           }
         ]
       }
