@@ -31,6 +31,9 @@
 - Subagent：researcher（.claude/agents/，研究只回結論保持 context 乾淨）
 - 閉環驗證：scripts/validate_repo.py（hook 寬鬆模式 + CI 嚴格模式）+ GitHub Actions
 - 任務協定：CLAUDE.md 原則 4——中大型任務必走「理解→計畫（memory/plans/）→執行→驗證→交付紀錄」
+- Fable Harness（2026-07-07 安裝，改編自 Miguok/fable-harness）：SessionStart 注入
+  FABLE-PROTOCOL（代號 FABLE-PROTOCOL-V1-CANARY）、每輪 OODA 微提醒、Stop 驗證閘
+  （改程式沒驗證會被擋）、adversarial-review 技能 + skeptic/red-team/simplifier 三反方 agent
 - ⚠️ 未完成：每週巡檢 Routine 被平台 MCP 核准層擋住，待使用者在 claude.ai/code 介面手動建立
   或之後 session 重試 create_trigger
 
