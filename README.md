@@ -39,6 +39,8 @@
 
 精選實用 Claude Skills 清單，用於提升 Claude.ai、Claude Code 和 Claude API 的生產力。
 
+> 📊 **[Claude Code 完整整合分析報告](./CLAUDE-CODE-整合分析報告.md)** — 目前環境的技能、工具、連接器完整盤點，以及網頁開發、影片製作、記憶功能三大領域的強化建議（2026-07 更新）。
+
 
 > 如果您希望您的技能能夠跨 500+ 應用程式採取行動，請使用 [Composio](https://platform.composio.dev/?utm_source=Github&utm_medium=Youtube&utm_campaign=2025-11&utm_content=AwesomeSkills) 整合
 
