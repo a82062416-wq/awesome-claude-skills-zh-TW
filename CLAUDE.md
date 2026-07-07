@@ -106,6 +106,15 @@ Claude: "我用 git log 和 cat 查看文件"
 
 ---
 
+### 原則 5️⃣：協作制度（harness/ 目錄，弱模型必讀）
+- 派 subagent 前 → 讀 `harness/01-delegation.md`，用 `harness/04-templates.md` 模板
+- 出錯/失敗時 → 查 `harness/02-escalation.md`（重試上限 2 輪，升降級規則）
+- 卡住/想收工/想提問 → 對照 `harness/03-judgment-matrix.md` 檢核表
+- 想改制度或設定檔 → 先查 `harness/05-reflection.md` 權限分級
+- 第一次接手本環境 → 先讀 `harness/00-diagnosis.md` 與 `harness/06-handoff-letter.md`
+
+---
+
 ## 📝 每次開始前的 Checklist
 
 - [ ] **先讀 `memory/MEMORY.md`（長期記憶）**
