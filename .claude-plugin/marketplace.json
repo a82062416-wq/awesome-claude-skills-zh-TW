@@ -169,6 +169,24 @@
       "description": "Skills for working with Excel spreadsheets including creation, editing, formulas, and data manipulation.",
       "source": "./document-skills/xlsx",
       "category": "productivity-organization"
+    },
+    {
+      "name": "remotion-video-skill",
+      "description": "用 Remotion（React + TypeScript）程式化製作影片：useCurrentFrame、interpolate、spring、Sequence 完整教學，Claude 寫組件、Remotion 渲染成 MP4。",
+      "source": "./remotion-video-skill",
+      "category": "creative-media"
+    },
+    {
+      "name": "ffmpeg-video-skill",
+      "description": "FFmpeg 影片後製技能：壓縮、剪輯、轉 GIF、抽音軌、加字幕、YouTube/IG/抖音平台規格預設，零成本 CLI 工具。",
+      "source": "./ffmpeg-video-skill",
+      "category": "creative-media"
+    },
+    {
+      "name": "long-term-memory-skill",
+      "description": "檔案式長期記憶系統（Git 版 claude-mem）：記憶存在 memory/MEMORY.md，靠 git 永久保存，跨 session 跨裝置，零外部依賴、零隱私風險。",
+      "source": "./long-term-memory-skill",
+      "category": "productivity-organization"
     }
   ]
 }

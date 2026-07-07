@@ -17,19 +17,27 @@
 
 ---
 
-### 原則 2️⃣：安裝 Context-Mode 攔截多餘輸出
+### 原則 2️⃣：保持 Context 乾淨（內建方法，免安裝）
 **為什麼？** MCP 工具回傳一萬個 tokens 的 JSON，會灌爆你的 context window
 
-**解決方案：**
-- 安裝開源插件 **Context-Mode**
-- 它會在背景索引 MCP 原始輸出
-- 只摘要關鍵信息給你
-- **讓你的 context 保持乾淨！**
+**真正有效的做法（Claude Code 內建）：**
+- 換新任務就開新對話或用 `/clear` — 最有效的清理方式
+- 對話太長時用 `/compact` 壓縮歷史，只留重點
+- 用 `/context` 檢查目前 context 用量，看誰在吃 tokens
+- 大範圍搜尋交給 **subagent**（Explore agent）跑，只回傳結論，不佔主對話
+- 用不到的連接器在對話設定裡關掉（Ahrefs、Figma 平常保持關閉）
+- Claude 回覆要求精簡：先講結論，細節放檔案裡而不是貼在對話中
 
-安裝命令：
-```bash
-npm install @context-mode/plugin
-```
+---
+
+### 原則 3️⃣：長期記憶（每個 session 必做）
+**為什麼？** 雲端 session 是暫時容器，不記下來下次就全忘了
+
+**記憶協定：**
+- 🔴 **Session 開始：先讀 `memory/MEMORY.md`**（使用者輪廓、偏好、專案進度都在裡面）
+- 學到新事實/偏好/教訓 → 立即更新 `memory/MEMORY.md` 並 commit（hooks 會自動推送）
+- 使用者說「記住…」→ 寫入記憶；說「你記得嗎」→ 查記憶
+- 詳細協定見 `long-term-memory-skill/SKILL.md`
 
 ---
 
@@ -68,23 +76,25 @@ Claude: "我用 git log 和 cat 查看文件"
 - `npm/node` - 開發
 
 ### Skills 層（次優先）
-- 設計：Impeccable、frontend-design、ui-ux-pro-max 等（6 個）
-- 開發：Web Access、PUA
-- 記憶：claude-mem、mem0
-- 工作流：superpowers（7 階段）
+- 設計：frontend-design、canvas-design、theme-factory、design-dna
+- 開發：code-review、code-simplifier、webapp-testing、mcp-builder
+- 影片：remotion-video（程式化影片）、ffmpeg-video（後製）、video-downloader
+- 記憶：**long-term-memory（memory/MEMORY.md，本倉庫內建）**、supermemory
+- 辦公：xlsx / docx / pdf / pptx + 自訂稽核/對帳/出勤技能
 
 ### MCP 層（最後手段）
-- Google Drive、Calendar、Notion、Gmail、GitHub
+- Google Drive、Calendar、Notion、Gmail、Canva、Gamma、Zoom、GitHub
 
 ---
 
 ## 📝 每次開始前的 Checklist
 
+- [ ] **先讀 `memory/MEMORY.md`（長期記憶）**
 - [ ] 優先用 CLI
 - [ ] 其次用 Skills
 - [ ] 實在不行才用 MCP
-- [ ] 用 MCP 時記得啟用 Context-Mode
-- [ ] 檢查 claude-mem 有無相關記憶
+- [ ] 對話太長就 `/compact`，換任務就 `/clear`
+- [ ] 學到新東西記得寫回 memory/MEMORY.md
 
 ---
 
