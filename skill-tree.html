@@ -1,0 +1,257 @@
+<title>我的 Claude 技能樹</title>
+<style>
+  :root {
+    --bg: #F7F8F5; --surface: #FFFFFF; --ink: #1D2823; --muted: #5F6E65;
+    --line: #E2E7E2; --accent: #1E6B50; --accent-soft: #E4F0EA;
+    --gold: #B47A2B; --gold-soft: #F6EDDD;
+    --blue: #3D5A80; --blue-soft: #E5EBF2;
+    --warn: #A34A2A;
+    --shadow: 0 1px 3px rgba(29,40,35,.07);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #131815; --surface: #1B221D; --ink: #E6ECE7; --muted: #93A29A;
+      --line: #2A332D; --accent: #52B48D; --accent-soft: #1E3329;
+      --gold: #D9A45C; --gold-soft: #33291A;
+      --blue: #8FAECC; --blue-soft: #1F2A36;
+      --warn: #E08A66;
+      --shadow: 0 1px 3px rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="light"] {
+    --bg: #F7F8F5; --surface: #FFFFFF; --ink: #1D2823; --muted: #5F6E65;
+    --line: #E2E7E2; --accent: #1E6B50; --accent-soft: #E4F0EA;
+    --gold: #B47A2B; --gold-soft: #F6EDDD;
+    --blue: #3D5A80; --blue-soft: #E5EBF2;
+    --warn: #A34A2A;
+    --shadow: 0 1px 3px rgba(29,40,35,.07);
+  }
+  :root[data-theme="dark"] {
+    --bg: #131815; --surface: #1B221D; --ink: #E6ECE7; --muted: #93A29A;
+    --line: #2A332D; --accent: #52B48D; --accent-soft: #1E3329;
+    --gold: #D9A45C; --gold-soft: #33291A;
+    --blue: #8FAECC; --blue-soft: #1F2A36;
+    --warn: #E08A66;
+    --shadow: 0 1px 3px rgba(0,0,0,.35);
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", system-ui, sans-serif;
+    line-height: 1.55;
+  }
+  .wrap { max-width: 1100px; margin: 0 auto; padding: 32px 20px 64px; }
+  header h1 {
+    font-family: "Noto Serif TC", "PingFang TC", serif;
+    font-size: 1.7rem; font-weight: 700; margin: 0; letter-spacing: .02em;
+    text-wrap: balance;
+  }
+  header h1 .leaf { color: var(--accent); }
+  header p.sub { color: var(--muted); margin: 6px 0 0; font-size: .9rem; }
+
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin: 24px 0; }
+  .stat {
+    background: var(--surface); border: 1px solid var(--line); border-radius: 10px;
+    padding: 14px 16px; box-shadow: var(--shadow);
+  }
+  .stat .label { font-size: .72rem; color: var(--muted); letter-spacing: .08em; text-transform: uppercase; }
+  .stat .num {
+    font-size: 1.9rem; font-weight: 700; font-variant-numeric: tabular-nums;
+    color: var(--accent); line-height: 1.2;
+  }
+  .stat:nth-child(4) .num { color: var(--gold); }
+
+  .controls { display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px; }
+  .search {
+    width: 100%; padding: 10px 14px; font-size: .95rem;
+    border: 1px solid var(--line); border-radius: 10px;
+    background: var(--surface); color: var(--ink);
+  }
+  .search:focus { outline: 2px solid var(--accent); outline-offset: 1px; border-color: transparent; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip {
+    border: 1px solid var(--line); background: var(--surface); color: var(--muted);
+    border-radius: 999px; padding: 5px 14px; font-size: .82rem; cursor: pointer;
+    font-family: inherit;
+  }
+  .chip:hover { border-color: var(--accent); color: var(--accent); }
+  .chip:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+  .chip.on { background: var(--accent); border-color: var(--accent); color: #fff; }
+  :root[data-theme="dark"] .chip.on, .chip.on { font-weight: 500; }
+  .chip .n { opacity: .7; font-variant-numeric: tabular-nums; margin-left: 3px; }
+
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; }
+  .card {
+    background: var(--surface); border: 1px solid var(--line); border-radius: 10px;
+    padding: 14px 16px; box-shadow: var(--shadow);
+    display: flex; flex-direction: column; gap: 6px;
+  }
+  .card .top { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
+  .card h3 { margin: 0; font-size: .98rem; font-weight: 700; }
+  .badge {
+    flex-shrink: 0; font-size: .68rem; padding: 2px 8px; border-radius: 999px; white-space: nowrap;
+  }
+  .b-on   { background: var(--accent-soft); color: var(--accent); }
+  .b-repo { background: var(--blue-soft);   color: var(--blue); }
+  .b-core { background: var(--gold-soft);   color: var(--gold); }
+  .card p { margin: 0; font-size: .82rem; color: var(--muted); flex: 1; }
+  .card .foot { display: flex; gap: 6px; align-items: center; font-size: .72rem; color: var(--muted); }
+  .card .cat { border: 1px solid var(--line); border-radius: 999px; padding: 1px 8px; }
+  .card .new { color: var(--gold); font-weight: 700; }
+  .card .warn { color: var(--warn); }
+  .empty { color: var(--muted); text-align: center; padding: 48px 0; font-size: .9rem; }
+  footer { margin-top: 36px; font-size: .78rem; color: var(--muted); border-top: 1px solid var(--line); padding-top: 16px; }
+</style>
+
+<div class="wrap">
+  <header>
+    <h1><span class="leaf">❦</span> 我的 Claude 技能樹</h1>
+    <p class="sub">a82062416 的能力總帳 · 盤點日期 2026-07-07 · 資料來源：claude.ai 技能 + awesome-claude-skills-zh-TW 倉庫 + Claude Code 內建</p>
+  </header>
+
+  <div class="stats">
+    <div class="stat"><div class="label">技能總數</div><div class="num" id="sTotal">–</div></div>
+    <div class="stat"><div class="label">技能分類</div><div class="num" id="sCats">–</div></div>
+    <div class="stat"><div class="label">啟用中（claude.ai）</div><div class="num" id="sOn">–</div></div>
+    <div class="stat"><div class="label">本週新增</div><div class="num" id="sNew">–</div></div>
+  </div>
+
+  <div class="controls">
+    <input class="search" id="q" type="search" placeholder="搜尋技能：名稱或用途…（例如：對帳、影片、記憶）" aria-label="搜尋技能" />
+    <div class="chips" id="chips" role="group" aria-label="分類篩選"></div>
+  </div>
+
+  <div class="grid" id="grid"></div>
+  <div class="empty" id="empty" hidden>沒有符合的技能 — 換個關鍵字試試</div>
+
+  <footer>
+    徽章說明：<b>啟用中</b> = claude.ai 帳號已啟用，任何對話可用 ·
+    <b>倉庫收藏</b> = 存於 awesome-claude-skills-zh-TW，開啟該倉庫 session 即可用 ·
+    <b>內建</b> = Claude Code 內建指令 · 🆕 = 2026-07-07 新安裝 ·
+    完整報告見倉庫內《CLAUDE-CODE-整合分析報告.md》
+  </footer>
+</div>
+
+<script>
+const SKILLS = [
+  // ── 財務會計（自訂技能，你的主力）──
+  {n:"長谷蓮清財報稽核", d:"月份財務月報表全面稽核：收支合計驗算、跨表勾稽、代收明細比對、零用金逐筆核對。", c:"財務會計", s:"on"},
+  {n:"勞保局回函處理", d:"撰寫查核回函、製作多月份薪資明細 xlsx（勞健保費率、破月折算）、出勤紀錄 xlsx。", c:"財務會計", s:"on"},
+  {n:"社區管理費對帳 v3", d:"悅讀ABC 月度收繳明細（H~M欄），含前置核對與六種繳款情境。目前最完整版本。", c:"財務會計", s:"on"},
+  {n:"社區管理費對帳 v2", d:"完整案例版：補繳仍未繳、預繳(月)、攜帶前月欠繳、長期欠款。", c:"財務會計", s:"on", w:"建議停用，只留 v3"},
+  {n:"社區管理費對帳 v1", d:"基礎版：入帳/預繳/缺繳/補繳分類與備註。", c:"財務會計", s:"on", w:"建議停用，只留 v3"},
+  {n:"出勤表建立器", d:"依班表建立多人出勤時數分頁：多班別、寬限期、遲到早退、國定假日標示。", c:"財務會計", s:"on"},
+  // ── 文件處理 ──
+  {n:"xlsx（Excel）", d:"試算表建立、編輯、公式、圖表、資料分析。財報稽核技能的底層引擎。", c:"文件處理", s:"on"},
+  {n:"docx(Word)", d:"Word 文件建立與編輯：追蹤修訂、目錄、頁碼、信頭。", c:"文件處理", s:"on"},
+  {n:"pptx（簡報）", d:"投影片建立、讀取、版面、講者備註。", c:"文件處理", s:"on"},
+  {n:"pdf", d:"文字/表格提取、合併分割、表單處理。", c:"文件處理", s:"on"},
+  {n:"markitdown", d:"PDF/Word/PPT/Excel/圖片/音頻多格式轉 Markdown，支援 OCR。", c:"文件處理", s:"repo"},
+  {n:"paddleocr", d:"百度高精度 OCR，100+ 語言，手寫、傾斜、藝術字體識別。", c:"文件處理", s:"repo"},
+  // ── 影片媒體 ──
+  {n:"remotion-video", d:"用 React + TypeScript 程式化製作影片：useCurrentFrame、spring、Sequence，渲染成 MP4。", c:"影片媒體", s:"repo", nw:1},
+  {n:"ffmpeg-video", d:"影片後製十大模式：壓縮、剪輯、轉 GIF、抽音軌、字幕、YouTube/IG/抖音規格。", c:"影片媒體", s:"repo", nw:1},
+  {n:"video-downloader", d:"從各大平台下載影片素材。", c:"影片媒體", s:"repo"},
+  {n:"slack-gif-creator", d:"建立動畫 GIF，含大小限制驗證與可組合動畫基元。", c:"影片媒體", s:"on"},
+  // ── 記憶系統 ──
+  {n:"long-term-memory", d:"檔案式長期記憶：memory/MEMORY.md + git 永久保存，session 開始必讀，跨裝置有效。", c:"記憶系統", s:"repo", nw:1},
+  {n:"supermemory", d:"雲端記憶層：跨機器同步、團隊共享（需訂閱）。", c:"記憶系統", s:"repo"},
+  // ── 設計創作 ──
+  {n:"frontend-design", d:"2026 最熱門設計技能：避免 AI 罐頭風，產出有個性的生產級 UI。", c:"設計創作", s:"repo"},
+  {n:"web-artifacts-builder", d:"複雜多組件網頁 artifacts：React、Tailwind、shadcn/ui。", c:"設計創作", s:"on"},
+  {n:"canvas-design", d:"海報、視覺設計、靜態作品（PNG/PDF），以設計哲學驅動。", c:"設計創作", s:"on"},
+  {n:"algorithmic-art", d:"p5.js 生成藝術：流場、粒子系統、種子隨機。", c:"設計創作", s:"on"},
+  {n:"theme-factory", d:"為 artifacts 套用主題：10 種預設配色字體，也可即時生成。", c:"設計創作", s:"on"},
+  {n:"brand-guidelines", d:"Anthropic 官方品牌色彩與字體規範。", c:"設計創作", s:"on"},
+  {n:"design-dna", d:"從設計稿提取設計系統 DNA，整合 Vibe Coding 自動化。", c:"設計創作", s:"repo"},
+  {n:"taste-skill", d:"社群美感參考實作。", c:"設計創作", s:"repo"},
+  {n:"stop-slop", d:"消除 AI 罐頭風格輸出。", c:"設計創作", s:"repo"},
+  {n:"image-enhancer", d:"提升圖片與截圖品質：解析度、銳利度、清晰度。", c:"設計創作", s:"repo"},
+  // ── 開發工具 ──
+  {n:"skill-creator", d:"建立/優化/測試新技能——把重複工作流變成技能的核心工具。", c:"開發工具", s:"on"},
+  {n:"mcp-builder", d:"建立高品質 MCP 伺服器（Python / TypeScript）。", c:"開發工具", s:"on"},
+  {n:"code-review-skill", d:"20+ 語言全面代碼審查框架，16,000+ 行審查指南。", c:"開發工具", s:"repo"},
+  {n:"code-simplifier", d:"自動識別複雜代碼並簡化：降圈複雜度、消重複。", c:"開發工具", s:"repo"},
+  {n:"webapp-testing", d:"Playwright 測試本地網頁應用、除錯 UI、截圖。", c:"開發工具", s:"repo"},
+  {n:"changelog-generator", d:"從 git 提交自動生成客戶友善的變更日誌。", c:"開發工具", s:"repo"},
+  {n:"planning-with-files", d:"持久化文件計劃系統：崩潰恢復、多 Agent 協作。", c:"開發工具", s:"repo"},
+  {n:"headroom", d:"壓縮 AI 工具回傳的日誌與長文本，節省 token。", c:"開發工具", s:"repo"},
+  {n:"harness", d:"GitHub Trending 開發輔助工具。", c:"開發工具", s:"repo"},
+  {n:"ralph-loom", d:"必裝 Top 5 之一：開發循環輔助。", c:"開發工具", s:"repo"},
+  {n:"skill-share", d:"技能分享與發布工具。", c:"開發工具", s:"repo"},
+  {n:"template-skill", d:"技能模板：建立新技能的起點。", c:"開發工具", s:"repo"},
+  // ── 商業行銷 ──
+  {n:"invoice-organizer", d:"自動組織發票收據：讀檔、提取資訊、一致重命名。", c:"商業行銷", s:"repo"},
+  {n:"experience-lab", d:"瀏覽器發票管理工作流：設計提取到代碼生成的端到端自動化。", c:"商業行銷", s:"repo"},
+  {n:"bpm-framework", d:"低代碼業務流程管理系統。", c:"商業行銷", s:"repo"},
+  {n:"competitive-ads-extractor", d:"提取分析競品廣告：訊息策略與創意手法。", c:"商業行銷", s:"repo"},
+  {n:"lead-research-assistant", d:"潛在客戶研究：分析產品、搜尋目標公司、外聯策略。", c:"商業行銷", s:"repo"},
+  {n:"domain-name-brainstormer", d:"域名創意生成 + 多 TLD 可用性檢查。", c:"商業行銷", s:"repo"},
+  // ── 寫作溝通 ──
+  {n:"doc-coauthoring", d:"結構化文件共同撰寫：提案、規格、決策文件。", c:"寫作溝通", s:"on"},
+  {n:"internal-comms", d:"內部溝通文件：狀態報告、FAQ、專案更新、公告。", c:"寫作溝通", s:"on"},
+  {n:"content-research-writer", d:"內容研究寫作：查資料、加引用、改開頭鉤子。", c:"寫作溝通", s:"repo"},
+  {n:"meeting-insights-analyzer", d:"會議逐字稿行為分析：發言比例、衝突迴避、領導風格。", c:"寫作溝通", s:"repo"},
+  // ── 生產力 ──
+  {n:"file-organizer", d:"智慧檔案整理：理解上下文、找重複、建議結構。", c:"生產力", s:"repo"},
+  {n:"developer-growth-analysis", d:"開發者成長分析。", c:"生產力", s:"repo"},
+  {n:"raffle-winner-picker", d:"抽獎工具：從清單/試算表加密安全隨機抽出得獎者。", c:"生產力", s:"repo"},
+  {n:"n8n-workflows", d:"n8n 自動化工作流設計與維護。", c:"生產力", s:"repo"},
+  // ── 內建指令 ──
+  {n:"/code-review", d:"審查目前 diff 的正確性錯誤與簡化機會。", c:"內建指令", s:"core"},
+  {n:"/simplify", d:"對變更代碼做重用、簡化、效率清理。", c:"內建指令", s:"core"},
+  {n:"/verify", d:"端到端驗證代碼變更是否真的有效。", c:"內建指令", s:"core"},
+  {n:"/security-review", d:"對當前分支變更做安全審查。", c:"內建指令", s:"core"},
+  {n:"dataviz", d:"圖表/儀表板設計系統：配色公式、標記規範。", c:"內建指令", s:"core"},
+  {n:"/loop", d:"定時循環執行任務（例：每 5 分鐘檢查部署）。", c:"內建指令", s:"core"},
+  {n:"/init", d:"為新專案生成 CLAUDE.md 文檔。", c:"內建指令", s:"core"},
+];
+
+const SRC = { on:["啟用中","b-on"], repo:["倉庫收藏","b-repo"], core:["內建","b-core"] };
+const cats = [...new Set(SKILLS.map(s=>s.c))];
+let activeCat = null;
+
+document.getElementById("sTotal").textContent = SKILLS.length;
+document.getElementById("sCats").textContent = cats.length;
+document.getElementById("sOn").textContent = SKILLS.filter(s=>s.s==="on").length;
+document.getElementById("sNew").textContent = SKILLS.filter(s=>s.nw).length;
+
+const chipBox = document.getElementById("chips");
+function mkChip(label, count, cat){
+  const b = document.createElement("button");
+  b.className = "chip"; b.type = "button";
+  b.innerHTML = label + (count ? '<span class="n">' + count + "</span>" : "");
+  b.onclick = () => { activeCat = (activeCat===cat) ? null : cat; render(); };
+  b.dataset.cat = cat ?? "";
+  return b;
+}
+chipBox.appendChild(mkChip("全部", SKILLS.length, null));
+cats.forEach(c => chipBox.appendChild(mkChip(c, SKILLS.filter(s=>s.c===c).length, c)));
+
+const q = document.getElementById("q");
+q.addEventListener("input", render);
+
+function render(){
+  [...chipBox.children].forEach(ch => ch.classList.toggle("on", (ch.dataset.cat||null) === activeCat || (!activeCat && ch.dataset.cat==="")));
+  const kw = q.value.trim().toLowerCase();
+  const grid = document.getElementById("grid");
+  grid.innerHTML = "";
+  const hits = SKILLS.filter(s =>
+    (!activeCat || s.c===activeCat) &&
+    (!kw || (s.n+s.d+s.c).toLowerCase().includes(kw))
+  );
+  document.getElementById("empty").hidden = hits.length > 0;
+  hits.forEach(s => {
+    const [label, cls] = SRC[s.s];
+    const el = document.createElement("div");
+    el.className = "card";
+    el.innerHTML =
+      '<div class="top"><h3>' + s.n + (s.nw ? ' <span class="new">🆕</span>' : "") + '</h3>' +
+      '<span class="badge ' + cls + '">' + label + '</span></div>' +
+      '<p>' + s.d + (s.w ? ' <span class="warn">⚠️ ' + s.w + '</span>' : "") + '</p>' +
+      '<div class="foot"><span class="cat">' + s.c + '</span></div>';
+    grid.appendChild(el);
+  });
+}
+render();
+</script>
