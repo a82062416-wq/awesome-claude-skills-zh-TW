@@ -1,6 +1,7 @@
 # Memory Summary — 長期記憶摘要
 
-> 最後更新：2026/07/06（Vault 初始建置）
+> 最後更新：2026/07/07（收官：建置與部署完成，交接事項進 Sticky）
+> 前次更新：2026/07/06（Vault 初始建置）
 >
 > JACK 每次啟動時快速掌握全貌用的精華版。詳細紀錄在 `memory/` 資料夾裡。
 > 📏 更新紀錄只留上面兩條，更早的搬 `sop/vault-changelog.md`。
@@ -13,6 +14,8 @@
 
 - [ ] 常駐 — **一律用繁體中文回覆菜菜**。菜菜英文不好，英文資料要翻譯重點再給
 - [ ] 常駐 — 菜菜丟檔案進來 → 跑 `skills/document-intake.md`（判斷所屬專案 → 修正或完成）
+- [ ] P0 — **私有 repo 尚未建立**：https://github.com/new?name=caicai-vault&visibility=private 建好後把完整版推上去
+- [ ] P1 — skills 倉庫 PR #4（公開安全版）為 draft，待菜菜 review 後 merge
 - [ ] P2 — `context/company-overview.md` 剩兩處待補：流失率口徑、市場開發的具體卡點（細節見私有 Vault）
 - [ ] P1 — `identity/decision-style.md` 的品質標準、卡關模式待討論
 - [ ] P2 — `identity/voice-and-tone.md` 尚未建立，第一次寫對外文稿前必須先跟菜菜討論建檔
@@ -28,6 +31,7 @@
 | 日期 | 決策 | 理由 | 結果 |
 |------|------|------|------|
 | 2026/07/06 | 建立 Vault，AI 搭檔命名 JACK | 長期記憶累積 + 技能可迭代重複運用 | 初始建置完成 |
+| 2026/07/07 | 部署雙軌：公開安全版（PR #4）+ 完整版 zip | 公開倉庫不放敏感資訊；私有 repo 權限不足，由菜菜自建 | 待 merge / 待建 repo |
 
 ## 教訓
 
