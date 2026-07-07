@@ -21,6 +21,7 @@
     after-action.md      ← 收官三步：寫 memory → 更新相關文件 → 更新 memory-summary
     git-workflow.md      ← Day-2 Git 操作：同步、第二台機器、衝突處理、救援
     vault-changelog.md   ← 核心檔案更新 log 的歷史存放處（結構性事件）
+    vault-audit.md       ← Vault 索引健檢 SOP：抓漏 index 的檔案與過時條目，每月跑一次
   /operations            ← 公司營運資料（規章制度、勞保勞動法規、系統開發）— 尚無檔案
   /projects              ← 各項目的狀態 → 讀 INDEX.md（收官的搬 archive/）
   /people                ← 重要聯絡人背景 — 尚無檔案
