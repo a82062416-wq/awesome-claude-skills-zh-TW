@@ -51,6 +51,8 @@
 - `awesome-claude-skills-zh-TW`：繁中技能收藏庫 + plugin marketplace（41 個可載入技能）
 - PR #3（2026-07-07 完成合併）：整合報告 + 影片/記憶技能 + 技能樹儀表板 + Harness Phase 1-3
 - 完整環境盤點見 `CLAUDE-CODE-整合分析報告.md`；技能總覽見 `skill-tree.html`
+- 🗺️ 倉庫導覽分類看 `INDEX.md`（63 技能按用途分 11 類 + 六層結構）；
+  技能實體平鋪根目錄未搬移（動路徑風險高），靠 INDEX 索引導覽
 
 ## 💡 已學到的教訓
 
