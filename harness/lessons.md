@@ -15,8 +15,8 @@
 - 2026-07-07｜制度撰寫｜作者自審制度檔 → fresh-context 審查員抓出 15 處衝突與歧義｜寫的人驗不出自己的盲點，隔離驗證對文件同樣適用
 - 2026-07-08｜宣稱不符｜藍圖寫「CI 會擋」但檢查只是 warning、宣稱補了技能卻沒建｜文件宣稱的每個「✅」都要有可執行證據，審查員專抓「說了沒做」
 - 2026-07-08｜強制關卡｜一致性檢查用 warning 形同虛設｜「不靠自律靠關卡」= 違規必須 exit 1 擋 CI，warning 會被無視
+- 2026-07-08｜gitignore誤傷｜*secret* 規則吞掉 secret-scanner-skill 資料夾，本地假綠CI才炸｜寬鬆萬用gitignore會靜默吞檔，validate 應檢查 marketplace source 是否被 git 追蹤
 
 ## 制度提案（🟡 等使用者核可）
 
 （目前無）
-- 2026-07-08｜gitignore誤傷｜*secret* 規則吞掉 secret-scanner-skill 資料夾，本地假綠CI才炸｜寬鬆萬用gitignore會靜默吞檔，validate 應檢查 marketplace source 是否被 git 追蹤
