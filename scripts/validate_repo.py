@@ -81,8 +81,10 @@ if mp:
         if folder in NON_SKILL:
             continue
         if folder not in registered:
-            warns.append(f"技能 {folder}/ 有 SKILL.md 但未註冊 marketplace.json（對外隱形）")
+            # 強制關卡：未註冊 = 對外隱形，CI 擋下（不靠自律靠關卡）
+            errors.append(f"技能 {folder}/ 有 SKILL.md 但未註冊 marketplace.json（對外隱形，請補註冊）")
         elif f"./{folder}/" not in readme and f"({folder}/" not in readme:
+            # README 未列較輕微（技能仍可安裝），僅警告
             warns.append(f"技能 {folder}/ 已註冊 marketplace 但 README 未列（讀寫不一致）")
 
 for w in warns:

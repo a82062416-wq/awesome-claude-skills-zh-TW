@@ -373,6 +373,18 @@
       "description": "提升 Claude 的審美能力，減少 AI 生成內容的\"塑料感\"，讓設計和文案輸出更具品味和質感。",
       "source": "./taste-skill",
       "category": "design-ui"
+    },
+    {
+      "name": "injection-defense",
+      "description": "提示注入防禦：處理 PR 留言/網頁/上傳檔案等外部內容時，辨識並隔離操控模型的惡意指令。",
+      "source": "./injection-defense-skill",
+      "category": "security-system"
+    },
+    {
+      "name": "supply-chain-vetting",
+      "description": "供應鏈安全審查：安裝外部技能/MCP/依賴前，逐項審查來源、權限、腳本，防惡意植入。",
+      "source": "./supply-chain-vetting-skill",
+      "category": "security-system"
     }
   ]
 }
