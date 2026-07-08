@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>簽核流程 — BPM 原型 v1</title>
+<style>
+  :root{
+    --accent:#2D7FF9; --accent-deep:#1B5FD9; --accent-soft:#E8F1FF;
+    --bg:#F5F7FA; --surface:#FFFFFF; --sidebar:#FFFFFF;
+    --ink:#1E293B; --muted:#64748B; --line:#E3E8EF;
+    --ok:#16A34A; --ok-soft:#E7F6ED; --pending:#F59E0B; --pending-soft:#FEF4E2;
+    --reject:#DC2626; --reject-soft:#FBEAEA;
+    --shadow:0 1px 2px rgba(16,32,64,.06),0 4px 12px rgba(16,32,64,.05);
+  }
+  @media (prefers-color-scheme:dark){
+    :root{
+      --accent:#4B93FF; --accent-deep:#2D7FF9; --accent-soft:#16233D;
+      --bg:#0F1621; --surface:#161F2E; --sidebar:#131B28;
+      --ink:#E6ECF3; --muted:#8A9AB0; --line:#26303F;
+      --ok:#3CB371; --ok-soft:#14271C; --pending:#E0A020; --pending-soft:#2A2213;
+      --reject:#E5675C; --reject-soft:#2C1817;
+      --shadow:0 1px 2px rgba(0,0,0,.3),0 4px 12px rgba(0,0,0,.25);
+    }
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;
+    background:var(--bg);color:var(--ink);line-height:1.5;
+    display:grid;grid-template-columns:232px 1fr;min-height:100vh;
+    -webkit-font-smoothing:antialiased;
+  }
+  /* ── 側邊欄 ── */
+  .sidebar{background:var(--sidebar);border-right:1px solid var(--line);padding:20px 14px;display:flex;flex-direction:column;gap:6px}
+  .brand{display:flex;align-items:center;gap:10px;padding:6px 8px 18px}
+  .brand .logo{width:30px;height:30px;border-radius:8px;background:linear-gradient(135deg,var(--accent),var(--accent-deep));display:grid;place-items:center;color:#fff;font-weight:800;font-size:15px}
+  .brand b{font-size:16px;letter-spacing:.02em}
+  .brand span{font-size:11px;color:var(--muted);display:block;font-weight:400}
+  .nav-label{font-size:11px;color:var(--muted);letter-spacing:.1em;padding:12px 10px 4px}
+  .nav a{display:flex;align-items:center;gap:11px;padding:9px 10px;border-radius:9px;color:var(--muted);text-decoration:none;font-size:14px;font-weight:500}
+  .nav a .ic{width:18px;text-align:center;font-size:15px}
+  .nav a:hover{background:var(--bg);color:var(--ink)}
+  .nav a.on{background:var(--accent-soft);color:var(--accent-deep);font-weight:600}
+  .nav a .badge{margin-left:auto;background:var(--reject);color:#fff;font-size:11px;font-weight:700;padding:1px 7px;border-radius:99px}
+  /* ── 主區 ── */
+  .main{display:flex;flex-direction:column;min-width:0}
+  .topbar{height:60px;background:var(--surface);border-bottom:1px solid var(--line);display:flex;align-items:center;gap:16px;padding:0 24px}
+  .topbar h1{font-size:17px;font-weight:700}
+  .topbar .crumb{color:var(--muted);font-weight:400;font-size:13px}
+  .search{margin-left:auto;position:relative}
+  .search input{border:1px solid var(--line);background:var(--bg);border-radius:9px;padding:8px 12px 8px 32px;font-size:13px;width:200px;color:var(--ink);font-family:inherit}
+  .search::before{content:"🔍";position:absolute;left:10px;top:7px;font-size:12px;opacity:.5}
+  .me{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,#7C9EF9,#4B93FF);display:grid;place-items:center;color:#fff;font-weight:700;font-size:13px}
+  .content{padding:22px 24px;display:grid;grid-template-columns:340px 1fr;gap:20px;align-items:start;flex:1}
+  @media(max-width:920px){body{grid-template-columns:1fr}.sidebar{display:none}.content{grid-template-columns:1fr}}
+  /* ── 待簽清單 ── */
+  .panel{background:var(--surface);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow)}
+  .panel-hd{padding:15px 18px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between}
+  .panel-hd h2{font-size:14px;font-weight:700}
+  .panel-hd .count{font-size:12px;color:var(--muted)}
+  .list{display:flex;flex-direction:column}
+  .item{padding:14px 18px;border-bottom:1px solid var(--line);cursor:pointer;display:flex;flex-direction:column;gap:6px;border-left:3px solid transparent}
+  .item:last-child{border-bottom:none}
+  .item:hover{background:var(--bg)}
+  .item.on{background:var(--accent-soft);border-left-color:var(--accent)}
+  .item .row1{display:flex;align-items:center;gap:8px}
+  .item .type{font-size:14px;font-weight:600}
+  .item .no{font-size:11px;color:var(--muted);margin-left:auto;font-variant-numeric:tabular-nums}
+  .item .row2{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--muted)}
+  .pill{font-size:11px;font-weight:600;padding:2px 9px;border-radius:99px}
+  .pill.pending{background:var(--pending-soft);color:var(--pending)}
+  .pill.ok{background:var(--ok-soft);color:var(--ok)}
+  .pill.reject{background:var(--reject-soft);color:var(--reject)}
+  /* ── 簽核單詳情 ── */
+  .doc{background:var(--surface);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);overflow:hidden}
+  .doc-hd{padding:20px 24px;border-bottom:1px solid var(--line);display:flex;align-items:flex-start;gap:14px}
+  .doc-hd .avatar{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#F9A87C,#F97C7C);display:grid;place-items:center;color:#fff;font-weight:700}
+  .doc-hd .who b{font-size:16px}
+  .doc-hd .who span{display:block;font-size:12.5px;color:var(--muted);margin-top:2px}
+  .doc-hd .docno{margin-left:auto;text-align:right;font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+  .doc-body{padding:22px 24px;display:grid;grid-template-columns:1.3fr 1fr;gap:26px}
+  @media(max-width:640px){.doc-body{grid-template-columns:1fr}}
+  .fields{display:flex;flex-direction:column;gap:16px}
+  .field label{font-size:11.5px;color:var(--muted);letter-spacing:.04em;display:block;margin-bottom:3px}
+  .field .val{font-size:14.5px;font-weight:500}
+  .field .val.big{font-size:20px;font-weight:700;color:var(--accent-deep)}
+  .reason{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:12px 14px;font-size:13.5px;color:var(--ink)}
+  /* ── 簽核時間軸 ── */
+  .flow h3{font-size:12px;color:var(--muted);letter-spacing:.06em;margin-bottom:14px}
+  .steps{position:relative;display:flex;flex-direction:column;gap:0}
+  .step{display:flex;gap:12px;padding-bottom:20px;position:relative}
+  .step:last-child{padding-bottom:0}
+  .step::before{content:"";position:absolute;left:13px;top:28px;bottom:-2px;width:2px;background:var(--line)}
+  .step:last-child::before{display:none}
+  .step.done::before{background:var(--ok)}
+  .dot{width:28px;height:28px;border-radius:50%;flex-shrink:0;display:grid;place-items:center;font-size:13px;font-weight:700;z-index:1;border:2px solid var(--line);background:var(--surface);color:var(--muted)}
+  .step.done .dot{background:var(--ok);border-color:var(--ok);color:#fff}
+  .step.current .dot{background:var(--accent);border-color:var(--accent);color:#fff;box-shadow:0 0 0 4px var(--accent-soft)}
+  .step .info b{font-size:14px}
+  .step .info span{display:block;font-size:12px;color:var(--muted);margin-top:1px}
+  .step .info .time{font-size:11px;color:var(--muted);font-variant-numeric:tabular-nums}
+  /* ── 動作列 ── */
+  .actions{padding:16px 24px;border-top:1px solid var(--line);display:flex;gap:10px;justify-content:flex-end;background:var(--bg)}
+  .btn{border:1px solid var(--line);background:var(--surface);color:var(--ink);font-family:inherit;font-size:14px;font-weight:600;padding:9px 20px;border-radius:9px;cursor:pointer}
+  .btn:hover{border-color:var(--muted)}
+  .btn.reject{color:var(--reject);border-color:var(--reject-soft)}
+  .btn.reject:hover{background:var(--reject-soft)}
+  .btn.approve{background:var(--accent);border-color:var(--accent);color:#fff}
+  .btn.approve:hover{background:var(--accent-deep)}
+  .btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  /* toast */
+  .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--ok);color:#fff;padding:12px 22px;border-radius:10px;font-weight:600;font-size:14px;box-shadow:var(--shadow);opacity:0;transition:.35s;z-index:50}
+  .toast.show{transform:translateX(-50%) translateY(0);opacity:1}
+  .demo-note{grid-column:1/-1;font-size:12px;color:var(--muted);text-align:center;padding-top:4px}
+</style>
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="logo">簽</div>
+      <div><b>NuFlow</b><span>企業簽核系統</span></div>
+    </div>
+    <nav class="nav">
+      <div class="nav-label">工作區</div>
+      <a href="#"><span class="ic">🏠</span>首頁</a>
+      <a href="#" class="on"><span class="ic">📥</span>待我簽核<span class="badge">4</span></a>
+      <a href="#"><span class="ic">📝</span>我的申請</a>
+      <a href="#"><span class="ic">📋</span>表單中心</a>
+      <div class="nav-label">管理</div>
+      <a href="#"><span class="ic">🔀</span>流程設計</a>
+      <a href="#"><span class="ic">📊</span>統計報表</a>
+      <a href="#"><span class="ic">⚙️</span>設定</a>
+    </nav>
+  </aside>
+
+  <div class="main">
+    <div class="topbar">
+      <h1>待我簽核 <span class="crumb">／ 請假申請單</span></h1>
+      <div class="search"><input placeholder="搜尋單號、申請人…"></div>
+      <div class="me">陳</div>
+    </div>
+
+    <div class="content">
+      <!-- 待簽清單 -->
+      <section class="panel">
+        <div class="panel-hd"><h2>待簽核</h2><span class="count">共 4 筆</span></div>
+        <div class="list" id="list">
+          <div class="item on" data-i="0">
+            <div class="row1"><span class="type">請假申請</span><span class="no">#LV-20260708-013</span></div>
+            <div class="row2">王小美 · 管理部<span class="pill pending" style="margin-left:auto">待簽</span></div>
+          </div>
+          <div class="item" data-i="1">
+            <div class="row1"><span class="type">費用核銷</span><span class="no">#EX-20260708-047</span></div>
+            <div class="row2">林大同 · 工務部<span class="pill pending" style="margin-left:auto">待簽</span></div>
+          </div>
+          <div class="item" data-i="2">
+            <div class="row1"><span class="type">加班申請</span><span class="no">#OT-20260707-021</span></div>
+            <div class="row2">張美玲 · 財務部<span class="pill pending" style="margin-left:auto">待簽</span></div>
+          </div>
+          <div class="item" data-i="3">
+            <div class="row1"><span class="type">採購申請</span><span class="no">#PO-20260707-008</span></div>
+            <div class="row2">李志明 · 總務<span class="pill pending" style="margin-left:auto">待簽</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 簽核單詳情 -->
+      <section class="doc">
+        <div class="doc-hd">
+          <div class="avatar">王</div>
+          <div class="who"><b>王小美</b><span>管理部 · 行政專員</span></div>
+          <div class="docno">單號 #LV-20260708-013<br>申請時間 2026/07/08 09:14</div>
+        </div>
+        <div class="doc-body">
+          <div class="fields">
+            <div class="field"><label>假別</label><div class="val big">特休假</div></div>
+            <div class="field"><label>請假期間</label><div class="val">2026/07/14 09:00 — 07/15 18:00（共 2 天）</div></div>
+            <div class="field"><label>代理人</label><div class="val">陳雅婷（管理部）</div></div>
+            <div class="field"><label>事由</label><div class="reason">家中長輩就醫，需陪同至醫院複診，已與代理人交接本週管理費對帳事宜。</div></div>
+            <div class="field"><label>附件</label><div class="val" style="color:var(--accent-deep)">📎 就醫證明.pdf</div></div>
+          </div>
+          <div class="flow">
+            <h3>簽核流程</h3>
+            <div class="steps">
+              <div class="step done">
+                <div class="dot">✓</div>
+                <div class="info"><b>王小美</b><span>申請人 · 已送出</span><span class="time">07/08 09:14</span></div>
+              </div>
+              <div class="step done">
+                <div class="dot">✓</div>
+                <div class="info"><b>周佳蓉</b><span>直屬主管 · 已核准</span><span class="time">07/08 10:02</span></div>
+              </div>
+              <div class="step current">
+                <div class="dot">3</div>
+                <div class="info"><b>陳建宏（你）</b><span>部門經理 · 待簽核</span><span class="time">— 等待中</span></div>
+              </div>
+              <div class="step">
+                <div class="dot">4</div>
+                <div class="info"><b>人資部</b><span>備查 · 未開始</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="demo-note">↑ 這是原型示意；點左側清單可切換不同單據，點下方按鈕試簽核</div>
+        </div>
+        <div class="actions">
+          <button class="btn reject" onclick="toast('已退回申請，通知申請人補件','var(--reject)')">退回</button>
+          <button class="btn" onclick="toast('已轉簽給其他主管')">轉簽</button>
+          <button class="btn approve" onclick="toast('✓ 已核准，流程進入下一關')">核准</button>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+<script>
+  const DATA=[
+    {t:"請假申請",who:"王小美",dept:"管理部 · 行政專員",ini:"王"},
+    {t:"費用核銷",who:"林大同",dept:"工務部 · 技師",ini:"林"},
+    {t:"加班申請",who:"張美玲",dept:"財務部 · 會計",ini:"張"},
+    {t:"採購申請",who:"李志明",dept:"總務 · 管理員",ini:"李"},
+  ];
+  const items=[...document.querySelectorAll('.item')];
+  items.forEach(el=>el.addEventListener('click',()=>{
+    items.forEach(x=>x.classList.remove('on'));el.classList.add('on');
+    const d=DATA[+el.dataset.i];
+    document.querySelector('.doc-hd .avatar').textContent=d.ini;
+    document.querySelector('.doc-hd .who b').textContent=d.who;
+    document.querySelector('.doc-hd .who span').textContent=d.dept;
+    document.querySelector('.field .val.big').textContent=d.t;
+  }));
+  let tm;const tEl=document.getElementById('toast');
+  function toast(msg,color){tEl.textContent=msg;tEl.style.background=color||'var(--ok)';tEl.classList.add('show');clearTimeout(tm);tm=setTimeout(()=>tEl.classList.remove('show'),2200);}
+</script>
+</body>
+</html>
