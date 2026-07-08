@@ -277,6 +277,102 @@
       "description": "重要檔案備份守護。當使用者要「備份」「怕檔案不見」「重要資料保護」時使用。清點關鍵檔、建立備份清單、驗證備份完整。",
       "source": "./backup-guardian-skill",
       "category": "security-system"
+    },
+    {
+      "name": "bpm-framework-skill",
+      "description": "完整的低代碼業務流程管理框架。支持拖拽式流程設計、多系統集成、AI 驅動自動化、實時監控。適合快速構建企業級 BPM 系統，無需編寫後端代碼。",
+      "source": "./bpm-framework-skill",
+      "category": "business-marketing"
+    },
+    {
+      "name": "code-review-skill",
+      "description": "全面的代碼審查技能，涵蓋 20+ 種語言和框架，提供生產級別的審查指南和最佳實踐。",
+      "source": "./code-review-skill",
+      "category": "development-tools"
+    },
+    {
+      "name": "code-simplifier",
+      "description": "自動簡化複雜代碼，提升可讀性和可維護性，識別冗餘邏輯和優化機會。",
+      "source": "./code-simplifier",
+      "category": "development-tools"
+    },
+    {
+      "name": "design-dna-skill",
+      "description": "設計系統 DNA 提取工具，自動從 UI 截圖/設計圖片生成機器可讀的設計系統 JSON，驅動自動化設計編碼工作流。",
+      "source": "./design-dna-skill",
+      "category": "design-ui"
+    },
+    {
+      "name": "experience-lab-skill",
+      "description": "完整的瀏覽器發票管理工作流系統。展示如何使用 Design-DNA 從設計提取系統，通過 Vibe Coding 自動生成 UI，最終交付生產級別的發票管理應用。",
+      "source": "./experience-lab-skill",
+      "category": "business-marketing"
+    },
+    {
+      "name": "frontend-design",
+      "description": "前端設計技能，具有八個美學錨點，幫助生成大膽、獨特、反 AI slop 的界面設計。",
+      "source": "./frontend-design",
+      "category": "design-ui"
+    },
+    {
+      "name": "harness-skill",
+      "description": "使用 harness 框架自動設計和編排 AI Agent 團隊，實現複雜的多 Agent 協作工作流。",
+      "source": "./harness-skill",
+      "category": "productivity-organization"
+    },
+    {
+      "name": "headroom-skill",
+      "description": "使用 headroom 工具壓縮 AI 工具返回的日誌和長文本，大幅節省處理成本和 token 消耗。",
+      "source": "./headroom-skill",
+      "category": "development-tools"
+    },
+    {
+      "name": "markitdown-skill",
+      "description": "使用 Microsoft 開源的 markitdown 工具將多種文檔格式（PDF、Word、PPT、Excel、圖片、音頻等）轉換為 Markdown，便於 Claude 處理和分析。",
+      "source": "./markitdown-skill",
+      "category": "document-processing"
+    },
+    {
+      "name": "paddleocr-skill",
+      "description": "使用 PaddleOCR 進行高精度光學字符識別 (OCR)，支持 100+ 語言，可從圖片、掃描文件、截圖中快速提取文字。",
+      "source": "./paddleocr-skill",
+      "category": "document-processing"
+    },
+    {
+      "name": "planning-with-files",
+      "description": "使用持久化文件計劃系統為 AI Agent 提供穩定的任務協調，支持長期運行任務和多 Agent 協作。",
+      "source": "./planning-with-files",
+      "category": "development-tools"
+    },
+    {
+      "name": "ralph-loom",
+      "description": "自主開發循環框架，實現 AI Agent 的自動化開發流程，具有智能退出檢測和會話連續性。",
+      "source": "./ralph-loom",
+      "category": "development-tools"
+    },
+    {
+      "name": "skill-share",
+      "description": "A skill that creates new Claude skills and automatically shares them on Slack using Rube for seamless team collaboration and skill discovery.",
+      "source": "./skill-share",
+      "category": "development-tools"
+    },
+    {
+      "name": "stop-slop",
+      "description": "清除 Claude 生成文檔中的\"AI 味\"，包括冗余表述、過度修飾、模板化語言，輸出更自然、更專業的內容。",
+      "source": "./stop-slop",
+      "category": "design-ui"
+    },
+    {
+      "name": "supermemory-skill",
+      "description": "使用 supermemory 為 AI 提供強大的長期記憶能力，跨 session 保留和檢索上下文信息。",
+      "source": "./supermemory-skill",
+      "category": "productivity-organization"
+    },
+    {
+      "name": "taste-skill",
+      "description": "提升 Claude 的審美能力，減少 AI 生成內容的\"塑料感\"，讓設計和文案輸出更具品味和質感。",
+      "source": "./taste-skill",
+      "category": "design-ui"
     }
   ]
 }

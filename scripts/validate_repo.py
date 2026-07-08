@@ -70,6 +70,21 @@ if mem.is_file():
     if lines > 200:
         warns.append(f"memory/MEMORY.md 已 {lines} 行（協定上限 150）— 該歸檔瘦身了")
 
+# 6. 技能↔marketplace↔README 一致性（控制單元：防「寫入/讀出不一致」）
+#    非技能目錄不納入（記憶、制度、文件子技能包等）
+NON_SKILL = {"memory", "harness", "fable-harness", "document-skills", "scripts", "n8n-workflows"}
+if mp:
+    registered = {p.get("source", "").lstrip("./").rstrip("/") for p in mp.get("plugins", [])}
+    readme = (ROOT / "README.md").read_text(encoding="utf-8") if (ROOT / "README.md").is_file() else ""
+    for skill_md in sorted(ROOT.glob("*/SKILL.md")):
+        folder = skill_md.parent.name
+        if folder in NON_SKILL:
+            continue
+        if folder not in registered:
+            warns.append(f"技能 {folder}/ 有 SKILL.md 但未註冊 marketplace.json（對外隱形）")
+        elif f"./{folder}/" not in readme and f"({folder}/" not in readme:
+            warns.append(f"技能 {folder}/ 已註冊 marketplace 但 README 未列（讀寫不一致）")
+
 for w in warns:
     print(f"⚠️  {w}")
 for e in errors:
