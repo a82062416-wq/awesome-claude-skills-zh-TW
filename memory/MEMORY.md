@@ -34,8 +34,11 @@
 - Fable Harness（2026-07-07 安裝，改編自 Miguok/fable-harness）：SessionStart 注入
   FABLE-PROTOCOL（代號 FABLE-PROTOCOL-V1-CANARY）、每輪 OODA 微提醒、Stop 驗證閘
   （改程式沒驗證會被擋）、adversarial-review 技能 + skeptic/red-team/simplifier 三反方 agent
-- ⚠️ 未完成：每週巡檢 Routine 被平台 MCP 核准層擋住，待使用者在 claude.ai/code 介面手動建立
-  或之後 session 重試 create_trigger
+- 🏛️ 協作制度（2026-07-07，Fable 5 唯一 session 的交接產物）：`harness/` 目錄——
+  派工三件套、升降級路徑、判斷力矩陣、派工模板、反思協議、交接信。
+  弱模型接手第一件事：讀 harness/00-diagnosis.md 與 06-handoff-letter.md
+- ⚠️ 未完成：每週巡檢 Routine 被平台 MCP 核准層擋住（永久阻斷，勿重試——
+  見 harness/00-diagnosis.md），待使用者在 claude.ai/code 介面手動建立
 
 ## 📚 專案進行中
 
