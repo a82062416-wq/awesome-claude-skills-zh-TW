@@ -181,6 +181,102 @@
       "description": "檔案式長期記憶系統（Git 版 claude-mem）：記憶存在 memory/MEMORY.md，靠 git 永久保存，跨 session 跨裝置，零外部依賴、零隱私風險。",
       "source": "./long-term-memory-skill",
       "category": "productivity-organization"
+    },
+    {
+      "name": "bank-reconciliation",
+      "description": "銀行對帳單與帳簿勾稽。當使用者要「銀行對帳」「對帳單勾稽」「找出未達帳項」「銀行存款調節表」時使用。自動比對日期金額、標記未達帳、產出調節表。",
+      "source": "./bank-reconciliation-skill",
+      "category": "data-analytics"
+    },
+    {
+      "name": "payroll-calculator",
+      "description": "台灣薪資計算器。當使用者要「算薪資」「勞健保費」「加班費」「代扣所得稅」「薪資明細表」時使用。含勞保健保級距、加班費倍率、破月折算。",
+      "source": "./payroll-calculator-skill",
+      "category": "data-analytics"
+    },
+    {
+      "name": "tax-filing-helper",
+      "description": "台灣稅務申報輔助。當使用者要「營業稅申報」「扣繳憑單」「401報表」「各類所得扣繳」時使用。整理進銷項、計算應納稅額、產出申報所需表格。",
+      "source": "./tax-filing-helper-skill",
+      "category": "data-analytics"
+    },
+    {
+      "name": "management-committee-report",
+      "description": "社區管委會月度報告生成。當使用者要「管委會月報」「社區月報表」「主委報告」時使用。彙整收支、工程、缺失、決議，產出制式月報。",
+      "source": "./mgmt-committee-report-skill",
+      "category": "business-marketing"
+    },
+    {
+      "name": "meeting-minutes-formatter",
+      "description": "會議記錄格式化。當使用者要「整理會議記錄」「會議紀錄」「決議事項」時使用（管委會、住戶大會、公司會議）。從逐字稿或筆記抽出決議、分工、期限。",
+      "source": "./meeting-minutes-skill",
+      "category": "communication-writing"
+    },
+    {
+      "name": "vendor-contract-tracker",
+      "description": "廠商合約到期追蹤。當使用者要「合約管理」「廠商到期提醒」「保全/清潔/電梯合約」時使用。建立合約清單、標記到期、提前預警。",
+      "source": "./vendor-contract-tracker-skill",
+      "category": "productivity-organization"
+    },
+    {
+      "name": "budget-variance-analyzer",
+      "description": "預算與實際差異分析。當使用者要「預算執行率」「預實比較」「超支分析」時使用。比對預算vs實際、算差異率、標紅超支科目。",
+      "source": "./budget-variance-skill",
+      "category": "data-analytics"
+    },
+    {
+      "name": "arrears-chaser",
+      "description": "欠費催繳信生成與追蹤。當使用者要「催繳」「欠費通知」「管理費催收」時使用。分級生成催繳信（初次/二次/存證信函級）、追蹤欠費戶。",
+      "source": "./arrears-chaser-skill",
+      "category": "business-marketing"
+    },
+    {
+      "name": "fixed-asset-depreciation",
+      "description": "固定資產折舊表。當使用者要「折舊」「攤提」「資產折舊表」時使用。直線法/年數合計法計算、產出逐年折舊表與帳面價值。",
+      "source": "./depreciation-skill",
+      "category": "data-analytics"
+    },
+    {
+      "name": "utility-bill-splitter",
+      "description": "公共費用分攤。當使用者要「水電分攤」「公共電費」「按坪數/戶數分攤」時使用。依坪數/戶數/使用量分攤公共費用到各戶。",
+      "source": "./utility-splitter-skill",
+      "category": "data-analytics"
+    },
+    {
+      "name": "excel-formula-auditor",
+      "description": "Excel 公式稽核。當使用者要「檢查公式」「找出Excel錯誤」「公式壞掉」「#REF錯誤」時使用。掃描公式錯誤、斷裂參照、加總漏欄、硬編數字。",
+      "source": "./excel-formula-auditor-skill",
+      "category": "development-tools"
+    },
+    {
+      "name": "labor-law-advisor",
+      "description": "台灣勞動法規查詢輔助。當使用者問「勞基法」「工時」「特休」「資遣費」「加班上限」時使用。查詢法規、計算特休/資遣費。",
+      "source": "./labor-law-advisor-skill",
+      "category": "data-analytics"
+    },
+    {
+      "name": "secret-scanner",
+      "description": "機密洩漏掃描。當使用者要「檢查有沒有洩漏密碼」「commit 前掃描」「機密掃描」時使用，或在 push 含個資/財務的 repo 前主動跑。偵測 API key、密碼、個資、金鑰。",
+      "source": "./secret-scanner-skill",
+      "category": "security-system"
+    },
+    {
+      "name": "skill-consistency-checker",
+      "description": "技能註冊一致性檢查。當使用者要「檢查技能」「技能有沒有漏註冊」「一致性檢查」時使用。比對技能資料夾↔marketplace↔README 三方是否一致。",
+      "source": "./skill-consistency-checker-skill",
+      "category": "development-tools"
+    },
+    {
+      "name": "token-budget-optimizer",
+      "description": "Token 消耗優化。當使用者覺得「太慢」「太貴」「context 爆了」或要「省 token」時使用。診斷 token 熱點、給精簡策略。",
+      "source": "./token-optimizer-skill",
+      "category": "development-tools"
+    },
+    {
+      "name": "data-backup-guardian",
+      "description": "重要檔案備份守護。當使用者要「備份」「怕檔案不見」「重要資料保護」時使用。清點關鍵檔、建立備份清單、驗證備份完整。",
+      "source": "./backup-guardian-skill",
+      "category": "security-system"
     }
   ]
 }
