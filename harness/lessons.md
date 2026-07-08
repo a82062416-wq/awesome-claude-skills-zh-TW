@@ -19,3 +19,4 @@
 ## 制度提案（🟡 等使用者核可）
 
 （目前無）
+- 2026-07-08｜gitignore誤傷｜*secret* 規則吞掉 secret-scanner-skill 資料夾，本地假綠CI才炸｜寬鬆萬用gitignore會靜默吞檔，validate 應檢查 marketplace source 是否被 git 追蹤
