@@ -1,0 +1,113 @@
+#!/usr/bin/env python3
+"""倉庫健康檢查：驗證 JSON 設定與技能結構。
+
+用法:
+  python3 scripts/validate_repo.py          # 嚴格模式（CI 用）：有錯誤 exit 1
+  python3 scripts/validate_repo.py --hook   # hook 模式：只印警告，永遠 exit 0
+"""
+import json
+import re
+import sys
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parent.parent
+HOOK_MODE = "--hook" in sys.argv
+errors: list[str] = []
+warns: list[str] = []
+
+
+def check_json(path: Path) -> dict | None:
+    try:
+        text = path.read_text(encoding="utf-8")
+        if "�" in text:
+            errors.append(f"{path.name}: 內含損壞字元（U+FFFD）")
+        return json.loads(text)
+    except FileNotFoundError:
+        errors.append(f"{path} 不存在")
+    except json.JSONDecodeError as e:
+        errors.append(f"{path.name}: JSON 解析失敗 — {e}")
+    return None
+
+
+def check_frontmatter(skill_md: Path) -> None:
+    text = skill_md.read_text(encoding="utf-8", errors="replace")
+    m = re.match(r"^---\n(.*?)\n---", text, re.S)
+    if not m:
+        warns.append(f"{skill_md.relative_to(ROOT)}: 缺少 YAML frontmatter")
+        return
+    fm = m.group(1)
+    for field in ("name:", "description:"):
+        if field not in fm:
+            warns.append(f"{skill_md.relative_to(ROOT)}: frontmatter 缺 {field[:-1]}")
+
+
+# 1. 設定檔 JSON 必須有效
+mp = check_json(ROOT / ".claude-plugin" / "marketplace.json")
+check_json(ROOT / ".claude" / "settings.json")
+
+# 2. marketplace 每個 plugin 的 source 必須存在、含 SKILL.md、且被 git 追蹤
+#    （被 git 追蹤這關防「.gitignore 誤傷技能資料夾」——這種 bug 本地工作區看不出，
+#     只有 CI clean checkout 才炸；把它提前到本地關卡）
+import subprocess
+try:
+    tracked = set(subprocess.run(
+        ["git", "ls-files"], cwd=ROOT, capture_output=True, text=True, check=True
+    ).stdout.splitlines())
+except Exception:
+    tracked = None  # 非 git 環境則跳過此關
+if mp:
+    for p in mp.get("plugins", []):
+        rel = p.get("source", "").lstrip("./").rstrip("/")
+        src = ROOT / rel
+        if not src.is_dir():
+            errors.append(f"marketplace: {p['name']} 的 source 目錄不存在（{p['source']}）")
+        elif not (src / "SKILL.md").is_file():
+            errors.append(f"marketplace: {p['name']} 缺 SKILL.md（{p['source']}）")
+        elif tracked is not None and f"{rel}/SKILL.md" not in tracked:
+            errors.append(f"marketplace: {p['name']} 的 SKILL.md 未被 git 追蹤"
+                          f"（可能被 .gitignore 誤傷）— {rel}/SKILL.md")
+
+# 3. 所有 SKILL.md 的 frontmatter 完整性
+for skill_md in sorted(ROOT.glob("*/SKILL.md")) + sorted(ROOT.glob("*/*/SKILL.md")):
+    check_frontmatter(skill_md)
+
+# 4. 只有 zh-TW 版而沒有 SKILL.md 的資料夾（載入器不認得，形同死資產）
+for zh in sorted(ROOT.glob("*/SKILL.zh-TW.md")) + sorted(ROOT.glob("*/*/SKILL.zh-TW.md")):
+    if not (zh.parent / "SKILL.md").is_file():
+        errors.append(f"{zh.parent.relative_to(ROOT)}: 只有 SKILL.zh-TW.md，Claude Code 不會載入")
+
+# 5. 記憶檔大小控制（協定上限 150 行，寬限到 200）
+mem = ROOT / "memory" / "MEMORY.md"
+if mem.is_file():
+    lines = len(mem.read_text(encoding="utf-8").splitlines())
+    if lines > 200:
+        warns.append(f"memory/MEMORY.md 已 {lines} 行（協定上限 150）— 該歸檔瘦身了")
+
+# 6. 技能↔marketplace↔README 一致性（控制單元：防「寫入/讀出不一致」）
+#    非技能目錄不納入（記憶、制度、文件子技能包等）
+NON_SKILL = {"memory", "harness", "fable-harness", "document-skills", "scripts", "n8n-workflows"}
+if mp:
+    registered = {p.get("source", "").lstrip("./").rstrip("/") for p in mp.get("plugins", [])}
+    readme = (ROOT / "README.md").read_text(encoding="utf-8") if (ROOT / "README.md").is_file() else ""
+    for skill_md in sorted(ROOT.glob("*/SKILL.md")):
+        folder = skill_md.parent.name
+        if folder in NON_SKILL:
+            continue
+        if folder not in registered:
+            # 強制關卡：未註冊 = 對外隱形，CI 擋下（不靠自律靠關卡）
+            errors.append(f"技能 {folder}/ 有 SKILL.md 但未註冊 marketplace.json（對外隱形，請補註冊）")
+        elif f"./{folder}/" not in readme and f"({folder}/" not in readme:
+            # README 未列較輕微（技能仍可安裝），僅警告
+            warns.append(f"技能 {folder}/ 已註冊 marketplace 但 README 未列（讀寫不一致）")
+
+for w in warns:
+    print(f"⚠️  {w}")
+for e in errors:
+    print(f"❌ {e}")
+
+if not errors and not warns:
+    print("✅ 倉庫健康檢查全數通過")
+elif not errors:
+    print(f"✅ 無錯誤（{len(warns)} 個警告）")
+
+sys.exit(0 if (HOOK_MODE or not errors) else 1)

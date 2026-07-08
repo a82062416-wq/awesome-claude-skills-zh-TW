@@ -1,11 +1,11 @@
 {
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
-  "name": "awesome-claude-skills",
+  "name": "awesome-claude-skills-zh-tw",
   "version": "1.0.0",
-  "description": "A curated marketplace of practical Claude Skills for enhancing productivity across Claude.ai, Claude Code, and the Claude API",
+  "description": "繁體中文精選 Claude Skills 市集：辦公自動化、設計、開發、影片、記憶等實用技能",
   "owner": {
-    "name": "ComposioHQ",
-    "email": "tech@composio.dev"
+    "name": "a82062416-wq",
+    "email": "a82062416@gmail.com"
   },
   "plugins": [
     {
@@ -78,12 +78,6 @@
       "name": "video-downloader",
       "description": "Downloads videos from YouTube and other platforms for offline viewing, editing, or archival with support for various formats and quality options.",
       "source": "./video-downloader",
-      "category": "creative-media"
-    },
-    {
-      "name": "algorithmic-art",
-      "description": "Creates algorithmic art and generative designs using computational creativity techniques.",
-      "source": "./algorithmic-art",
       "category": "creative-media"
     },
     {
@@ -169,6 +163,228 @@
       "description": "Skills for working with Excel spreadsheets including creation, editing, formulas, and data manipulation.",
       "source": "./document-skills/xlsx",
       "category": "productivity-organization"
+    },
+    {
+      "name": "remotion-video-skill",
+      "description": "用 Remotion（React + TypeScript）程式化製作影片：useCurrentFrame、interpolate、spring、Sequence 完整教學，Claude 寫組件、Remotion 渲染成 MP4。",
+      "source": "./remotion-video-skill",
+      "category": "creative-media"
+    },
+    {
+      "name": "ffmpeg-video-skill",
+      "description": "FFmpeg 影片後製技能：壓縮、剪輯、轉 GIF、抽音軌、加字幕、YouTube/IG/抖音平台規格預設，零成本 CLI 工具。",
+      "source": "./ffmpeg-video-skill",
+      "category": "creative-media"
+    },
+    {
+      "name": "long-term-memory-skill",
+      "description": "檔案式長期記憶系統（Git 版 claude-mem）：記憶存在 memory/MEMORY.md，靠 git 永久保存，跨 session 跨裝置，零外部依賴、零隱私風險。",
+      "source": "./long-term-memory-skill",
+      "category": "productivity-organization"
+    },
+    {
+      "name": "bank-reconciliation",
+      "description": "銀行對帳單與帳簿勾稽。當使用者要「銀行對帳」「對帳單勾稽」「找出未達帳項」「銀行存款調節表」時使用。自動比對日期金額、標記未達帳、產出調節表。",
+      "source": "./bank-reconciliation-skill",
+      "category": "data-analytics"
+    },
+    {
+      "name": "payroll-calculator",
+      "description": "台灣薪資計算器。當使用者要「算薪資」「勞健保費」「加班費」「代扣所得稅」「薪資明細表」時使用。含勞保健保級距、加班費倍率、破月折算。",
+      "source": "./payroll-calculator-skill",
+      "category": "data-analytics"
+    },
+    {
+      "name": "tax-filing-helper",
+      "description": "台灣稅務申報輔助。當使用者要「營業稅申報」「扣繳憑單」「401報表」「各類所得扣繳」時使用。整理進銷項、計算應納稅額、產出申報所需表格。",
+      "source": "./tax-filing-helper-skill",
+      "category": "data-analytics"
+    },
+    {
+      "name": "management-committee-report",
+      "description": "社區管委會月度報告生成。當使用者要「管委會月報」「社區月報表」「主委報告」時使用。彙整收支、工程、缺失、決議，產出制式月報。",
+      "source": "./mgmt-committee-report-skill",
+      "category": "business-marketing"
+    },
+    {
+      "name": "meeting-minutes-formatter",
+      "description": "會議記錄格式化。當使用者要「整理會議記錄」「會議紀錄」「決議事項」時使用（管委會、住戶大會、公司會議）。從逐字稿或筆記抽出決議、分工、期限。",
+      "source": "./meeting-minutes-skill",
+      "category": "communication-writing"
+    },
+    {
+      "name": "vendor-contract-tracker",
+      "description": "廠商合約到期追蹤。當使用者要「合約管理」「廠商到期提醒」「保全/清潔/電梯合約」時使用。建立合約清單、標記到期、提前預警。",
+      "source": "./vendor-contract-tracker-skill",
+      "category": "productivity-organization"
+    },
+    {
+      "name": "budget-variance-analyzer",
+      "description": "預算與實際差異分析。當使用者要「預算執行率」「預實比較」「超支分析」時使用。比對預算vs實際、算差異率、標紅超支科目。",
+      "source": "./budget-variance-skill",
+      "category": "data-analytics"
+    },
+    {
+      "name": "arrears-chaser",
+      "description": "欠費催繳信生成與追蹤。當使用者要「催繳」「欠費通知」「管理費催收」時使用。分級生成催繳信（初次/二次/存證信函級）、追蹤欠費戶。",
+      "source": "./arrears-chaser-skill",
+      "category": "business-marketing"
+    },
+    {
+      "name": "fixed-asset-depreciation",
+      "description": "固定資產折舊表。當使用者要「折舊」「攤提」「資產折舊表」時使用。直線法/年數合計法計算、產出逐年折舊表與帳面價值。",
+      "source": "./depreciation-skill",
+      "category": "data-analytics"
+    },
+    {
+      "name": "utility-bill-splitter",
+      "description": "公共費用分攤。當使用者要「水電分攤」「公共電費」「按坪數/戶數分攤」時使用。依坪數/戶數/使用量分攤公共費用到各戶。",
+      "source": "./utility-splitter-skill",
+      "category": "data-analytics"
+    },
+    {
+      "name": "excel-formula-auditor",
+      "description": "Excel 公式稽核。當使用者要「檢查公式」「找出Excel錯誤」「公式壞掉」「#REF錯誤」時使用。掃描公式錯誤、斷裂參照、加總漏欄、硬編數字。",
+      "source": "./excel-formula-auditor-skill",
+      "category": "development-tools"
+    },
+    {
+      "name": "labor-law-advisor",
+      "description": "台灣勞動法規查詢輔助。當使用者問「勞基法」「工時」「特休」「資遣費」「加班上限」時使用。查詢法規、計算特休/資遣費。",
+      "source": "./labor-law-advisor-skill",
+      "category": "data-analytics"
+    },
+    {
+      "name": "secret-scanner",
+      "description": "機密洩漏掃描。當使用者要「檢查有沒有洩漏密碼」「commit 前掃描」「機密掃描」時使用，或在 push 含個資/財務的 repo 前主動跑。偵測 API key、密碼、個資、金鑰。",
+      "source": "./secret-scanner-skill",
+      "category": "security-system"
+    },
+    {
+      "name": "skill-consistency-checker",
+      "description": "技能註冊一致性檢查。當使用者要「檢查技能」「技能有沒有漏註冊」「一致性檢查」時使用。比對技能資料夾↔marketplace↔README 三方是否一致。",
+      "source": "./skill-consistency-checker-skill",
+      "category": "development-tools"
+    },
+    {
+      "name": "token-budget-optimizer",
+      "description": "Token 消耗優化。當使用者覺得「太慢」「太貴」「context 爆了」或要「省 token」時使用。診斷 token 熱點、給精簡策略。",
+      "source": "./token-optimizer-skill",
+      "category": "development-tools"
+    },
+    {
+      "name": "data-backup-guardian",
+      "description": "重要檔案備份守護。當使用者要「備份」「怕檔案不見」「重要資料保護」時使用。清點關鍵檔、建立備份清單、驗證備份完整。",
+      "source": "./backup-guardian-skill",
+      "category": "security-system"
+    },
+    {
+      "name": "bpm-framework-skill",
+      "description": "完整的低代碼業務流程管理框架。支持拖拽式流程設計、多系統集成、AI 驅動自動化、實時監控。適合快速構建企業級 BPM 系統，無需編寫後端代碼。",
+      "source": "./bpm-framework-skill",
+      "category": "business-marketing"
+    },
+    {
+      "name": "code-review-skill",
+      "description": "全面的代碼審查技能，涵蓋 20+ 種語言和框架，提供生產級別的審查指南和最佳實踐。",
+      "source": "./code-review-skill",
+      "category": "development-tools"
+    },
+    {
+      "name": "code-simplifier",
+      "description": "自動簡化複雜代碼，提升可讀性和可維護性，識別冗餘邏輯和優化機會。",
+      "source": "./code-simplifier",
+      "category": "development-tools"
+    },
+    {
+      "name": "design-dna-skill",
+      "description": "設計系統 DNA 提取工具，自動從 UI 截圖/設計圖片生成機器可讀的設計系統 JSON，驅動自動化設計編碼工作流。",
+      "source": "./design-dna-skill",
+      "category": "design-ui"
+    },
+    {
+      "name": "experience-lab-skill",
+      "description": "完整的瀏覽器發票管理工作流系統。展示如何使用 Design-DNA 從設計提取系統，通過 Vibe Coding 自動生成 UI，最終交付生產級別的發票管理應用。",
+      "source": "./experience-lab-skill",
+      "category": "business-marketing"
+    },
+    {
+      "name": "frontend-design",
+      "description": "前端設計技能，具有八個美學錨點，幫助生成大膽、獨特、反 AI slop 的界面設計。",
+      "source": "./frontend-design",
+      "category": "design-ui"
+    },
+    {
+      "name": "harness-skill",
+      "description": "使用 harness 框架自動設計和編排 AI Agent 團隊，實現複雜的多 Agent 協作工作流。",
+      "source": "./harness-skill",
+      "category": "productivity-organization"
+    },
+    {
+      "name": "headroom-skill",
+      "description": "使用 headroom 工具壓縮 AI 工具返回的日誌和長文本，大幅節省處理成本和 token 消耗。",
+      "source": "./headroom-skill",
+      "category": "development-tools"
+    },
+    {
+      "name": "markitdown-skill",
+      "description": "使用 Microsoft 開源的 markitdown 工具將多種文檔格式（PDF、Word、PPT、Excel、圖片、音頻等）轉換為 Markdown，便於 Claude 處理和分析。",
+      "source": "./markitdown-skill",
+      "category": "document-processing"
+    },
+    {
+      "name": "paddleocr-skill",
+      "description": "使用 PaddleOCR 進行高精度光學字符識別 (OCR)，支持 100+ 語言，可從圖片、掃描文件、截圖中快速提取文字。",
+      "source": "./paddleocr-skill",
+      "category": "document-processing"
+    },
+    {
+      "name": "planning-with-files",
+      "description": "使用持久化文件計劃系統為 AI Agent 提供穩定的任務協調，支持長期運行任務和多 Agent 協作。",
+      "source": "./planning-with-files",
+      "category": "development-tools"
+    },
+    {
+      "name": "ralph-loom",
+      "description": "自主開發循環框架，實現 AI Agent 的自動化開發流程，具有智能退出檢測和會話連續性。",
+      "source": "./ralph-loom",
+      "category": "development-tools"
+    },
+    {
+      "name": "skill-share",
+      "description": "A skill that creates new Claude skills and automatically shares them on Slack using Rube for seamless team collaboration and skill discovery.",
+      "source": "./skill-share",
+      "category": "development-tools"
+    },
+    {
+      "name": "stop-slop",
+      "description": "清除 Claude 生成文檔中的\"AI 味\"，包括冗余表述、過度修飾、模板化語言，輸出更自然、更專業的內容。",
+      "source": "./stop-slop",
+      "category": "design-ui"
+    },
+    {
+      "name": "supermemory-skill",
+      "description": "使用 supermemory 為 AI 提供強大的長期記憶能力，跨 session 保留和檢索上下文信息。",
+      "source": "./supermemory-skill",
+      "category": "productivity-organization"
+    },
+    {
+      "name": "taste-skill",
+      "description": "提升 Claude 的審美能力，減少 AI 生成內容的\"塑料感\"，讓設計和文案輸出更具品味和質感。",
+      "source": "./taste-skill",
+      "category": "design-ui"
+    },
+    {
+      "name": "injection-defense",
+      "description": "提示注入防禦：處理 PR 留言/網頁/上傳檔案等外部內容時，辨識並隔離操控模型的惡意指令。",
+      "source": "./injection-defense-skill",
+      "category": "security-system"
+    },
+    {
+      "name": "supply-chain-vetting",
+      "description": "供應鏈安全審查：安裝外部技能/MCP/依賴前，逐項審查來源、權限、腳本，防惡意植入。",
+      "source": "./supply-chain-vetting-skill",
+      "category": "security-system"
     }
   ]
 }

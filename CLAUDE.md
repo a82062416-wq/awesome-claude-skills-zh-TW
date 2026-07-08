@@ -1,35 +1,130 @@
-# CLAUDE.md — 工作協議
+# 🧠 Claude Code 核心原則與最佳實踐
 
-> 這份是行為協議，不是介紹文。每一條都是執行要求。
+## 📌 必讀原則（每次開 Code 前記住）
 
-## 語言
+### 原則 1️⃣：能用 CLI 就不要用 MCP
+**為什麼？** MCP 工具會把完整的 schema 塞進你的 context window，輸入輸出都算錢 🔥
 
-一律使用繁體中文（台灣用語）回覆與撰寫文件；英文資料先翻譯重點再呈現。
+**實踐方式：**
+- ✅ 優先用 CLI 命令（bash、git 等）
+- ✅ 其次用 Skills（設計、開發工具）
+- ❌ 最後才用 MCP（作為後備方案）
 
-## 工作流程（任務超過 3 步時必跑）
+**例子：**
+- 查文件 → 用 `cat` 或 `grep`，不要用 Google Drive MCP
+- 提交代碼 → 用 `git` 命令，不要用 GitHub MCP（例外：開 PR/查 CI 等平台操作
+  在無 gh CLI 的環境允許用 GitHub MCP）
+- 發郵件 → 用 CLI 工具，不要用 Gmail MCP
 
-1. **理解**：先讀 README 相關段落與要動的檔案，再動手
-2. **計畫**：用任務清單列出步驟、逐項更新狀態；長任務先寫計畫再執行
-3. **執行**：分階段小步提交，每個 commit 一個主題
-4. **驗證**：改完後跑 `python3 scripts/check-links.py` 確認相對連結有效；檢查中英 README 是否同步；CI 必須綠
-5. **交付**：結論先行、表格優先；說清楚改了什麼、怎麼驗證的
-6. **記錄**：重要決策寫進 commit message；結構性變動同步更新 README 索引
+---
 
-## 工具優先級
+### 原則 2️⃣：保持 Context 乾淨（內建方法，免安裝）
+**為什麼？** MCP 工具回傳一萬個 tokens 的 JSON，會灌爆你的 context window
 
-CLI > 內建工具（Read / Grep / Task / Agent）> MCP。只在前兩者做不到時才用 MCP。
+**真正有效的做法（Claude Code 內建）：**
+- 換新任務就開新對話或用 `/clear` — 最有效的清理方式
+- 對話太長時用 `/compact` 壓縮歷史，只留重點
+- 用 `/context` 檢查目前 context 用量，看誰在吃 tokens
+- 大範圍搜尋交給 **subagent**（Explore agent）跑，只回傳結論，不佔主對話
+- 用不到的連接器在對話設定裡關掉（Ahrefs、Figma 平常保持關閉）
+- Claude 回覆要求精簡：先講結論，細節放檔案裡而不是貼在對話中
 
-## 本 repo 鐵則
+---
 
-- **中英同步**：改 `README.md` 必同步改 `README.en.md`，反之亦然
-- **新增技能資料夾** → 兩份 README 都要加索引條目（分類正確、一句話描述）
-- **技能文檔誠實原則**：不得寫虛構效能數據、不存在的 API 或未驗證的整合方式
-- **敏感資訊**（個資、公司內部資料）一律不進這個公開 repo
-- 對外文案風格：直接、具體、不浮誇；避免空洞形容詞與 AI 味套話
+### 原則 3️⃣：長期記憶（每個 session 必做）
+**為什麼？** 雲端 session 是暫時容器，不記下來下次就全忘了
 
-## 可用的專案級資源
+**記憶協定：**
+- 🔴 **Session 開始：先讀 `memory/MEMORY.md`**（使用者輪廓、偏好、專案進度都在裡面）
+- 學到新事實/偏好/教訓 → 立即更新 `memory/MEMORY.md` 並 commit（hooks 會自動推送）
+- 使用者說「記住…」→ 寫入記憶；說「你記得嗎」→ 查記憶
+- 詳細協定見 `long-term-memory-skill/SKILL.md`
 
-- `.claude/skills/` — 本專案可調用技能（技能條目審查、去 AI 味、計畫先行）
-- `.claude/commands/` — `/after-action`（收官）、`/audit`（索引健檢）
-- `.claude/agents/` — `doc-reviewer`（文件審查子代理）
-- `scripts/check-links.py` — 相對連結檢查（CI 同款）
+---
+
+### 原則 4️⃣：任務協定（長任務穩定性的關鍵）
+**為什麼？** 大任務不能靠一次性回答，要有「理解→計畫→執行→驗證→交付」的結構
+
+**任務分級：**
+- **小任務**（單檔修改、查詢、簡單產出）→ 直接做，做完口頭確認結果
+- **中大型任務**（多檔案、多階段、新系統、稽核月結）→ 必須走完整協定：
+
+**完整協定五步：**
+1. **理解**：先讀 memory/MEMORY.md 與相關檔案，複述任務目標與範圍給使用者確認認知一致
+2. **計畫**：寫計畫檔到 `memory/plans/<日期>-<任務名>.md`（目標、步驟、驗收標準），再開始執行
+3. **執行**：照計畫分階段做，每階段完成即驗證該階段產出（跑 `python3 scripts/validate_repo.py`、開檔檢查、測試）
+4. **驗證**：交付前全面自檢——資料對得上嗎？格式正確嗎？驗收標準都達成了嗎？
+5. **交付與紀錄**：產出交付物 + 把關鍵決策寫入 MEMORY.md「已學到的教訓」、計畫檔補上結果段落
+
+**關鍵決策紀錄**：任何「二選一且影響後續」的決定（用什麼方案、為什麼放棄某做法），
+一律記入 memory/MEMORY.md，一行一條，附日期。
+
+---
+
+## 🎯 使用優先級（CP 值最高 → 最低）
+
+| 優先級 | 工具類型 | 例子 | 說明 |
+|--------|---------|------|------|
+| 🥇 最高 | **CLI** | bash、git、npm | 零開銷，直接執行 |
+| 🥈 次高 | **Skills** | 設計、開發、記憶 | 輕量、針對性強 |
+| 🥉 備選 | **MCP** | Google Drive、Notion | 重量級、消耗 tokens |
+
+---
+
+## 💡 實際案例
+
+### ❌ 錯誤用法
+```
+Claude: "我用 GitHub MCP 查看倉庫文件"
+成本: 5000+ tokens（schema + 輸出）
+```
+
+### ✅ 正確用法
+```
+Claude: "我用 git log 和 cat 查看文件"
+成本: 100 tokens
+效率: 5倍提升 🚀
+```
+
+---
+
+## 🛠️ 你現在擁有的完整工具鏈
+
+### CLI 層（最優先）
+- `git` - 版本控制
+- `bash` - 命令執行
+- `npm/node` - 開發
+
+### Skills 層（次優先）
+- 設計：frontend-design、canvas-design、theme-factory、design-dna
+- 開發：code-review、code-simplifier、webapp-testing、mcp-builder
+- 影片：remotion-video（程式化影片）、ffmpeg-video（後製）、video-downloader
+- 記憶：**long-term-memory（memory/MEMORY.md，本倉庫內建）**、supermemory
+- 辦公：xlsx / docx / pdf / pptx + 自訂稽核/對帳/出勤技能
+
+### MCP 層（最後手段）
+- Google Drive、Calendar、Notion、Gmail、Canva、Gamma、Zoom、GitHub
+
+---
+
+### 原則 5️⃣：協作制度（harness/ 目錄，弱模型必讀）
+- 派 subagent 前 → 讀 `harness/01-delegation.md`，用 `harness/04-templates.md` 模板
+- 出錯/失敗時 → 查 `harness/02-escalation.md`（重試上限 2 輪，升降級規則）
+- 卡住/想收工/想提問 → 對照 `harness/03-judgment-matrix.md` 檢核表
+- 想改制度或設定檔 → 先查 `harness/05-reflection.md` 權限分級
+- 第一次接手本環境 → 先讀 `harness/00-diagnosis.md` 與 `harness/06-handoff-letter.md`
+
+---
+
+## 📝 每次開始前的 Checklist
+
+- [ ] **先讀 `memory/MEMORY.md`（長期記憶）**
+- [ ] 優先用 CLI
+- [ ] 其次用 Skills
+- [ ] 實在不行才用 MCP
+- [ ] 對話太長就 `/compact`，換任務就 `/clear`
+- [ ] 學到新東西記得寫回 memory/MEMORY.md
+
+---
+
+**記住：省 tokens = 省錢 = 更多資源用在重要的事！** 💰✨

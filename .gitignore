@@ -1,0 +1,47 @@
+# 機密與憑證 — 絕不入庫
+.env
+.env.*
+*.pem
+*.key
+credentials.json
+*.credentials
+.secrets/
+secrets.json
+*.secret
+
+# 依賴與建置產物
+node_modules/
+dist/
+build/
+out/
+__pycache__/
+*.pyc
+
+# Fable Harness 執行 markers（每次觸發都變，不入庫）
+fable-harness/hooks/.last_*
+
+# 暫存與系統檔
+*.log
+*.tmp
+.DS_Store
+Thumbs.db
+~$*
+
+# 影片/大型輸出（產出交付用 SendUserFile，不入庫）
+*.mp4
+*.mov
+*.gif
+!**/assets/*.gif
+
+# 安全強化（2026-07-08）：財務/個資/憑證類絕不入庫
+*.env.local
+*.token
+tokens.json
+*.password
+*.p12
+*.pfx
+id_rsa*
+# 財報/個資工作檔（產出用 SendUserFile，不入庫原始個資）
+*薪資*.xlsx
+*個資*
+*身分證*

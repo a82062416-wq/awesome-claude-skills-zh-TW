@@ -10,6 +10,10 @@
       "Agent",
       "Skill",
       "Monitor",
+      "mcp__6dbed528-63fc-43dc-aeb1-9ac9433139a9__*",
+      "mcp__6f95f74b-2c26-4dc1-ae0d-25420571532d__*",
+      "mcp__92cfc3fb-28da-4ef9-9f33-83704617cf53__*",
+      "mcp__c9ff3022-923b-456a-bbc1-326a15bb10fa__*",
       "mcp__github__*",
       "Skill(session-start-hook)",
       "Skill(update-config)",
@@ -21,6 +25,70 @@
       "Skill(init)",
       "Skill(review)",
       "Skill(security-review)"
+    ]
+  },
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cd /home/user/awesome-claude-skills-zh-TW && echo '🧠 ===== 長期記憶（memory/MEMORY.md）=====' && cat memory/MEMORY.md 2>/dev/null || echo '(記憶檔不存在，請建立 memory/MEMORY.md)'",
+            "statusMessage": "🧠 載入長期記憶"
+          },
+          {
+            "type": "command",
+            "command": "bash /home/user/awesome-claude-skills-zh-TW/fable-harness/hooks/inject_protocol.sh",
+            "statusMessage": "🧭 注入 FABLE-PROTOCOL"
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash /home/user/awesome-claude-skills-zh-TW/fable-harness/hooks/prompt_nudge.sh",
+            "statusMessage": "🧭 FABLE 提醒"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 /home/user/awesome-claude-skills-zh-TW/fable-harness/hooks/verify_gate.py",
+            "statusMessage": "🧪 FABLE 驗證閘"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cd /home/user/awesome-claude-skills-zh-TW && python3 scripts/validate_repo.py --hook; git add -A && git status --short | head -15",
+            "statusMessage": "🔍 驗證 + 暫存變更",
+            "async": false
+          }
+        ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cd /home/user/awesome-claude-skills-zh-TW && UP=$(git rev-parse '@{u}' 2>/dev/null) || exit 0; if [ \"$(git rev-parse HEAD)\" != \"$UP\" ] && git diff-index --quiet HEAD --; then git push 2>&1 | tail -1 && echo '🚀 自動推送成功'; fi",
+            "statusMessage": "🚀 檢查是否需要推送",
+            "async": false
+          }
+        ]
+      }
     ]
   }
 }
