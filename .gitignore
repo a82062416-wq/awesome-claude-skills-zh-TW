@@ -3,8 +3,11 @@
 .env.*
 *.pem
 *.key
-*credentials*
-*secret*
+credentials.json
+*.credentials
+.secrets/
+secrets.json
+*.secret
 
 # 依賴與建置產物
 node_modules/
@@ -29,3 +32,16 @@ Thumbs.db
 *.mov
 *.gif
 !**/assets/*.gif
+
+# 安全強化（2026-07-08）：財務/個資/憑證類絕不入庫
+*.env.local
+*.token
+tokens.json
+*.password
+*.p12
+*.pfx
+id_rsa*
+# 財報/個資工作檔（產出用 SendUserFile，不入庫原始個資）
+*薪資*.xlsx
+*個資*
+*身分證*
