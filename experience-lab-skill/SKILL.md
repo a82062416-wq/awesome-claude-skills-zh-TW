@@ -440,7 +440,7 @@ examples/
 
 - [Design-DNA](https://github.com/zanwei/design-dna) - 設計提取工具
 - [Vibe Coding](https://dev.to/pockit_tools/vibe-coding-in-2026) - 自動編碼框架
-- [Frontend-Design](./frontend-design/) - 設計規範應用
+- [Frontend-Design](../frontend-design/) - 設計規範應用
 
 ## 總結
 

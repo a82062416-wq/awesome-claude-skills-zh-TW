@@ -1,0 +1,17 @@
+# Obsidian 本機設定（介面偏好、外掛、快捷鍵、workspace 等）
+# 不跨機器共享，每台機器自己管理。
+.obsidian/
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+desktop.ini
+
+# 編輯器暫存檔
+*.swp
+*.swo
+*~
+.vscode/
+.idea/

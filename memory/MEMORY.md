@@ -49,6 +49,10 @@
 
 
 - `awesome-claude-skills-zh-TW`：繁中技能收藏庫 + plugin marketplace（41 個可載入技能）
+- 🛡️ PR #4（open/draft）：`caicai-vault/`——使用者的個人 AI 知識庫（AI 搭檔名 JACK，
+  基於 Vault-for-Founders 框架；公開**去敏感版**，完整版 zip 已交付使用者本人）。
+  分支已併入新 master 並清除被 FABLE 制度取代的舊 harness 檔（舊 head：313dea2）。
+  待使用者：merge PR #4、自建私有 repo `caicai-vault` 存放完整版
 - PR #3（2026-07-07 完成合併）：整合報告 + 影片/記憶技能 + 技能樹儀表板 + Harness Phase 1-3
 - 完整環境盤點見 `CLAUDE-CODE-整合分析報告.md`；技能總覽見 `skill-tree.html`
 - 🗺️ 倉庫導覽分類看 `INDEX.md`（63 技能按用途分 11 類 + 六層結構）；
@@ -64,6 +68,11 @@
 - 使用者的組織插件目錄（knowledge-work-plugins）沒有 claude-mem/Remotion/Superpowers，
   帳號層級裝不了 → 改用倉庫內建技能 + 檔案式記憶（本系統）
 - 雲端 session 是暫時容器，任何要保存的東西都必須 commit 進 git
+- 2026-07-08：平行 session 會重建分支——發現自己的 commits 消失時，先
+  `git fetch origin <分支>` 找回遠端 PR head 再續作，不要重做；PR 過時就 merge master
+  進來解衝突（取 master 的制度檔），不用 force push
+- 2026-07-08：SKILL.zh-TW.md 複製成 SKILL.md 時會複製到「未修復的舊內容」——
+  修連結/內容要兩份一起修（check-links.py 可抓；已提案整合進 validate）
 
 ---
 *最後更新：2026-07-07（session：cloud-cold-integration）*

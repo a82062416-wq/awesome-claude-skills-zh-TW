@@ -513,10 +513,8 @@ Docker Compose / Kubernetes
 
 ## 資源
 
-- [官方文檔](./docs/README.md) - 完整的使用指南
-- [API 參考](./docs/api.md) - REST API 文檔
-- [流程示例](./examples/) - 20+ 個參考流程
-- [視頻教程](./docs/tutorials/) - 逐步教學視頻
+- 本技能為概念框架文檔，實作時參考業界工具：[n8n](https://docs.n8n.io/)、[Camunda](https://docs.camunda.io/)、[Activiti](https://www.activiti.org/documentation)
+- BPMN 2.0 標準：[OMG 官方規格](https://www.omg.org/spec/BPMN/2.0/)
 - [社區論壇](https://community.example.com) - 獲取幫助
 
 ## 總結
