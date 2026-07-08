@@ -3,8 +3,11 @@
 .env.*
 *.pem
 *.key
-*credentials*
-*secret*
+credentials.json
+*.credentials
+.secrets/
+secrets.json
+*.secret
 
 # 依賴與建置產物
 node_modules/
@@ -32,9 +35,9 @@ Thumbs.db
 
 # 安全強化（2026-07-08）：財務/個資/憑證類絕不入庫
 *.env.local
-*_secret*
-*_token*
-*password*
+*.token
+tokens.json
+*.password
 *.p12
 *.pfx
 id_rsa*

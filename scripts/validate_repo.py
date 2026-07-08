@@ -45,14 +45,27 @@ def check_frontmatter(skill_md: Path) -> None:
 mp = check_json(ROOT / ".claude-plugin" / "marketplace.json")
 check_json(ROOT / ".claude" / "settings.json")
 
-# 2. marketplace 每個 plugin 的 source 必須存在且含 SKILL.md
+# 2. marketplace 每個 plugin 的 source 必須存在、含 SKILL.md、且被 git 追蹤
+#    （被 git 追蹤這關防「.gitignore 誤傷技能資料夾」——這種 bug 本地工作區看不出，
+#     只有 CI clean checkout 才炸；把它提前到本地關卡）
+import subprocess
+try:
+    tracked = set(subprocess.run(
+        ["git", "ls-files"], cwd=ROOT, capture_output=True, text=True, check=True
+    ).stdout.splitlines())
+except Exception:
+    tracked = None  # 非 git 環境則跳過此關
 if mp:
     for p in mp.get("plugins", []):
-        src = ROOT / p.get("source", "").lstrip("./")
+        rel = p.get("source", "").lstrip("./").rstrip("/")
+        src = ROOT / rel
         if not src.is_dir():
             errors.append(f"marketplace: {p['name']} 的 source 目錄不存在（{p['source']}）")
         elif not (src / "SKILL.md").is_file():
             errors.append(f"marketplace: {p['name']} 缺 SKILL.md（{p['source']}）")
+        elif tracked is not None and f"{rel}/SKILL.md" not in tracked:
+            errors.append(f"marketplace: {p['name']} 的 SKILL.md 未被 git 追蹤"
+                          f"（可能被 .gitignore 誤傷）— {rel}/SKILL.md")
 
 # 3. 所有 SKILL.md 的 frontmatter 完整性
 for skill_md in sorted(ROOT.glob("*/SKILL.md")) + sorted(ROOT.glob("*/*/SKILL.md")):
