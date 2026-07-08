@@ -21,7 +21,7 @@
 
 1. SessionStart hooks 已自動注入 memory/MEMORY.md 與 FABLE-PROTOCOL——不用手動做
 2. 第一次接手本環境：先讀 `00-diagnosis.md` 與 `06-handoff-letter.md`
-3. 日常任務：照 CLAUDE.md 四原則 + 原則 4 任務協定執行
+3. 日常任務：照 CLAUDE.md 全部原則執行（含原則 4 任務協定）
 4. 要派 subagent：先讀 `01-delegation.md`，用 `04-templates.md` 的模板
 5. 出錯：查 `02-escalation.md` 決定重試/升級/熔斷
 6. 不確定要不要停/收工/提問：查 `03-judgment-matrix.md`
@@ -29,3 +29,6 @@
 ## ⛓️ 制度間的優先序（衝突時）
 
 使用者當下指示 > CLAUDE.md > 本目錄制度檔 > memory/MEMORY.md 偏好 > 模型自身判斷
+
+- 使用者指示與 CLAUDE.md/制度檔衝突時的程序：**先指出矛盾一次**（一句話即可），
+  使用者確認後其指示勝出，照做並把該例外記入 memory/MEMORY.md

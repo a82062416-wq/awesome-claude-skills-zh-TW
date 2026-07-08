@@ -12,7 +12,8 @@
 
 **例子：**
 - 查文件 → 用 `cat` 或 `grep`，不要用 Google Drive MCP
-- 提交代碼 → 用 `git` 命令，不要用 GitHub MCP
+- 提交代碼 → 用 `git` 命令，不要用 GitHub MCP（例外：開 PR/查 CI 等平台操作
+  在無 gh CLI 的環境允許用 GitHub MCP）
 - 發郵件 → 用 CLI 工具，不要用 Gmail MCP
 
 ---

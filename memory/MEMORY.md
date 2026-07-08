@@ -37,8 +37,8 @@
 - 🏛️ 協作制度（2026-07-07，Fable 5 唯一 session 的交接產物）：`harness/` 目錄——
   派工三件套、升降級路徑、判斷力矩陣、派工模板、反思協議、交接信。
   弱模型接手第一件事：讀 harness/00-diagnosis.md 與 06-handoff-letter.md
-- ⚠️ 未完成：每週巡檢 Routine 被平台 MCP 核准層擋住，待使用者在 claude.ai/code 介面手動建立
-  或之後 session 重試 create_trigger
+- ⚠️ 未完成：每週巡檢 Routine 被平台 MCP 核准層擋住（永久阻斷，勿重試——
+  見 harness/00-diagnosis.md），待使用者在 claude.ai/code 介面手動建立
 
 ## 📚 專案進行中
 

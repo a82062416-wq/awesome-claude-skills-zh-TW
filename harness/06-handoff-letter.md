@@ -27,7 +27,9 @@
   永久阻斷——別重試，改請使用者在 UI 操作
 - WebFetch 是小模型轉述，長檔拿不到逐字內容
 - hooks 的行為以官方 schema 為準，自創欄位被靜默忽略（settings.json 曾因此壞了半年）
-- 這裡的 GitHub 操作走 MCP 工具（無 gh CLI）；PR 合併前 CI 必須綠
+- commit/push 走 git CLI（CLAUDE.md 原則 1）；開 PR、查 CI、合併等平台操作
+  因無 gh CLI，**例外允許 GitHub MCP**——這是原則 1 的既定例外，不是違規。
+  PR 合併前 CI 必須綠
 
 ---
 

@@ -28,8 +28,9 @@
 
 ## 與本倉庫既有協定的關係
 
-本協議與 CLAUDE.md 四原則疊加使用：CLI 優先（原則1）、context 乾淨（原則2）、
-長期記憶（原則3）、任務協定（原則4）。衝突時以使用者當下指示為準。
+本協議與 CLAUDE.md 全部原則疊加使用（CLI 優先、context 乾淨、長期記憶、
+任務協定、協作制度 harness/）。衝突時以使用者當下指示為準
+（程序見 harness/README.md 優先序段）。
 
 ---
 *改編自 [Miguok/fable-harness](https://github.com/Miguok/fable-harness)（MIT），
