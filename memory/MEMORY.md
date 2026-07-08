@@ -42,6 +42,12 @@
 
 ## 📚 專案進行中
 
+- 2026-07-08 八大強化（分支 claude/cloud-cold-integration-nq01ha，三批已推送）：
+  harness/07-audit-blueprint.md（8面向診斷藍圖）、16個台灣物業會計新技能、
+  validate 第6檢查（技能↔marketplace↔README 一致性控制單元）、SKILL 模板、
+  gitignore 安全強化。marketplace 從 29→61 註冊全一致
+
+
 - `awesome-claude-skills-zh-TW`：繁中技能收藏庫 + plugin marketplace（41 個可載入技能）
 - PR #3（2026-07-07 完成合併）：整合報告 + 影片/記憶技能 + 技能樹儀表板 + Harness Phase 1-3
 - 完整環境盤點見 `CLAUDE-CODE-整合分析報告.md`；技能總覽見 `skill-tree.html`
