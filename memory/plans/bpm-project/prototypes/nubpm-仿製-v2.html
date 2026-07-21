@@ -144,11 +144,52 @@
           </div>
         </div>
         <div class="fld"><label>用印份數<span class="req">*</span></label>
-          <div class="inp readonly" style="color:#bbb">請輸入份數</div></div>
+          <div class="inp type"><input id="qty" type="number" min="1" placeholder="請輸入份數" style="border:none;background:none;width:100%;font-size:15px;font-family:inherit" /></div></div>
       </div>
       <div class="foot">
-        <button class="draft" onclick="toast('已儲存為草稿')">儲存草稿</button>
-        <button class="send" onclick="toast('✓ 已送出，進入簽核流程')">送出</button>
+        <button class="draft" onclick="saveDraft()">儲存草稿</button>
+        <button class="send" onclick="submitForm()">送出</button>
+      </div>
+    </section>
+
+    <!-- 簽核流程 -->
+    <section class="screen hidden" id="approval">
+      <div class="fm-top">
+        <span class="x" onclick="go('ov')">✕</span>
+        <h2>用印申請 #20260715001</h2>
+      </div>
+      <div class="form">
+        <div class="fld" style="background:#EAF3FF;border-radius:10px;padding:14px;border:1px solid #CFE3FF">
+          <p style="font-size:13px;color:#2B7DE9;font-weight:600;margin-bottom:10px">申請已送出，進入簽核流程</p>
+          <p style="font-size:12.5px;color:#3a4658;line-height:1.6">
+            📋 申請單：用印申請<br>
+            ✓ 提交人：蔡含昱（AD管理部）<br>
+            ⏳ 目前流程：等待主管簽核
+          </p>
+        </div>
+        <div style="margin-top:20px">
+          <p style="font-size:13px;font-weight:600;color:#1c1c22;margin-bottom:12px">簽核進度</p>
+          <div style="position:relative;padding:20px 0">
+            <!-- Timeline -->
+            <div style="display:flex;align-items:center;gap:14px;margin-bottom:20px">
+              <div style="width:32px;height:32px;border-radius:50%;background:#7C4DFF;color:#fff;display:grid;place-items:center;font-weight:700;flex-shrink:0">✓</div>
+              <div><p style="font-size:13px;font-weight:600">提交人確認</p><p style="font-size:12px;color:#9AA0AB">蔡含昱 · 今天 10:30</p></div>
+            </div>
+            <div style="width:2px;height:30px;background:#ECEDF1;margin-left:15px"></div>
+            <div style="display:flex;align-items:center;gap:14px;margin-bottom:20px">
+              <div style="width:32px;height:32px;border-radius:50%;background:#F4F5F7;border:2px solid #ECEDF1;color:#9AA0AB;display:grid;place-items:center;font-weight:700;flex-shrink:0">⏳</div>
+              <div><p style="font-size:13px;font-weight:600">主管簽核</p><p style="font-size:12px;color:#9AA0AB">待 部主管 簽核</p></div>
+            </div>
+            <div style="width:2px;height:30px;background:#ECEDF1;margin-left:15px"></div>
+            <div style="display:flex;align-items:center;gap:14px">
+              <div style="width:32px;height:32px;border-radius:50%;background:#F4F5F7;border:2px solid #ECEDF1;color:#9AA0AB;display:grid;place-items:center;font-weight:700;flex-shrink:0">3</div>
+              <div><p style="font-size:13px;font-weight:600">主管核准</p><p style="font-size:12px;color:#9AA0AB">待處理</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="foot">
+        <button class="draft" onclick="go('ov')" style="flex:1.3">返回總覽</button>
       </div>
     </section>
 
@@ -161,6 +202,18 @@
   }
   let tm;const t=document.getElementById('toast');
   function toast(m){t.textContent=m;t.classList.add('show');clearTimeout(tm);tm=setTimeout(()=>t.classList.remove('show'),2000);}
+
+  function saveDraft(){
+    const qty=document.getElementById('qty').value;
+    if(!qty){toast('⚠ 請填寫用印份數');return;}
+    toast('✓ 已儲存為草稿');
+  }
+  function submitForm(){
+    const qty=document.getElementById('qty').value;
+    if(!qty){toast('⚠ 請填寫用印份數');return;}
+    toast('✓ 已送出，進入簽核流程');
+    setTimeout(()=>go('approval'),1500);
+  }
 </script>
 </body>
 </html>
