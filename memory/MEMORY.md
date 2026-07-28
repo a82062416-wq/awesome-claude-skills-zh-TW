@@ -44,6 +44,18 @@
 
 ## 📚 專案進行中
 
+### 🔀 Codex 交接（2026-07-28）
+- **背景**：使用者未來想讓 Codex（OpenAI 的 agent CLI）接手部分工作，要求「無痛轉換」
+- **已做**：建立 `AGENTS.md`（Codex 讀取慣例）——把 CLAUDE.md 核心原則 + memory/MEMORY.md
+  現況翻譯過去，並列出「可直接沿用」vs「Claude 專屬機制搬不動」的清單
+- **⚠️ 誠實結論（已跟使用者說明）**：**完全無痛做不到**。可以搬的：
+  memory/MEMORY.md（純文字）、技能腳本邏輯、任務協定原則。
+  搬不動的：Skill 工具呼叫機制、Subagent、hooks（自動載入記憶/自動驗證/自動push）、
+  fable-harness 的驗證閘——這些是 Claude Code 平台專屬，Codex 沒有同名對應物，
+  只能改成「每次手動要求 Codex 做同樣的事」
+- **雙邊並用建議**：memory/MEMORY.md 當共用真相來源，不管哪個 agent 改動都要讀寫這份，
+  且建議標註是哪個 agent 做的變更，避免互相蓋掉
+
 ### 🎯 BPM 項目（主線：dys-bpm Vue 項目）
 - **決策**（2026-07-10）：放棄新工具探詢，全力做 BPM
 - **決策**（2026-07-15）：此倉庫內的 nuBPM HTML 原型**不繼續迭代**
@@ -81,4 +93,4 @@
 - 雲端 session 是暫時容器，任何要保存的東西都必須 commit 進 git
 
 ---
-*最後更新：2026-07-15（session：cloud-cold-integration-收工）*
+*最後更新：2026-07-28（session：cloud-cold-integration，Codex 交接文件）*
