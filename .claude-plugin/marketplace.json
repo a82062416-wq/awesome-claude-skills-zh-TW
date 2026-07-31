@@ -385,6 +385,36 @@
       "description": "供應鏈安全審查：安裝外部技能/MCP/依賴前，逐項審查來源、權限、腳本，防惡意植入。",
       "source": "./supply-chain-vetting-skill",
       "category": "security-system"
+    },
+    {
+      "name": "csv-data-analyzer",
+      "description": "自動分析 CSV／表格資料，摘要欄位分布、抓出異常值與缺漏，並產出重點洞察與建議圖表。",
+      "source": "./csv-data-analyzer-skill",
+      "category": "data-analytics"
+    },
+    {
+      "name": "root-cause-tracing",
+      "description": "當錯誤或異常發生在程式執行深處時，用結構化方式從症狀往回追溯，找到真正的根因而非治標補丁。",
+      "source": "./root-cause-tracing-skill",
+      "category": "development-tools"
+    },
+    {
+      "name": "resume-tailor",
+      "description": "依據特定職缺說明（JD）客製化調整履歷內容、關鍵字與呈現順序，保持內容真實不誇大。",
+      "source": "./resume-tailor-skill",
+      "category": "productivity-organization"
+    },
+    {
+      "name": "tdd-workflow",
+      "description": "引導以測試驅動開發（TDD）的方式撰寫程式碼——先寫失敗的測試，再寫最少實作讓它通過，然後重構。",
+      "source": "./tdd-workflow-skill",
+      "category": "development-tools"
+    },
+    {
+      "name": "test-fixing",
+      "description": "系統化診斷並修復失敗的測試案例，先分辨測試寫錯或程式碼有 bug，避免弱化測試來讓它通過。",
+      "source": "./test-fixing-skill",
+      "category": "development-tools"
     }
   ]
 }

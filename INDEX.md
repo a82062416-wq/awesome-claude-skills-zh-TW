@@ -1,12 +1,12 @@
 # 🗺️ 倉庫導覽地圖（INDEX）
 
 > 覺得亂？看這裡就好。所有東西分成 **技能 / 制度 / 記憶 / 工具 / 產出 / 文件** 六層。
-> 63 個技能平鋪在根目錄難以一眼看懂，本地圖按用途分類，找技能從這裡開始。
-> 最後更新：2026-07-08
+> 68 個技能平鋪在根目錄難以一眼看懂，本地圖按用途分類，找技能從這裡開始。
+> 最後更新：2026-07-31
 
 ---
 
-## 🗂️ 第一層：技能（63 個，按用途分類）
+## 🗂️ 第一層：技能（68 個，按用途分類）
 
 ### 💰 你的本業 · 財務會計（8）
 | 技能 | 做什麼 |
@@ -64,6 +64,18 @@ long-term-memory-skill（Git 版記憶）、supermemory-skill（雲端記憶）
 skill-consistency-checker-skill（技能一致性）、token-optimizer-skill（省 token）、
 backup-guardian-skill（備份守護）、file-organizer（檔案整理）、n8n-workflows（自動化流）
 
+### 🆕 通用工作流補強（5，2026-07-31 新增）
+| 技能 | 做什麼 |
+|------|--------|
+| csv-data-analyzer-skill | 通用 CSV／表格資料摘要、異常值抓取 |
+| root-cause-tracing-skill | 錯誤／異常結構化根因追蹤 |
+| resume-tailor-skill | 依 JD 客製化調整履歷 |
+| tdd-workflow-skill | 測試驅動開發（Red-Green-Refactor） |
+| test-fixing-skill | 診斷並修復失敗測試 |
+
+> 研究 ComposioHQ/awesome-claude-skills（71k star）後補齊的空缺領域，見
+> `memory/plans/2026-07-31-補齊通用技能空缺.md`。
+
 ---
 
 ## 🏛️ 第二層：制度（讓弱模型穩定工作的框架）
@@ -103,7 +115,7 @@ backup-guardian-skill（備份守護）、file-organizer（檔案整理）、n8n
 ## ❓ 為什麼不把技能實體搬進子資料夾？
 
 技能的資料夾路徑被 `marketplace.json`、`README`、Claude Code 載入器三處引用。
-實體搬移 63 個資料夾會同時打斷這三處，修復半徑巨大、風險高於收益
+實體搬移 68 個資料夾會同時打斷這三處，修復半徑巨大、風險高於收益
 （判斷矩陣停損信號1）。**分類用這份地圖解決「找不到」，不動實體結構**——
 這是「單一真實來源 + 索引」而非「大搬遷」的正解。
 

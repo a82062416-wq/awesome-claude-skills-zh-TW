@@ -48,11 +48,14 @@
   gitignore 安全強化。marketplace 從 29→61 註冊全一致
 
 
-- `awesome-claude-skills-zh-TW`：繁中技能收藏庫 + plugin marketplace（41 個可載入技能）
+- `awesome-claude-skills-zh-TW`：繁中技能收藏庫 + plugin marketplace（68 個可載入技能）
 - PR #3（2026-07-07 完成合併）：整合報告 + 影片/記憶技能 + 技能樹儀表板 + Harness Phase 1-3
 - 完整環境盤點見 `CLAUDE-CODE-整合分析報告.md`；技能總覽見 `skill-tree.html`
-- 🗺️ 倉庫導覽分類看 `INDEX.md`（63 技能按用途分 11 類 + 六層結構）；
+- 🗺️ 倉庫導覽分類看 `INDEX.md`（68 技能按用途分 11 類 + 六層結構）；
   技能實體平鋪根目錄未搬移（動路徑風險高），靠 INDEX 索引導覽
+- 2026-07-31：新增 5 個通用工作流技能（csv-data-analyzer、root-cause-tracing、
+  resume-tailor、tdd-workflow、test-fixing），繁中原創撰寫。計畫檔見
+  `memory/plans/2026-07-31-補齊通用技能空缺.md`
 
 ## 💡 已學到的教訓
 
@@ -64,6 +67,11 @@
 - 使用者的組織插件目錄（knowledge-work-plugins）沒有 claude-mem/Remotion/Superpowers，
   帳號層級裝不了 → 改用倉庫內建技能 + 檔案式記憶（本系統）
 - 雲端 session 是暫時容器，任何要保存的東西都必須 commit 進 git
+- 2026-07-31 決策：使用者一度考慮改用 CODEX（嫌 Claude Code 介面複雜、無中文版），
+  討論後決定保留本倉庫（研究 ComposioHQ/awesome-claude-skills 71k star 後，
+  確認繁中專化 + 台灣物業會計是獨特資產，不宜捨棄），改為補齊通用技能空缺
+- GitHub MCP 在此環境僅允許操作 `a82062416-wq/awesome-claude-skills-zh-tw` 本身，
+  查其他倉庫（如 ComposioHQ）一律要改用 WebFetch，不要嘗試 mcp__github__get_file_contents
 
 ---
-*最後更新：2026-07-07（session：cloud-cold-integration）*
+*最後更新：2026-07-31（session：check-mcp-skills）*
