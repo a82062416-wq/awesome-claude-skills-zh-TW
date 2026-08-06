@@ -56,6 +56,10 @@
 - 2026-07-31：新增 5 個通用工作流技能（csv-data-analyzer、root-cause-tracing、
   resume-tailor、tdd-workflow、test-fixing），繁中原創撰寫。計畫檔見
   `memory/plans/2026-07-31-補齊通用技能空缺.md`
+- ✅ 2026-07-31：使用者已在自己電腦（Windows）用 Claude Code CLI 裝好本倉庫全部
+  68 個技能（`claude plugin marketplace add` + 逐一 `claude plugin install`），
+  全部 enabled。之後在 Claude Code 對話中可直接假設這些技能已可用，不用重新引導安裝；
+  倉庫加新技能時提醒使用者跑 `claude plugin marketplace update` 再裝新的即可
 
 ## 💡 已學到的教訓
 
