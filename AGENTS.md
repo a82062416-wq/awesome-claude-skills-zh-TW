@@ -1,95 +1,70 @@
-# 🤖 AGENTS.md — 給 Codex（或其他 agent CLI）的專案指南
+# 🤖 AGENTS.md — 給 Codex（或其他 agent CLI）的入口指南
 
-> 本檔案是從 `CLAUDE.md` + `memory/MEMORY.md` 轉譯過來的版本，
-> 目的是讓 Codex CLI（讀取 AGENTS.md 慣例）或其他 agent 工具能理解這個倉庫的規則與現況。
-> 完整原版仍是 `CLAUDE.md`（Claude Code 專用）+ `memory/MEMORY.md`（長期記憶），
-> 兩邊內容打架時，**先讀那兩份，本檔案只是搬運/摘要**。
+> Codex 依業界慣例會自動找這個檔名。**這份檔案本身不重複規則內容**，只做三件事：
+> 指路、翻譯 Claude Code 專屬機制、標註「哪些狀態查不到、要問使用者」。
+> 這樣設計是為了避免跟 `CLAUDE.md` / `memory/MEMORY.md` 內容分裂（發生過一次教訓，見底部）。
 
 ---
 
-## 👤 使用者背景
+## 第一步：讀這兩份，不要讀這份文件的舊版摘要
 
-- 語言：繁體中文（台灣），非工程師背景
-- 工作領域：物業管理 / 會計行政（大樓財報稽核、社區管理費對帳、勞保勞健保）
-- 溝通偏好：**結論先行 + 明確建議**（值不值得做、該不該做），不要丟一堆資訊讓他自己判斷
-- 格式偏好：表格 + emoji 的繁中報告
+1. **`memory/MEMORY.md`** — 使用者是誰、目前進度、過去決策，**永遠是最新狀態**
+2. **`CLAUDE.md`** — 核心工作原則（CLI 優先、context 管理、記憶協定、任務分級、協作制度）
 
-## 🎯 核心工作原則（從 CLAUDE.md 翻譯）
+讀完用 3-5 句話跟使用者確認理解，再開始做事。
 
-1. **能用 CLI 就不要用 MCP／重工具**：查文件用 `cat`/`grep`，提交代碼用 `git`，
-   不要為小事動用需要大量 token 的外部整合工具
-2. **保持 context 乾淨**：長任務拆小、結論寫進檔案而非全部塞對話裡
-3. **長期記憶**：這個倉庫用 `memory/MEMORY.md` 記錄使用者輪廓/偏好/專案進度。
-   **任何 agent 接手這個倉庫，第一件事都應該先讀這個檔案。**
-   學到新事實/決策 → 更新並記錄
-4. **任務分級協定**：
-   - 小任務（單檔修改、查詢）→ 直接做
-   - 中大型任務（多檔案、新系統）→ 先寫計畫到 `memory/plans/<日期>-<任務名>.md`，
-     使用者確認後才動手，做完寫結果回記憶檔
-5. **改功能邏輯要有 fail-then-pass 證據**：先證明問題存在，改完再證明修好了，
-   不能只憑「看起來對」
+---
 
-## 📂 倉庫結構速覽
+## Claude Code 專屬機制 → Codex 該怎麼做（這段是穩定的，不太會過期）
 
-```
-awesome-claude-skills-zh-TW/
-├─ CLAUDE.md              ← Claude Code 專用指南（本檔案的原始版本）
-├─ AGENTS.md              ← 本檔案，給 Codex/其他 agent 看
-├─ memory/
-│  ├─ MEMORY.md           ← 🔴 長期記憶，每次接手必讀
-│  └─ plans/              ← 任務計畫檔（含 bpm-project/ 等子專案紀錄）
-├─ scripts/validate_repo.py  ← 倉庫一致性驗證（技能↔marketplace↔README）
-├─ harness/                ← Claude 專屬協作制度（見下方「不會搬過去的東西」）
-├─ *-skill/ 或各技能資料夾/  ← 60+ 個技能，格式為 SKILL.md（部分含 SKILL.zh-TW.md）
-└─ .claude/                ← Claude Code 專屬設定（hooks、subagent、settings.json）
-```
+這個倉庫是用 Claude Code 建的，有幾個機制**沒有 Codex 對應物**，只能靠人工補：
 
-## ✅ Codex 可以直接沿用的部分
-
-- **`memory/MEMORY.md`**：純 Markdown，Codex 讀了就懂使用者是誰、專案進度、過去決策
-- **`memory/plans/`**：計畫檔與紀錄，純文字，直接讀
-- **技能內容本身**：`*/SKILL.md` 裡的邏輯、腳本（如 xlsx 稽核腳本、財報對帳邏輯）是
-  Python/純邏輯，Codex 可以直接執行或參考，不依賴 Claude 專屬機制
-- **`scripts/validate_repo.py`**：一般 Python script，任何 agent 都能跑
-  ```bash
-  python3 scripts/validate_repo.py
-  ```
-- **Git 操作、任務協定、溝通風格**：這些是「怎麼做事」的原則，跟工具無關，照抄就對
-
-## ⚠️ 不會直接搬過去的東西（Claude Code 專屬機制）
-
-| Claude 專屬功能 | 做什麼用 | Codex 沒有對應物時怎麼辦 |
+| Claude 專屬 | 做什麼用 | Codex 沒有時怎麼辦 |
 |---|---|---|
-| **Skill 工具**（`Skill(...)` 呼叫） | 把技能包裝成可一鍵呼叫的指令 | Codex 沒有同名機制；把技能內容當「參考文件」讀，照著邏輯手動做，或請 Codex 直接讀 SKILL.md 內文當 prompt |
-| **Subagent**（Agent 工具、researcher/skeptic/red-team 等） | 分工、平行研究、對抗性審查 | Codex 若支援 sub-session/parallel task 可近似；否則單一 session 循序做，品質会打折但功能不缺 |
-| **Hooks**（`.claude/settings.json` 的 SessionStart/Stop/PostToolUse） | 自動載入記憶、自動驗證、自動 push | **這是最大的落差**。Codex 沒有這套 hook 系統，等於「自動提醒/自動擋錯」機制消失，
-  要嘛找 Codex 自己的 hook/plugin 機制做等效設定，要嘛改成**每次手動要求**：「先讀 memory/MEMORY.md」「改完跑 validate_repo.py」「跑完記得 commit + push」 |
-| **fable-harness/**（OODA 協議、驗證閘） | 強制走「蒐證→假設→抗辯→行動」流程，改壞東西會被攔下 | 沒有自動攔截機制；改為在 prompt 裡明確要求 Codex 遵守同樣紀律（本檔案已把核心原則翻譯過來） |
-| **MCP 連接器**（Gmail、Drive、Notion、Canva、Gamma、Zoom、GitHub MCP） | claude.ai 帳號層級的整合 | 這些是 claude.ai 平台功能，跟 Codex 無關，Codex 若要連同樣服務要另外設定（多半用官方 CLI 或 API） |
+| **Hooks**（`.claude/settings.json`：SessionStart/Stop/PostToolUse） | 自動載入記憶、自動驗證、自動 push | 沒有自動觸發機制。**每次要主動**：開始先讀 MEMORY.md、改完跑 `python3 scripts/validate_repo.py`、有結論記得叫使用者確認後自己 commit+push |
+| **Skill 工具**（`Skill(...)` 呼叫、`.claude-plugin/marketplace.json`） | 一鍵觸發技能 | 沒有這層。技能本體（各資料夾的 `SKILL.md`）是純文字，**直接當參考文件讀**，照裡面的邏輯手動做即可，內容本身沒有遺失 |
+| **Subagent**（`.claude/agents/`：red-team/researcher/simplifier/skeptic） | 分工、對抗性審查 | 沒有對應物。重大結論改成自己用「先支持、再反駁自己」的方式過一輪，或誠實跟使用者說「這個沒有第二人審查」 |
+| **自訂斜線指令**（`.claude/commands/`） | `/plan`、`/fee-check` 等快捷流程 | 讀對應的 `.md` 內容當一次性指令執行 |
+| **fable-harness/**（OODA 協議、驗證閘） | 強制蒐證→假設→行動的紀律，改壞會被攔 | 沒有自動攔截；**自己要求自己**遵守同樣紀律：先蒐證、假設要明講、改動邏輯要有 fail-then-pass 證據 |
 
-## 🚀 給 Codex 的建議起手式
+## 查不到的狀態（別假設，要問使用者）
 
-如果要用 Codex 接手這個倉庫，第一則訊息可以這樣寫：
+以下這些**不在這個倉庫的任何檔案裡**，是 claude.ai 平台或使用者本機的帳號層級設定，Codex 讀不到、也無法代為操作：
+
+- claude.ai 網頁版目前啟用哪些技能（曾記錄過一個時間點的快照，見 `memory/MEMORY.md`，但可能已過期）
+- 使用者 Windows 電腦上 Claude Code CLI 裝了哪些 plugin（同上，snapshot 不等於即時狀態）
+
+**遇到需要這些狀態的任務，先問使用者現況，不要憑舊記錄推測。**
+
+## 起手式（複製貼給 Codex 開場用）
 
 ```
-這是我原本用 Claude Code 維護的倉庫。請先讀這幾個檔案了解狀況：
-1. memory/MEMORY.md（我是誰、專案進度、過去決策）
-2. AGENTS.md（工作原則，取代 Claude Code 的 CLAUDE.md）
-3. memory/plans/（進行中任務的計畫紀錄）
+這是我原本用 Claude Code 維護的倉庫。請先讀：
+1. memory/MEMORY.md（我是誰、專案進度、過去決策——這份是最新狀態）
+2. CLAUDE.md（核心工作原則）
+3. AGENTS.md（Claude Code 專屬機制要怎麼在你這邊代替執行）
 
 讀完用 3-5 句話跟我確認你的理解，再開始做事。
-之後每次改動：改完先驗證（python3 scripts/validate_repo.py），
-有結論就更新 memory/MEMORY.md 並 commit。
 ```
 
-## 🔀 雙邊並用注意事項（如果 Claude Code 和 Codex 都在用）
+## 雙邊並用注意事項
 
-- **`memory/MEMORY.md` 是共用真相來源**：不管哪個 agent 工作，都要讀這份、
-  改完都要寫回這份 —— 這樣兩邊才不會各自為政、互相蓋掉對方的紀錄
-- 建議在 `memory/MEMORY.md` 每次更新時**標註是哪個 agent 做的**
-  （例如「2026-07-28（Codex）：...」），方便回頭追溯是誰改的
-- Git commit 訊息維持一致風格（繁中、結論先行），不管哪個工具生成的
+- `memory/MEMORY.md` 是共用真相來源，不管哪個 agent 工作都要讀寫這份，
+  更新時標註是哪個 agent 做的（例如「2026-08-10（Codex）：...」）
 - **不要同時開兩個 agent 改同一個檔案**——沒有鎖機制，會衝突
+- 改動內容盡量用 commit 說明清楚，繁中、結論先行，跟 Claude Code 那邊風格一致
 
 ---
-*建立日期：2026-07-28（由 Claude 建立，供 Codex 交接使用）*
+
+## 📌 一次踩過的坑（別重蹈覆轍）
+
+**這份 AGENTS.md 曾經消失過一次**：早期建過一版，因為分支被合併 PR 後又 reset 回 main，
+未合併的 commit 直接遺失，沒人發現。後來另一個 session 做了功能重複但**檔名不同**的
+`CODEX-HANDOFF.md`，兩份文件並存、內容各自過期。
+
+**現在的作法**：只留這一份 `AGENTS.md` 當入口，`CODEX-HANDOFF.md` 已改成指向這裡的
+指標檔（不重複內容）。**以後任何 session 要更新交接資訊，只改這份 + `memory/MEMORY.md`，
+不要再開第三份文件。**
+
+---
+*建立：2026-07-28｜重建＋改版：2026-08-10（修復分支重置遺失問題，改為指路型設計）*

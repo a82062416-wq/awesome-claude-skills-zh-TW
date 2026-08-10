@@ -44,15 +44,25 @@
 
 ## 📚 專案進行中
 
-### 🔀 Codex 交接（2026-07-28）
-- **背景**：使用者未來想讓 Codex（OpenAI 的 agent CLI）接手部分工作，要求「無痛轉換」
-- **已做**：建立 `AGENTS.md`（Codex 讀取慣例）——把 CLAUDE.md 核心原則 + memory/MEMORY.md
-  現況翻譯過去，並列出「可直接沿用」vs「Claude 專屬機制搬不動」的清單
-- **⚠️ 誠實結論（已跟使用者說明）**：**完全無痛做不到**。可以搬的：
-  memory/MEMORY.md（純文字）、技能腳本邏輯、任務協定原則。
-  搬不動的：Skill 工具呼叫機制、Subagent、hooks（自動載入記憶/自動驗證/自動push）、
-  fable-harness 的驗證閘——這些是 Claude Code 平台專屬，Codex 沒有同名對應物，
-  只能改成「每次手動要求 Codex 做同樣的事」
+### 🔀 Codex 交接 / 遷移健檢（2026-07-28 起、2026-08-10 完成整併）
+- **背景**：使用者想讓 Codex（OpenAI 的 agent CLI）接手部分工作，要求「無痛轉換」；
+  後來又要求做正式遷移健檢（AGENTS.md 有沒有？跟 CLAUDE.md 共用規則嗎？Skills 位置可讀嗎？
+  記憶只存平台內建嗎？有哪些技術債？）
+- **健檢結論（沒變）**：**完全無痛做不到**。可以搬的：memory/MEMORY.md（純文字）、
+  技能腳本邏輯、任務協定原則。搬不動的：Skill 工具呼叫機制、Subagent、
+  hooks（自動載入記憶/自動驗證/自動push）、fable-harness 的驗證閘——這些是 Claude Code
+  平台專屬，Codex 沒有同名對應物，只能改成「每次手動要求 Codex 做同樣的事」
+- **✅ 已修復（2026-08-10）**：
+  1. `AGENTS.md`（Codex 讀取慣例檔名）重建為**指路型設計**——不重複 CLAUDE.md/MEMORY.md
+     內容，只翻譯 Claude 專屬機制給 Codex，避免跟 CLAUDE.md 內容分裂漂移
+  2. `CODEX-HANDOFF.md` 改為指向 AGENTS.md 的指標檔，**交接文件只留一份**
+  3. 平台限定狀態（claude.ai 網頁版技能啟用清單、Windows 本機 plugin 安裝狀態）
+     在 MEMORY.md 明確標註「快照、非即時，查不到要問使用者、不要用舊記錄推測」
+- **🐛 過程中發現並修復一個嚴重的分支分裂問題**：`claude/cloud-cold-integration-nq01ha`
+  分支和 `master` 早就各自往前走、從未合併過（nq01ha 有 BPM 原型+舊版 AGENTS.md 沒進
+  master；master 這邊 68 個技能+CODEX-HANDOFF.md 是從別的分支 `check-mcp-skills-*` 合的，
+  跟 nq01ha 無關）。已於 2026-08-10 手動合併兩條分支歷史，全部保留，push 前務必用
+  `git fetch` 確認 origin 沒有領先本地，避免再度覆蓋掉未合併的工作
 - **雙邊並用建議**：memory/MEMORY.md 當共用真相來源，不管哪個 agent 改動都要讀寫這份，
   且建議標註是哪個 agent 做的變更，避免互相蓋掉
 
@@ -60,8 +70,7 @@
 - **決策**（2026-07-10）：放棄新工具探詢，全力做 BPM
 - **決策**（2026-07-15）：此倉庫內的 nuBPM HTML 原型**不繼續迭代**
   - 原因：真正工程已在 `a82062416-wq/dys-bpm`（Vue 3 + Vite）進行
-  - 此倉庫的 v2 原型已驗證 UX 想法，存檔參考即可
-  - 分支 claude/cloud-cold-integration-nq01ha：已修復 git 簽署，待關閉
+  - 此倉庫的 v2 原型已驗證 UX 想法，存檔參考即可（`memory/plans/bpm-project/`）
 
 - 2026-07-08 八大強化（分支 claude/cloud-cold-integration-nq01ha，三批已推送）：
   harness/07-audit-blueprint.md（8面向診斷藍圖）、16個台灣物業會計新技能、
@@ -69,11 +78,18 @@
   gitignore 安全強化。marketplace 從 29→61 註冊全一致
 
 
-- `awesome-claude-skills-zh-TW`：繁中技能收藏庫 + plugin marketplace（41 個可載入技能）
+- `awesome-claude-skills-zh-TW`：繁中技能收藏庫 + plugin marketplace（68 個可載入技能）
 - PR #3（2026-07-07 完成合併）：整合報告 + 影片/記憶技能 + 技能樹儀表板 + Harness Phase 1-3
 - 完整環境盤點見 `CLAUDE-CODE-整合分析報告.md`；技能總覽見 `skill-tree.html`
-- 🗺️ 倉庫導覽分類看 `INDEX.md`（63 技能按用途分 11 類 + 六層結構）；
+- 🗺️ 倉庫導覽分類看 `INDEX.md`（68 技能按用途分 11 類 + 六層結構）；
   技能實體平鋪根目錄未搬移（動路徑風險高），靠 INDEX 索引導覽
+- 2026-07-31：新增 5 個通用工作流技能（csv-data-analyzer、root-cause-tracing、
+  resume-tailor、tdd-workflow、test-fixing），繁中原創撰寫。計畫檔見
+  `memory/plans/2026-07-31-補齊通用技能空缺.md`
+- ✅ 2026-07-31：使用者已在自己電腦（Windows）用 Claude Code CLI 裝好本倉庫全部
+  68 個技能（`claude plugin marketplace add` + 逐一 `claude plugin install`），
+  全部 enabled。之後在 Claude Code 對話中可直接假設這些技能已可用，不用重新引導安裝；
+  倉庫加新技能時提醒使用者跑 `claude plugin marketplace update` 再裝新的即可
 
 ## 💡 已學到的教訓
 
@@ -91,6 +107,15 @@
 - 使用者的組織插件目錄（knowledge-work-plugins）沒有 claude-mem/Remotion/Superpowers，
   帳號層級裝不了 → 改用倉庫內建技能 + 檔案式記憶（本系統）
 - 雲端 session 是暫時容器，任何要保存的東西都必須 commit 進 git
+- 2026-07-31 決策：使用者一度考慮改用 CODEX（嫌 Claude Code 介面複雜、無中文版），
+  討論後決定保留本倉庫（研究 ComposioHQ/awesome-claude-skills 71k star 後，
+  確認繁中專化 + 台灣物業會計是獨特資產，不宜捨棄），改為補齊通用技能空缺
+- GitHub MCP 在此環境僅允許操作 `a82062416-wq/awesome-claude-skills-zh-tw` 本身，
+  查其他倉庫（如 ComposioHQ）一律要改用 WebFetch，不要嘗試 mcp__github__get_file_contents
+- 2026-08-10 教訓：**同一個 session 中途容器重啟，本地分支可能悄悄從 origin/master
+  重新 checkout，導致還沒 push 的分支專屬工作（本例是舊版 AGENTS.md）憑空消失**，
+  而且不會有警告。push 前一定要先 `git fetch` + 比對 origin，不要假設本地 HEAD 就是
+  分支的真實狀態；如果 origin 領先本地或分岔，要合併保留兩邊，不能直接 force push 蓋過去
 
 ---
-*最後更新：2026-07-28（session：cloud-cold-integration，Codex 交接文件）*
+*最後更新：2026-08-10（session：cloud-cold-integration，合併 nq01ha 與 master 分叉的兩條分支歷史）*

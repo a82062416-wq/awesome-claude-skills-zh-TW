@@ -39,7 +39,7 @@
 
 精選實用 Claude Skills 清單，用於提升 Claude.ai、Claude Code 和 Claude API 的生產力。
 
-> 🗺️ **[倉庫導覽地圖 INDEX](./INDEX.md)** — 覺得亂就看這裡：63 個技能按用途分類，加上制度／記憶／工具／產出六層結構總覽。
+> 🗺️ **[倉庫導覽地圖 INDEX](./INDEX.md)** — 覺得亂就看這裡：68 個技能按用途分類，加上制度／記憶／工具／產出六層結構總覽。
 >
 > 📊 **[Claude Code 完整整合分析報告](./CLAUDE-CODE-整合分析報告.md)** — 目前環境的技能、工具、連接器完整盤點，以及網頁開發、影片製作、記憶功能三大領域的強化建議（2026-07 更新）。
 
@@ -149,10 +149,21 @@ Claude Skills 是可自訂的工作流程，可教導 Claude 如何根據您的�
 - [token-budget-optimizer](./token-optimizer-skill/) - Token 消耗診斷與精簡策略。
 - [data-backup-guardian](./backup-guardian-skill/) - 重要檔案備份守護。
 
+### 🆕 通用工作流補強（2026-07-31 新增）
+
+> 研究 [ComposioHQ/awesome-claude-skills](https://github.com/ComposioHQ/awesome-claude-skills)（71k+ star）後，
+> 補齊本倉庫原本空缺的通用資料分析、除錯方法、求職、測試工作流五個技能（繁體中文原創撰寫）。
+
+- [csv-data-analyzer](./csv-data-analyzer-skill/) - 自動分析 CSV／表格資料，摘要欄位分布、抓出異常值與缺漏，產出重點洞察。
+- [root-cause-tracing](./root-cause-tracing-skill/) - 錯誤發生在執行深處時，用結構化方式從症狀往回追溯，找到真正根因而非治標補丁。
+- [resume-tailor](./resume-tailor-skill/) - 依職缺說明（JD）客製化調整履歷內容與關鍵字，保持內容真實不誇大。
+- [tdd-workflow](./tdd-workflow-skill/) - 測試驅動開發（TDD）：先寫失敗的測試，再寫最少實作讓它通過，然後重構。
+- [test-fixing](./test-fixing-skill/) - 系統化診斷並修復失敗測試，先分辨測試寫錯或程式碼有 bug，避免弱化測試矇混過關。
+
 ### 資料與分析
 
 - [CSV Data Summarizer](https://github.com/coffeefuelbump/csv-data-summarizer-claude-skill) - 自動分析 CSV 檔案並生成包含視覺化的綜合見解，無需使用者提示。*By [@coffeefuelbump](https://github.com/coffeefuelbump)*
-- [root-cause-tracing](https://github.com/obra/superpowers/tree/main/skills/root-cause-tracing) - 當錯誤在執行深處發生時使用，您需要追溯尋找原始觸發器。
+- [root-cause-tracing (superpowers 版)](https://github.com/obra/superpowers/tree/main/skills/root-cause-tracing) - 當錯誤在執行深處發生時使用，您需要追溯尋找原始觸發器。
 
 ### 商業與行銷
 
