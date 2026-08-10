@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>nuBPM 仿製原型 v2</title>
+<style>
+  :root{
+    --purple:#7C4DFF; --purple-deep:#6A3BEA; --purple-soft:#F1ECFF; --purple-tint:#F7F4FF;
+    --info-bg:#EAF3FF; --info-tx:#2B7DE9; --info-bd:#CFE3FF;
+    --bg:#EFF0F4; --surface:#FFFFFF; --ink:#1C1C22; --muted:#9AA0AB;
+    --line:#ECEDF1; --field:#F4F5F7; --field-bd:#E6E7EC; --required:#FF5A5F;
+    --card-illu:#EDE6FF;
+    --shadow:0 1px 3px rgba(30,20,60,.06),0 6px 18px rgba(30,20,60,.05);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;
+    background:#D9DBE3;color:var(--ink);
+    min-height:100vh;display:grid;place-items:center;padding:20px;
+    -webkit-font-smoothing:antialiased;
+  }
+  /* 手機外框 */
+  .phone{
+    width:390px;max-width:100%;height:780px;background:var(--bg);
+    border-radius:30px;overflow:hidden;position:relative;
+    box-shadow:0 10px 40px rgba(20,14,45,.28);display:flex;flex-direction:column;
+    border:1px solid rgba(0,0,0,.05);
+  }
+  .screen{position:absolute;inset:0;display:flex;flex-direction:column;background:var(--bg);transition:transform .3s ease}
+  .screen.hidden{transform:translateX(100%);pointer-events:none}
+  /* ── 總覽頂欄 ── */
+  .ov-top{background:var(--surface);display:flex;align-items:center;gap:14px;padding:16px 18px;border-bottom:1px solid var(--line)}
+  .ov-top .burger{font-size:20px;color:#555}
+  .logo{margin:0 auto;display:flex;align-items:center;gap:6px;font-weight:800;font-size:20px;letter-spacing:.02em}
+  .logo .mark{width:26px;height:26px;border-radius:7px;background:linear-gradient(135deg,#8B5CFF,#6A3BEA);display:grid;place-items:center;color:#fff;font-size:13px;font-weight:800;transform:skewX(-8deg)}
+  .logo .nu{color:var(--purple)}
+  .bell{position:relative;font-size:19px}
+  .bell .dot{position:absolute;top:-6px;right:-9px;background:#FF3B4E;color:#fff;font-size:9px;font-weight:700;padding:1px 5px;border-radius:99px}
+  .ov-ava{width:30px;height:30px;border-radius:50%;background:#D8D8DE}
+  .scroll{overflow-y:auto;flex:1;padding:18px}
+  h1.title{font-size:26px;font-weight:800;margin:2px 4px 16px}
+  /* 資訊條 */
+  .info{background:var(--info-bg);border:1px solid var(--info-bd);border-radius:12px;padding:13px 14px;display:flex;gap:10px;align-items:flex-start;margin-bottom:18px}
+  .info .hi{width:22px;height:22px;flex-shrink:0;border-radius:6px;background:linear-gradient(135deg,#8B5CFF,#4B93FF);display:grid;place-items:center;color:#fff;font-size:11px;font-weight:800}
+  .info p{font-size:12.5px;line-height:1.55;color:#3a4658;flex:1}
+  .info .look{color:var(--info-tx);font-weight:700;font-size:12.5px;white-space:nowrap}
+  .info .x{color:#9aa;font-size:15px}
+  /* 大卡 */
+  .bigcard{background:var(--surface);border-radius:16px;box-shadow:var(--shadow);padding:20px;margin-bottom:14px;position:relative;overflow:hidden;min-height:118px}
+  .bigcard h2{font-size:17px;font-weight:700;margin-bottom:6px}
+  .bigcard .num{font-size:40px;font-weight:800;line-height:1}
+  .bigcard .illu{position:absolute;right:-6px;bottom:-6px;width:130px;height:110px;background:radial-gradient(circle at 60% 55%,var(--card-illu),transparent 70%);display:grid;place-items:center;font-size:42px;opacity:.9}
+  .bigcard .plus{position:absolute;right:20px;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:50%;background:var(--purple);color:#fff;font-size:24px;display:grid;place-items:center;box-shadow:0 4px 12px rgba(124,77,255,.4)}
+  /* 三小卡 */
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+  .minicard{background:var(--surface);border-radius:14px;box-shadow:var(--shadow);padding:14px 10px 12px;text-align:left;min-height:110px;display:flex;flex-direction:column;cursor:pointer}
+  .minicard b{font-size:13.5px;font-weight:700;line-height:1.35}
+  .minicard .mi{margin-top:auto;align-self:center;font-size:30px;opacity:.85}
+  /* ── 表單頂欄 ── */
+  .fm-top{background:var(--purple);color:#fff;display:flex;align-items:center;padding:16px 18px;gap:14px}
+  .fm-top .x{font-size:22px;font-weight:300;cursor:pointer}
+  .fm-top h2{margin:0 auto;font-size:18px;font-weight:700;transform:translateX(-11px)}
+  .form{overflow-y:auto;flex:1;padding:22px 18px 16px;display:flex;flex-direction:column;gap:20px}
+  .fld label{font-size:13px;color:#6a6f7a;font-weight:500;display:block;margin-bottom:7px}
+  .fld label .req{color:var(--required);margin-left:2px}
+  .fld .inp{background:var(--field);border:1px solid var(--field-bd);border-radius:10px;padding:14px;font-size:15px;display:flex;align-items:center}
+  .fld .inp.type{color:var(--ink)}
+  .fld .inp .clr{margin-left:auto;color:#bbb;font-size:16px}
+  .fld .inp.readonly{color:#3a3a40}
+  .checks{display:grid;grid-template-columns:1fr 1fr;gap:16px 12px}
+  .chk{display:flex;align-items:center;gap:9px;font-size:15px;cursor:pointer}
+  .chk .box{width:22px;height:22px;border:2px solid #c7c9d0;border-radius:5px;flex-shrink:0;display:grid;place-items:center;color:#fff;font-size:13px}
+  .chk.on .box{background:var(--purple);border-color:var(--purple)}
+  .chk.other{grid-column:1/-1;gap:9px}
+  .chk.other .oinp{flex:1;background:var(--field);border:1px solid var(--field-bd);border-radius:8px;height:38px}
+  .foot{display:flex;gap:12px;padding:14px 16px;border-top:1px solid var(--line);background:var(--surface)}
+  .foot button{flex:1;border-radius:11px;padding:15px;font-size:16px;font-weight:700;font-family:inherit;cursor:pointer;border:1px solid var(--line)}
+  .foot .draft{background:var(--surface);color:#444}
+  .foot .send{background:var(--purple);color:#fff;border-color:var(--purple);flex:1.3}
+  .foot .send:hover{background:var(--purple-deep)}
+  .tag{position:absolute;top:10px;left:50%;transform:translateX(-50%);z-index:5;background:rgba(28,20,50,.82);color:#fff;font-size:11px;padding:4px 12px;border-radius:99px;white-space:nowrap}
+  .toast{position:absolute;bottom:80px;left:50%;transform:translateX(-50%) translateY(30px);background:#2a2340;color:#fff;padding:11px 20px;border-radius:10px;font-size:13.5px;font-weight:600;opacity:0;transition:.3s;z-index:20}
+  .toast.show{transform:translateX(-50%) translateY(0);opacity:1}
+</style>
+</head>
+<body>
+  <div class="phone">
+    <div class="tag">仿製原型 · 插畫為占位（實際用你們吉祥物）</div>
+
+    <!-- 總覽 -->
+    <section class="screen" id="ov">
+      <div class="ov-top">
+        <span class="burger">☰</span>
+        <span class="logo"><span class="mark">B</span><span class="nu">nuBPM</span></span>
+        <span class="bell">🔔<span class="dot">99+</span></span>
+        <span class="ov-ava"></span>
+      </div>
+      <div class="scroll">
+        <h1 class="title">總覽</h1>
+        <div class="info">
+          <span class="hi">H</span>
+          <p>【政策指南】職場霸凌新法上路！人資必看業界結構最清晰懶人包，加開 BPM 職場霸凌申訴單建立專班</p>
+          <span class="look">查看</span><span class="x">✕</span>
+        </div>
+        <div class="bigcard">
+          <h2>我的待辦</h2>
+          <div class="num">0</div>
+          <div class="illu">🗂️</div>
+        </div>
+        <div class="bigcard" onclick="go('form')" style="cursor:pointer">
+          <h2>申請作業</h2>
+          <div class="illu">📝</div>
+          <div class="plus">＋</div>
+        </div>
+        <div class="grid3">
+          <div class="minicard"><b>我處理的</b><span class="mi">🗂️</span></div>
+          <div class="minicard"><b>我申請的</b><span class="mi">✈️</span></div>
+          <div class="minicard"><b>知會我的副本</b><span class="mi">📨</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 用印申請單 -->
+    <section class="screen hidden" id="form">
+      <div class="fm-top">
+        <span class="x" onclick="go('ov')">✕</span>
+        <h2>用印申請單</h2>
+      </div>
+      <div class="form">
+        <div class="fld"><label>員工姓名<span class="req">*</span></label>
+          <div class="inp type">蔡含昱<span class="clr">✕</span></div></div>
+        <div class="fld"><label>所在部門<span class="req">*</span></label>
+          <div class="inp readonly">AD管理部</div></div>
+        <div class="fld"><label>員工編號<span class="req">*</span></label>
+          <div class="inp readonly">11003037</div></div>
+        <div class="fld"><label>申請印信<span class="req">*</span></label>
+          <div class="checks">
+            <span class="chk" onclick="this.classList.toggle('on')"><span class="box">✓</span>公司大小章</span>
+            <span class="chk" onclick="this.classList.toggle('on')"><span class="box">✓</span>發票章</span>
+            <span class="chk" onclick="this.classList.toggle('on')"><span class="box">✓</span>收發章</span>
+            <span class="chk" onclick="this.classList.toggle('on')"><span class="box">✓</span>報價專用章</span>
+            <span class="chk other"><span class="box" onclick="this.parentElement.classList.toggle('on')">✓</span>其他<span class="oinp"></span></span>
+          </div>
+        </div>
+        <div class="fld"><label>用印份數<span class="req">*</span></label>
+          <div class="inp type"><input id="qty" type="number" min="1" placeholder="請輸入份數" style="border:none;background:none;width:100%;font-size:15px;font-family:inherit" /></div></div>
+      </div>
+      <div class="foot">
+        <button class="draft" onclick="saveDraft()">儲存草稿</button>
+        <button class="send" onclick="submitForm()">送出</button>
+      </div>
+    </section>
+
+    <!-- 簽核流程 -->
+    <section class="screen hidden" id="approval">
+      <div class="fm-top">
+        <span class="x" onclick="go('ov')">✕</span>
+        <h2>用印申請 #20260715001</h2>
+      </div>
+      <div class="form">
+        <div class="fld" style="background:#EAF3FF;border-radius:10px;padding:14px;border:1px solid #CFE3FF">
+          <p style="font-size:13px;color:#2B7DE9;font-weight:600;margin-bottom:10px">申請已送出，進入簽核流程</p>
+          <p style="font-size:12.5px;color:#3a4658;line-height:1.6">
+            📋 申請單：用印申請<br>
+            ✓ 提交人：蔡含昱（AD管理部）<br>
+            ⏳ 目前流程：等待主管簽核
+          </p>
+        </div>
+        <div style="margin-top:20px">
+          <p style="font-size:13px;font-weight:600;color:#1c1c22;margin-bottom:12px">簽核進度</p>
+          <div style="position:relative;padding:20px 0">
+            <!-- Timeline -->
+            <div style="display:flex;align-items:center;gap:14px;margin-bottom:20px">
+              <div style="width:32px;height:32px;border-radius:50%;background:#7C4DFF;color:#fff;display:grid;place-items:center;font-weight:700;flex-shrink:0">✓</div>
+              <div><p style="font-size:13px;font-weight:600">提交人確認</p><p style="font-size:12px;color:#9AA0AB">蔡含昱 · 今天 10:30</p></div>
+            </div>
+            <div style="width:2px;height:30px;background:#ECEDF1;margin-left:15px"></div>
+            <div style="display:flex;align-items:center;gap:14px;margin-bottom:20px">
+              <div style="width:32px;height:32px;border-radius:50%;background:#F4F5F7;border:2px solid #ECEDF1;color:#9AA0AB;display:grid;place-items:center;font-weight:700;flex-shrink:0">⏳</div>
+              <div><p style="font-size:13px;font-weight:600">主管簽核</p><p style="font-size:12px;color:#9AA0AB">待 部主管 簽核</p></div>
+            </div>
+            <div style="width:2px;height:30px;background:#ECEDF1;margin-left:15px"></div>
+            <div style="display:flex;align-items:center;gap:14px">
+              <div style="width:32px;height:32px;border-radius:50%;background:#F4F5F7;border:2px solid #ECEDF1;color:#9AA0AB;display:grid;place-items:center;font-weight:700;flex-shrink:0">3</div>
+              <div><p style="font-size:13px;font-weight:600">主管核准</p><p style="font-size:12px;color:#9AA0AB">待處理</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="foot">
+        <button class="draft" onclick="go('ov')" style="flex:1.3">返回總覽</button>
+      </div>
+    </section>
+
+    <div class="toast" id="toast"></div>
+  </div>
+<script>
+  function go(id){
+    document.querySelectorAll('.screen').forEach(s=>s.classList.add('hidden'));
+    document.getElementById(id).classList.remove('hidden');
+  }
+  let tm;const t=document.getElementById('toast');
+  function toast(m){t.textContent=m;t.classList.add('show');clearTimeout(tm);tm=setTimeout(()=>t.classList.remove('show'),2000);}
+
+  function saveDraft(){
+    const qty=document.getElementById('qty').value;
+    if(!qty){toast('⚠ 請填寫用印份數');return;}
+    toast('✓ 已儲存為草稿');
+  }
+  function submitForm(){
+    const qty=document.getElementById('qty').value;
+    if(!qty){toast('⚠ 請填寫用印份數');return;}
+    toast('✓ 已送出，進入簽核流程');
+    setTimeout(()=>go('approval'),1500);
+  }
+</script>
+</body>
+</html>

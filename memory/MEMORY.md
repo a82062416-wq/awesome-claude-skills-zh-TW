@@ -19,6 +19,8 @@
 - 希望 context/頁面保持乾淨，不喜歡冗長輸出
 - 希望 Claude 有長期記憶、越用越聰明
 - 喜歡表格 + emoji 的繁中報告格式
+- 🌟 最重視「結論式總結 + 幫他判斷」：非工程師，要的是「值不值得／該不該做」的明確建議
+  與對比，不是一堆資訊讓他自己消化。評估外部工具/插件時先下判斷再給理由（他明確說「這樣比較清楚」）
 
 ## 📌 環境狀態（2026-07-07 Phase 1-3 強化後）
 
@@ -42,6 +44,34 @@
 
 ## 📚 專案進行中
 
+### 🔀 Codex 交接 / 遷移健檢（2026-07-28 起、2026-08-10 完成整併）
+- **背景**：使用者想讓 Codex（OpenAI 的 agent CLI）接手部分工作，要求「無痛轉換」；
+  後來又要求做正式遷移健檢（AGENTS.md 有沒有？跟 CLAUDE.md 共用規則嗎？Skills 位置可讀嗎？
+  記憶只存平台內建嗎？有哪些技術債？）
+- **健檢結論（沒變）**：**完全無痛做不到**。可以搬的：memory/MEMORY.md（純文字）、
+  技能腳本邏輯、任務協定原則。搬不動的：Skill 工具呼叫機制、Subagent、
+  hooks（自動載入記憶/自動驗證/自動push）、fable-harness 的驗證閘——這些是 Claude Code
+  平台專屬，Codex 沒有同名對應物，只能改成「每次手動要求 Codex 做同樣的事」
+- **✅ 已修復（2026-08-10）**：
+  1. `AGENTS.md`（Codex 讀取慣例檔名）重建為**指路型設計**——不重複 CLAUDE.md/MEMORY.md
+     內容，只翻譯 Claude 專屬機制給 Codex，避免跟 CLAUDE.md 內容分裂漂移
+  2. `CODEX-HANDOFF.md` 改為指向 AGENTS.md 的指標檔，**交接文件只留一份**
+  3. 平台限定狀態（claude.ai 網頁版技能啟用清單、Windows 本機 plugin 安裝狀態）
+     在 MEMORY.md 明確標註「快照、非即時，查不到要問使用者、不要用舊記錄推測」
+- **🐛 過程中發現並修復一個嚴重的分支分裂問題**：`claude/cloud-cold-integration-nq01ha`
+  分支和 `master` 早就各自往前走、從未合併過（nq01ha 有 BPM 原型+舊版 AGENTS.md 沒進
+  master；master 這邊 68 個技能+CODEX-HANDOFF.md 是從別的分支 `check-mcp-skills-*` 合的，
+  跟 nq01ha 無關）。已於 2026-08-10 手動合併兩條分支歷史，全部保留，push 前務必用
+  `git fetch` 確認 origin 沒有領先本地，避免再度覆蓋掉未合併的工作
+- **雙邊並用建議**：memory/MEMORY.md 當共用真相來源，不管哪個 agent 改動都要讀寫這份，
+  且建議標註是哪個 agent 做的變更，避免互相蓋掉
+
+### 🎯 BPM 項目（主線：dys-bpm Vue 項目）
+- **決策**（2026-07-10）：放棄新工具探詢，全力做 BPM
+- **決策**（2026-07-15）：此倉庫內的 nuBPM HTML 原型**不繼續迭代**
+  - 原因：真正工程已在 `a82062416-wq/dys-bpm`（Vue 3 + Vite）進行
+  - 此倉庫的 v2 原型已驗證 UX 想法，存檔參考即可（`memory/plans/bpm-project/`）
+
 - 2026-07-08 八大強化（分支 claude/cloud-cold-integration-nq01ha，三批已推送）：
   harness/07-audit-blueprint.md（8面向診斷藍圖）、16個台灣物業會計新技能、
   validate 第6檢查（技能↔marketplace↔README 一致性控制單元）、SKILL 模板、
@@ -63,6 +93,12 @@
 
 ## 💡 已學到的教訓
 
+- 2026-07-15 決策：此倉庫的 nuBPM HTML 原型（v2）已存檔，不繼續做。真正 BPM 工程轉向 dys-bpm Vue 項目。
+  此倉庫改為「技能倉庫 + 記憶庫」，不再做項目型原型。
+  
+- 2026-07-15 決策：工具探詢迴圈浪費 tokens（裝了 OpenJarvis 但無 API key）。應及時轉向項目交付。
+  用戶判斷力清晰，能快速決策「哪邊已經有了」，應尊重並立即轉向。
+  
 - 2026-07-07 決策：34 個 SKILL.zh-TW.md 技能因檔名不符從未被載入 → 複製為 SKILL.md 雙檔並存
   （不改名，保留中文版可讀性）；驗證腳本永久防止此類問題復發
 - 2026-07-07 決策：自動 push 條件改為「有未推送 commit 且工作區乾淨」，原 hooks 的
@@ -76,6 +112,10 @@
   確認繁中專化 + 台灣物業會計是獨特資產，不宜捨棄），改為補齊通用技能空缺
 - GitHub MCP 在此環境僅允許操作 `a82062416-wq/awesome-claude-skills-zh-tw` 本身，
   查其他倉庫（如 ComposioHQ）一律要改用 WebFetch，不要嘗試 mcp__github__get_file_contents
+- 2026-08-10 教訓：**同一個 session 中途容器重啟，本地分支可能悄悄從 origin/master
+  重新 checkout，導致還沒 push 的分支專屬工作（本例是舊版 AGENTS.md）憑空消失**，
+  而且不會有警告。push 前一定要先 `git fetch` + 比對 origin，不要假設本地 HEAD 就是
+  分支的真實狀態；如果 origin 領先本地或分岔，要合併保留兩邊，不能直接 force push 蓋過去
 
 ---
-*最後更新：2026-07-31（session：check-mcp-skills）*
+*最後更新：2026-08-10（session：cloud-cold-integration，合併 nq01ha 與 master 分叉的兩條分支歷史）*
